@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
-    //MouseLook
-    public Camera main;
-
-
+    private GameManager gameManager;
     public float movementSpeed;
     public bool drawPlayerGizmos = true;
 
@@ -17,10 +14,18 @@ public class PlayerMovement : MonoBehaviour {
     private bool disableLeft = false;
     private bool disableRight = false;
 
+    //Gun
+    public Gun gun;
+
+    private void Awake() {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
+
     void Update () {
         Movement();
         MouseLook();
         WallCheck();
+        Shooting();
 	}
 
     void Movement()
@@ -51,7 +56,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void MouseLook() {
         // convert mouse position into world coordinates
-        Vector2 mouseScreenPosition = main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mouseScreenPosition = gameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
         // get direction you want to point at
         Vector2 direction = (mouseScreenPosition - (Vector2)transform.position).normalized;
@@ -61,25 +66,40 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void WallCheck() {
-        if (Physics2D.Raycast(transform.position, Vector3.up, 1f, 1 << LayerMask.NameToLayer("Wall"))) {
-            disableTop = true;
-        } else {
-            disableTop = false;
+        if (Input.GetKey(KeyCode.W)) {
+            if (Physics2D.Raycast(transform.position, Vector3.up, 1f, 1 << LayerMask.NameToLayer("Wall"))) {
+                disableTop = true;
+            } else {
+                disableTop = false;
+            }
         }
-        if (Physics2D.Raycast(transform.position, Vector3.down, 1f, 1 << LayerMask.NameToLayer("Wall"))) {
-            disableBottom = true;
-        } else {
-            disableBottom = false;
+        if (Input.GetKey(KeyCode.S)) {
+            if (Physics2D.Raycast(transform.position, Vector3.down, 1f, 1 << LayerMask.NameToLayer("Wall"))) {
+                disableBottom = true;
+            } else {
+                disableBottom = false;
+            }
         }
-        if (Physics2D.Raycast(transform.position, Vector3.left, 1f, 1 << LayerMask.NameToLayer("Wall"))) {
-            disableLeft = true;
-        } else {
-            disableLeft = false;
+        if (Input.GetKey(KeyCode.A)) {
+            if (Physics2D.Raycast(transform.position, Vector3.left, 1f, 1 << LayerMask.NameToLayer("Wall"))) {
+                disableLeft = true;
+            } else {
+                disableLeft = false;
+            }
+        }    
+        if (Input.GetKey(KeyCode.D)) {
+            if (Physics2D.Raycast(transform.position, Vector3.right, 1f, 1 << LayerMask.NameToLayer("Wall"))) {
+                disableRight = true;
+            } else {
+                disableRight = false;
+            }
         }
-        if (Physics2D.Raycast(transform.position, Vector3.right, 1f, 1 << LayerMask.NameToLayer("Wall"))) {
-            disableRight = true;
-        } else {
-            disableRight = false;
+        
+    }
+
+    void Shooting() {
+        if (Input.GetKeyDown(KeyCode.Mouse0)) {
+            gun.Shoot();
         }
     }
 
@@ -88,13 +108,25 @@ public class PlayerMovement : MonoBehaviour {
             Gizmos.color = Color.green;
 
             //Top
-            Gizmos.DrawRay(transform.position, Vector3.up);
+            if (Input.GetKey(KeyCode.W)) {
+                Gizmos.DrawRay(transform.position, Vector3.up);
+            }
+            
             //Bottom
-            Gizmos.DrawRay(transform.position, Vector3.down);
+            if (Input.GetKey(KeyCode.S)) {
+                Gizmos.DrawRay(transform.position, Vector3.down);
+            }
             //Left
-            Gizmos.DrawRay(transform.position, Vector3.left);
+            if (Input.GetKey(KeyCode.A)) {
+                Gizmos.DrawRay(transform.position, Vector3.left);
+            }
             //Right
-            Gizmos.DrawRay(transform.position, Vector3.right);
+            if (Input.GetKey(KeyCode.D)) {
+                Gizmos.DrawRay(transform.position, Vector3.right);
+            }
+            
+            
+            
         }
     }
 }
