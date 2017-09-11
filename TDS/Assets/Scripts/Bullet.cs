@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour {
     public Vector3 direction;
 	
 	void Update () {
-        transform.position += direction * bulletSpeed * Time.deltaTime;
+        transform.position += direction.normalized * bulletSpeed * Time.deltaTime;
 	}
 
     private void OnTriggerEnter2D(Collider2D collision) {
