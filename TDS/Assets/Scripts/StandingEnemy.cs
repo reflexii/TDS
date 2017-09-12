@@ -37,13 +37,13 @@ public class StandingEnemy : MonoBehaviour {
 
         if (shoot) {
             shootingTime += Time.deltaTime;
-
-            if (shootingTime >= (timeBeforeShooting/2)) {
+            if (shootingTime >= (timeBeforeShooting/1.3)) {
                 //Rotate
                 idle = false;
                 Quaternion rotation = Quaternion.LookRotation
                 (gameManager.Player.transform.position - transform.position, transform.TransformDirection(Vector3.up));
                 transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
+                currentWaitTime = 0f;
             }
             if (shootingTime >= timeBeforeShooting) {
                 gun.GetComponent<Gun>().Shoot();

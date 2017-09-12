@@ -98,7 +98,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void Shooting() {
-        if (Input.GetKeyDown(KeyCode.Mouse0)) {
+        if (Input.GetKey(KeyCode.Mouse0)) {
             gun.Shoot();
         }
     }
