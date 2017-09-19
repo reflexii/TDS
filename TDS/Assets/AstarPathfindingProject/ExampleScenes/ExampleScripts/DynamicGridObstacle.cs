@@ -14,11 +14,11 @@ namespace Pathfinding {
 	 * \see AstarPath.UpdateGraphs
 	 * \see graph-updates
 	 */
-	[RequireComponent(typeof(Collider))]
+	[RequireComponent(typeof(Collider2D))]
 	[HelpURL("http://arongranberg.com/astar/docs/class_pathfinding_1_1_dynamic_grid_obstacle.php")]
 	public class DynamicGridObstacle : GraphModifier {
 		/** Collider to get bounds information from */
-		Collider coll;
+		Collider2D coll;
 
 		/** Cached transform component */
 		Transform tr;
@@ -47,7 +47,7 @@ namespace Pathfinding {
 
 		protected override void Awake () {
 			base.Awake();
-			coll = GetComponent<Collider>();
+			coll = GetComponent<Collider2D>();
 			tr = transform;
 			if (coll == null) {
 				throw new System.Exception("A collider must be attached to the GameObject for the DynamicGridObstacle to work");
