@@ -30,11 +30,14 @@ public class PlayerSpotter : MonoBehaviour {
 
     private void Update() {
         if (isPlayerVisible) {
-            enemy.GetComponent<StandingEnemy>().shoot = true;
+            enemy.GetComponent<MovingEnemy>().whatEnemyIsDoing = MovingEnemy.CurrentStance.Shooting;
             
         } else {
-            enemy.GetComponent<StandingEnemy>().shoot = false;
-            
+            if (enemy.GetComponent<MovingEnemy>().whatEnemyIsDoing == MovingEnemy.CurrentStance.Shooting)
+            {
+                enemy.GetComponent<MovingEnemy>().whatEnemyIsDoing = MovingEnemy.CurrentStance.SearchingPlayer;
+                enemy.GetComponent<MovingEnemy>().playerSearchPosition = player.transform.position;
+            }        
         }
         
     }

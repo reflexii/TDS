@@ -8,9 +8,11 @@ public class TargetMovement : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (collision.gameObject == enemyObject &&
+            enemyObject.GetComponent<MovingEnemy>().whatEnemyIsDoing != MovingEnemy.CurrentStance.SearchingPlayer &&
+            enemyObject.GetComponent<MovingEnemy>().whatEnemyIsDoing != MovingEnemy.CurrentStance.Shooting)
         {
-            enemyObject.GetComponent<MovingEnemy>().waitToMove = true;
+            enemyObject.GetComponent<MovingEnemy>().whatEnemyIsDoing = MovingEnemy.CurrentStance.WaitingToMove;
         }
     }
 }
