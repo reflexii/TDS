@@ -20,6 +20,7 @@ public class MovingEnemy : MonoBehaviour {
     public GameManager gameManager;
     public GameObject gun;
     public Vector3 playerSearchPosition;
+    public bool startSearching = false;
 
     private AIPath ai;
     private float runningWaitTime = 0f;
@@ -30,6 +31,9 @@ public class MovingEnemy : MonoBehaviour {
     private int listLength;
     private float shootingTime = 0f;
     private float searchingTime = 0f;
+    private bool doneOnce = false;
+    private int startingDirection = 1;
+    
 
 
     private void Awake()
@@ -75,6 +79,10 @@ public class MovingEnemy : MonoBehaviour {
                     ai.canMove = true;
                     ai.canSearch = true;
                 }
+
+                if (startSearching) {
+                    Search();
+                }
                 break;
             case CurrentStance.Shooting:
                 searchingTime = 0f;
@@ -98,41 +106,36 @@ public class MovingEnemy : MonoBehaviour {
                 runningWaitTime += Time.deltaTime;
                 runningTurnTime += Time.deltaTime;
                 MoveTarget();
-                float random;
-                int startingDirection;
-                int randomDirection = Random.Range(0, 2);
 
-                if (randomDirection == 0)
-                {
-                    startingDirection = 1;
-                } else
-                {
-                    startingDirection = -1;
+                //randomize first look direction
+                if (!doneOnce) {
+                    int randomDirection = Random.Range(0, 2);
+
+                    if (randomDirection == 0) {
+                        startingDirection = 1;
+                    } else {
+                        startingDirection = -1;
+                    }
+
+                    doneOnce = true;
                 }
 
-                if (turnIndex == 0)
-                {
-                    random = Random.Range(80f, 90f) * startingDirection;
-                } else
-                {
-                    random = Random.Range(160f, 180f) * startingDirection;
-                }
-
-                if (runningTurnTime <= 1f)
+                if (runningTurnTime <= 1.5f && runningTurnTime >= 0.5f)
                 {
                     if (turnIndex == 0)
                     {
-                        transform.Rotate(new Vector3(0f, 0f, 1f) * Time.deltaTime * (random / 1f));
+                        transform.Rotate(new Vector3(0f, 0f, 1f) * Time.deltaTime * (Random.Range(80f, 90f) * startingDirection));
                     } else
                     {
-                        transform.Rotate(new Vector3(0f, 0f, 1f) * Time.deltaTime * (random / 2f));
+                        transform.Rotate(new Vector3(0f, 0f, 1f) * Time.deltaTime * (Random.Range(160f, 180f) * startingDirection));
                     }
                     
-                } else
+                } else if (runningTurnTime > 1.5f)
                 {
                     runningTurnTime = 0f;
                     startingDirection *= -1;
                     turnIndex++;
+                    Debug.Log("TurnIndex");
                 }
 
                 break;
@@ -155,7 +158,41 @@ public class MovingEnemy : MonoBehaviour {
             }
 
             runningWaitTime = 0f;
+            startSearching = false;
             whatEnemyIsDoing = CurrentStance.Moving;
+        }
+    }
+
+    public void Search() {
+        runningWaitTime += Time.deltaTime;
+        runningTurnTime += Time.deltaTime;
+        MoveTarget();
+
+        //randomize first look direction
+        if (!doneOnce) {
+            int randomDirection = Random.Range(0, 2);
+
+            if (randomDirection == 0) {
+                startingDirection = 1;
+            } else {
+                startingDirection = -1;
+            }
+
+            doneOnce = true;
+        }
+
+        if (runningTurnTime <= 0.8f && runningTurnTime >= 0.2f) {
+            if (turnIndex == 0) {
+                transform.Rotate(new Vector3(0f, 0f, 1f) * Time.deltaTime * (Random.Range(50f, 250f) * startingDirection / 0.6f));
+            } else {
+                transform.Rotate(new Vector3(0f, 0f, 1f) * Time.deltaTime * (Random.Range(100f, 500f) * startingDirection / 0.6f));
+            }
+
+        } else if (runningTurnTime > 0.8f) {
+            runningTurnTime = 0f;
+            startingDirection *= -1;
+            turnIndex++;
+            Debug.Log("TurnIndex");
         }
     }
 }
