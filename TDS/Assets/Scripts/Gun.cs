@@ -26,21 +26,25 @@ public class Gun : MonoBehaviour {
 	}
 	
 	void Update () {
-        // convert mouse position into world coordinates
-        Vector2 mouseScreenPosition = gameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition);
-
-        // get direction you want to point at
-        if (playerOwned) {
-            shootingDirection = (mouseScreenPosition - (Vector2)gameManager.Player.transform.position).normalized;
-        } else {
-            shootingDirection = (gameManager.Player.transform.position - transform.parent.position).normalized;
-        }
         
-
         runningCooldown += Time.deltaTime;
     }
 
     public void Shoot() {
+
+        // convert mouse position into world coordinates
+        Vector2 mouseScreenPosition = gameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition);
+
+        // get direction you want to point at
+        if (playerOwned)
+        {
+            shootingDirection = (mouseScreenPosition - (Vector2)gameManager.Player.transform.position).normalized;
+        }
+        else
+        {
+            shootingDirection = (gameManager.Player.transform.position - transform.parent.position).normalized;
+        }
+
         switch (weaponInUse) {
             case Weapons.Melee:
                 break;
@@ -48,7 +52,7 @@ public class Gun : MonoBehaviour {
                 if (runningCooldown > pistolShootCooldown) {
                     GameObject pistolBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
                     pistolBullet.GetComponent<Bullet>().direction = shootingDirection;
-                    pistolBullet.GetComponent<Bullet>().bulletSpeed = 25f;
+                    pistolBullet.GetComponent<Bullet>().bulletSpeed = 10f;
                     runningCooldown = 0f;
                 }
                 break;
@@ -59,7 +63,7 @@ public class Gun : MonoBehaviour {
                         RandomizeShotgunDirection();
                         shotgunPellet.GetComponent<Bullet>().direction = shootingDirection + shotgunRandomSpread;
                         float randomizeSpeed = Random.Range(-10f, 10f);
-                        shotgunPellet.GetComponent<Bullet>().bulletSpeed = 45f + randomizeSpeed;
+                        shotgunPellet.GetComponent<Bullet>().bulletSpeed = 18f + randomizeSpeed;
                         runningCooldown = 0f;
                     }
                 }
@@ -70,7 +74,7 @@ public class Gun : MonoBehaviour {
                     GameObject smgBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
                     RandomizeSMGDirection();
                     smgBullet.GetComponent<Bullet>().direction = shootingDirection + smgRandomSpread;
-                    smgBullet.GetComponent<Bullet>().bulletSpeed = 50f;
+                    smgBullet.GetComponent<Bullet>().bulletSpeed = 17f;
                     runningCooldown = 0f;
                 }
                 break;
@@ -79,10 +83,27 @@ public class Gun : MonoBehaviour {
                 {
                     GameObject rifleBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
                     rifleBullet.GetComponent<Bullet>().direction = shootingDirection;
-                    rifleBullet.GetComponent<Bullet>().bulletSpeed = 50f;
+                    rifleBullet.GetComponent<Bullet>().bulletSpeed = 20f;
                     runningCooldown = 0f;
                 }
                 
+                break;
+        }
+    }
+
+    public void weaponPreparation()
+    {
+        switch (weaponInUse)
+        {
+            case Weapons.Melee:
+                break;
+            case Weapons.Pistol:
+                break;
+            case Weapons.Shotgun:
+                break;
+            case Weapons.SMG:
+                break;
+            case Weapons.Rifle:
                 break;
         }
     }

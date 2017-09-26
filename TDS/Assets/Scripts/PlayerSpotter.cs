@@ -12,18 +12,15 @@ public class PlayerSpotter : MonoBehaviour {
     private void OnTriggerStay2D(Collider2D collision) {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player1") && !IsPlayerVisible()) {
             isPlayerVisible = false;
-            Debug.Log("Not Visible!");
         }
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player1") && IsPlayerVisible()) {
             isPlayerVisible = true;
-            Debug.Log("Visible");
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player1")) {
             isPlayerVisible = false;
-            Debug.Log("Exit!");
         }
         
     }

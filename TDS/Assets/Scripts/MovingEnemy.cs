@@ -21,18 +21,21 @@ public class MovingEnemy : MonoBehaviour {
     public GameObject gun;
     public Vector3 playerSearchPosition;
     public bool startSearching = false;
+    public int turnIndex = 0;
+    public AIPath ai;
 
-    private AIPath ai;
     private float runningWaitTime = 0f;
-    private float runningTurnTime = 0f;
-    private int turnIndex = 0;
+    private float runningTurnTime = 3f;
     private int positionIndex = 1;
     private GameObject targetObject;
     private int listLength;
     private float shootingTime = 0f;
     private float searchingTime = 0f;
-    private bool doneOnce = false;
     private int startingDirection = 1;
+    private float waitRotateSpeed = 4f;
+    private float searchRotateSpeed = 6f;
+    private bool didOnce = false;
+    private float randomize = 0f;
     
 
 
@@ -68,11 +71,15 @@ public class MovingEnemy : MonoBehaviour {
         switch (whatEnemyIsDoing)
         {
             case CurrentStance.Moving:
+                turnIndex = 0;
+                runningWaitTime = 0f;
                 break;
             case CurrentStance.SearchingPlayer:
                 searchingTime += Time.deltaTime;
+                runningWaitTime += Time.deltaTime;
                 targetObject.transform.position = playerSearchPosition;
                 shootingTime = 0f;
+                
 
                 if (searchingTime >= 0.4f)
                 {
@@ -81,12 +88,18 @@ public class MovingEnemy : MonoBehaviour {
                 }
 
                 if (startSearching) {
-                    Search();
+                    Search(5f);
+                } else
+                {
+                    runningWaitTime = 0f;
                 }
                 break;
             case CurrentStance.Shooting:
                 searchingTime = 0f;
+                runningWaitTime = 0f;
+                runningTurnTime = 0f;
                 shootingTime += Time.deltaTime;
+
                 if (shootingTime >= 0.2f)
                 {
                     ai.canMove = false;
@@ -107,37 +120,39 @@ public class MovingEnemy : MonoBehaviour {
                 runningTurnTime += Time.deltaTime;
                 MoveTarget();
 
-                //randomize first look direction
-                if (!doneOnce) {
-                    int randomDirection = Random.Range(0, 2);
-
-                    if (randomDirection == 0) {
-                        startingDirection = 1;
-                    } else {
-                        startingDirection = -1;
-                    }
-
-                    doneOnce = true;
+                if (!didOnce)
+                {
+                    randomize = Random.Range(0.75f, 1.25f);
+                    didOnce = true;
                 }
 
-                if (runningTurnTime <= 1.5f && runningTurnTime >= 0.5f)
+                if (runningTurnTime <= 2.5f && runningTurnTime >= randomize)
                 {
-                    if (turnIndex == 0)
+
+                    waitRotateSpeed -= (Time.deltaTime * 7f);
+                    if (waitRotateSpeed <= 0f)
                     {
-                        transform.Rotate(new Vector3(0f, 0f, 1f) * Time.deltaTime * (Random.Range(80f, 90f) * startingDirection));
-                    } else
-                    {
-                        transform.Rotate(new Vector3(0f, 0f, 1f) * Time.deltaTime * (Random.Range(160f, 180f) * startingDirection));
+                        waitRotateSpeed = 0f;
                     }
+
+                    transform.Rotate(new Vector3(0f, 0f, 1f) * Time.deltaTime * (75f * startingDirection * waitRotateSpeed));
+
                     
-                } else if (runningTurnTime > 1.5f)
+                } else if (runningTurnTime > 2.5f)
                 {
                     runningTurnTime = 0f;
-                    startingDirection *= -1;
-                    turnIndex++;
-                    Debug.Log("TurnIndex");
-                }
+                    waitRotateSpeed = 4f;
+                    didOnce = false;
+                    if (turnIndex % 4 == 1 || turnIndex % 4 == 2)
+                    {
+                        startingDirection = -1;
+                    } else
+                    {
+                        startingDirection = 1;
+                    }
 
+                    turnIndex++;
+                }
                 break;
         }
         
@@ -158,41 +173,58 @@ public class MovingEnemy : MonoBehaviour {
             }
 
             runningWaitTime = 0f;
+            runningTurnTime = 0f;
             startSearching = false;
             whatEnemyIsDoing = CurrentStance.Moving;
         }
     }
 
-    public void Search() {
-        runningWaitTime += Time.deltaTime;
+    public void Search(float searchTime)
+    {
         runningTurnTime += Time.deltaTime;
-        MoveTarget();
 
-        //randomize first look direction
-        if (!doneOnce) {
-            int randomDirection = Random.Range(0, 2);
-
-            if (randomDirection == 0) {
-                startingDirection = 1;
-            } else {
-                startingDirection = -1;
-            }
-
-            doneOnce = true;
+        if (runningWaitTime >= searchTime)
+        {
+            MoveTarget();
+            ai.canMove = true;
+            ai.canSearch = true;
         }
 
-        if (runningTurnTime <= 0.8f && runningTurnTime >= 0.2f) {
-            if (turnIndex == 0) {
-                transform.Rotate(new Vector3(0f, 0f, 1f) * Time.deltaTime * (Random.Range(50f, 250f) * startingDirection / 0.6f));
-            } else {
-                transform.Rotate(new Vector3(0f, 0f, 1f) * Time.deltaTime * (Random.Range(100f, 500f) * startingDirection / 0.6f));
+        if (!didOnce)
+        {
+            randomize = Random.Range(0.75f, 1.25f);
+            didOnce = true;
+        }
+
+        if (runningTurnTime <= 2.5f && runningTurnTime >= randomize)
+        {
+
+            searchRotateSpeed -= (Time.deltaTime * 8f);
+            if (searchRotateSpeed <= 0f)
+            {
+                searchRotateSpeed = 0f;
             }
 
-        } else if (runningTurnTime > 0.8f) {
+            transform.Rotate(new Vector3(0f, 0f, 1f) * Time.deltaTime * (120f * startingDirection * searchRotateSpeed));
+
+
+        }
+        else if (runningTurnTime > 2.5f)
+        {
             runningTurnTime = 0f;
-            startingDirection *= -1;
+            searchRotateSpeed = 6f;
+            didOnce = false;
+            if (turnIndex % 4 == 1 || turnIndex % 4 == 2)
+            {
+                startingDirection = -1;
+            }
+            else
+            {
+                startingDirection = 1;
+            }
+
             turnIndex++;
-            Debug.Log("TurnIndex");
+
         }
     }
 }
