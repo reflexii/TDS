@@ -273,6 +273,9 @@ MonoBehaviour:
   movementSpeed: 4
   drawPlayerGizmos: 1
   gun: {fileID: 719726993}
+  grenadePrefab: {fileID: 1910373503713716, guid: 4a7a1d265271b3e488b8b6b422ba91d0,
+    type: 2}
+  playerHealth: 100
 --- !u!58 &57036512
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -599,6 +602,15 @@ MonoBehaviour:
   shotgunShootCooldown: 1
   smgShootCooldown: 0.04
   rifleShootCooldown: 0.08
+  pistolDamage: 10
+  shotgunDamage: 3
+  smgDamage: 4
+  rifleDamage: 5
+  pistolMagazineSize: 7
+  shotgunMagazineSize: 2
+  smgMagazineSize: 30
+  rifleMagazineSize: 20
+  currentMagazineSize: 0
 --- !u!212 &178212251
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1137,7 +1149,7 @@ GameObject:
   - component: {fileID: 436886864}
   m_Layer: 10
   m_Name: Box(Destructable) (2)
-  m_TagString: Untagged
+  m_TagString: Destructable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1153,7 +1165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7eaeb0f339aa44c8c5234a13b56f6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyThisObjectTime: 4
 --- !u!114 &436886865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1243,8 +1254,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 436886863}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.700838, y: -4.3051357, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
+  m_LocalPosition: {x: -12.362001, y: 2.63, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 88092929}
   m_RootOrder: 2
@@ -1311,7 +1322,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2.7734375
+  orthographic size: 3.0703123
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1638,6 +1649,15 @@ MonoBehaviour:
   shotgunShootCooldown: 1
   smgShootCooldown: 0.04
   rifleShootCooldown: 0.08
+  pistolDamage: 0
+  shotgunDamage: 0
+  smgDamage: 0
+  rifleDamage: 0
+  pistolMagazineSize: 7
+  shotgunMagazineSize: 2
+  smgMagazineSize: 30
+  rifleMagazineSize: 20
+  currentMagazineSize: 0
 --- !u!212 &531302764
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1897,7 +1917,7 @@ GameObject:
   - component: {fileID: 663742297}
   m_Layer: 10
   m_Name: Box(Destructable)
-  m_TagString: Untagged
+  m_TagString: Destructable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1976,8 +1996,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 663742293}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.4208374, y: -4.3051357, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
+  m_LocalPosition: {x: -11.1, y: 2.63, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 88092929}
   m_RootOrder: 0
@@ -1993,7 +2013,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7eaeb0f339aa44c8c5234a13b56f6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyThisObjectTime: 4
 --- !u!114 &663742298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2023,7 +2042,7 @@ GameObject:
   - component: {fileID: 670664354}
   m_Layer: 10
   m_Name: Box(Destructable) (1)
-  m_TagString: Untagged
+  m_TagString: Destructable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2039,7 +2058,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7eaeb0f339aa44c8c5234a13b56f6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyThisObjectTime: 4
 --- !u!114 &670664355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2129,8 +2147,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 670664353}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.0108376, y: -4.3051357, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
+  m_LocalPosition: {x: -11.731001, y: 2.63, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 88092929}
   m_RootOrder: 1
@@ -2357,7 +2375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1336461997ee70b44973f6d44698bb6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponInUse: 3
+  weaponInUse: 2
   bulletPrefab: {fileID: 1200370628825164, guid: 5d99435761518094699af7e861c711e4,
     type: 2}
   bulletSpawnPoint: {fileID: 976034913}
@@ -2366,6 +2384,15 @@ MonoBehaviour:
   shotgunShootCooldown: 1
   smgShootCooldown: 0.04
   rifleShootCooldown: 0.08
+  pistolDamage: 10
+  shotgunDamage: 3
+  smgDamage: 4
+  rifleDamage: 5
+  pistolMagazineSize: 7
+  shotgunMagazineSize: 2
+  smgMagazineSize: 30
+  rifleMagazineSize: 20
+  currentMagazineSize: 0
 --- !u!1 &768484004
 GameObject:
   m_ObjectHideFlags: 0
@@ -2688,7 +2715,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a32e0f089e558440b61c70b52fe0c1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  move: 0
   whatEnemyIsDoing: 0
   enemyName: Enemy1
   movementPositionList:
@@ -2700,8 +2726,8 @@ MonoBehaviour:
     type: 2}
   wayPointPrefab: {fileID: 1849027819521788, guid: 8545c5702c3b286469d9b79d14bd3b62,
     type: 2}
-  wayPointParentObject: {fileID: 0}
-  targetParentObject: {fileID: 0}
+  wayPointParentObject: {fileID: 692188671}
+  targetParentObject: {fileID: 1111936993}
   shoot: 0
   timeBeforeShooting: 0.4
   gameManager: {fileID: 1677212225}
@@ -2710,6 +2736,7 @@ MonoBehaviour:
   startSearching: 0
   turnIndex: 0
   ai: {fileID: 0}
+  enemyHealth: 10
 --- !u!114 &830029196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3372,6 +3399,15 @@ MonoBehaviour:
   shotgunShootCooldown: 1
   smgShootCooldown: 0.04
   rifleShootCooldown: 0.08
+  pistolDamage: 10
+  shotgunDamage: 3
+  smgDamage: 4
+  rifleDamage: 5
+  pistolMagazineSize: 7
+  shotgunMagazineSize: 2
+  smgMagazineSize: 30
+  rifleMagazineSize: 20
+  currentMagazineSize: 0
 --- !u!212 &1035479806
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3442,7 +3478,7 @@ GameObject:
   - component: {fileID: 1061488090}
   m_Layer: 10
   m_Name: Box(Destructable) (4)
-  m_TagString: Untagged
+  m_TagString: Destructable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3458,7 +3494,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7eaeb0f339aa44c8c5234a13b56f6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyThisObjectTime: 4
 --- !u!114 &1061488091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3548,8 +3583,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1061488089}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.820838, y: -4.3051357, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
+  m_LocalPosition: {x: -13.003839, y: 2.63, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 88092929}
   m_RootOrder: 4
@@ -3748,7 +3783,7 @@ GameObject:
   - component: {fileID: 1128255018}
   m_Layer: 10
   m_Name: Box(Destructable) (5)
-  m_TagString: Untagged
+  m_TagString: Destructable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3764,7 +3799,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7eaeb0f339aa44c8c5234a13b56f6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyThisObjectTime: 4
 --- !u!114 &1128255019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3854,8 +3888,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1128255017}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.440838, y: -4.3051357, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
+  m_LocalPosition: {x: -13.635, y: 2.62964, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 88092929}
   m_RootOrder: 5
@@ -3902,6 +3936,15 @@ MonoBehaviour:
   shotgunShootCooldown: 1
   smgShootCooldown: 0.04
   rifleShootCooldown: 0.08
+  pistolDamage: 10
+  shotgunDamage: 3
+  smgDamage: 4
+  rifleDamage: 5
+  pistolMagazineSize: 7
+  shotgunMagazineSize: 2
+  smgMagazineSize: 30
+  rifleMagazineSize: 20
+  currentMagazineSize: 0
 --- !u!212 &1200758607
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4202,7 +4245,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a32e0f089e558440b61c70b52fe0c1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  move: 0
   whatEnemyIsDoing: 0
   enemyName: Enemy1
   movementPositionList:
@@ -4214,8 +4256,8 @@ MonoBehaviour:
     type: 2}
   wayPointPrefab: {fileID: 1849027819521788, guid: 8545c5702c3b286469d9b79d14bd3b62,
     type: 2}
-  wayPointParentObject: {fileID: 0}
-  targetParentObject: {fileID: 0}
+  wayPointParentObject: {fileID: 692188671}
+  targetParentObject: {fileID: 1111936993}
   shoot: 0
   timeBeforeShooting: 0.4
   gameManager: {fileID: 1677212225}
@@ -4224,6 +4266,7 @@ MonoBehaviour:
   startSearching: 0
   turnIndex: 0
   ai: {fileID: 0}
+  enemyHealth: 10
 --- !u!50 &1389486118
 Rigidbody2D:
   serializedVersion: 4
@@ -4555,7 +4598,7 @@ GameObject:
   - component: {fileID: 1537208122}
   m_Layer: 10
   m_Name: Box(Destructable) (3)
-  m_TagString: Untagged
+  m_TagString: Destructable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4571,7 +4614,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7eaeb0f339aa44c8c5234a13b56f6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyThisObjectTime: 4
 --- !u!114 &1537208123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4661,8 +4703,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1537208121}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.280838, y: -4.3051357, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
+  m_LocalPosition: {x: -14.268001, y: 2.63, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 88092929}
   m_RootOrder: 3
@@ -4734,7 +4776,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a32e0f089e558440b61c70b52fe0c1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  move: 0
   whatEnemyIsDoing: 0
   enemyName: Enemy1
   movementPositionList:
@@ -4746,8 +4787,8 @@ MonoBehaviour:
     type: 2}
   wayPointPrefab: {fileID: 1849027819521788, guid: 8545c5702c3b286469d9b79d14bd3b62,
     type: 2}
-  wayPointParentObject: {fileID: 0}
-  targetParentObject: {fileID: 0}
+  wayPointParentObject: {fileID: 692188671}
+  targetParentObject: {fileID: 1111936993}
   shoot: 0
   timeBeforeShooting: 0.4
   gameManager: {fileID: 1677212225}
@@ -4756,6 +4797,7 @@ MonoBehaviour:
   startSearching: 0
   turnIndex: 0
   ai: {fileID: 0}
+  enemyHealth: 10
 --- !u!114 &1548118558
 MonoBehaviour:
   m_ObjectHideFlags: 0

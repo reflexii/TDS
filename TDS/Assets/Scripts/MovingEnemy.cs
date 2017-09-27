@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class MovingEnemy : MonoBehaviour {
 
-    public enum MovementType { ReturnToStartAfterFinish, FollowPathBackToStart};
     public enum CurrentStance { Moving, Shooting, SearchingPlayer, WaitingToMove};
-    public MovementType move;
     public CurrentStance whatEnemyIsDoing;
     public string enemyName = "Enemy1";
     public Transform[] movementPositionList;
@@ -23,6 +21,7 @@ public class MovingEnemy : MonoBehaviour {
     public bool startSearching = false;
     public int turnIndex = 0;
     public AIPath ai;
+    public float enemyHealth = 10f;
 
     private float runningWaitTime = 0f;
     private float runningTurnTime = 3f;
@@ -42,6 +41,7 @@ public class MovingEnemy : MonoBehaviour {
     private void Awake()
     {
         ai = GetComponent<AIPath>();
+        gun.GetComponent<Gun>().playerOwned = false;
     }
 
     void Start()
@@ -63,6 +63,20 @@ public class MovingEnemy : MonoBehaviour {
             ai.target = target.transform;
             targetObject = target;
         }
+    }
+
+    public void Die()
+    {
+        for (int i = 0; i < movementPositionList.Length; i++)
+        {
+            Destroy(movementPositionList[i].gameObject, 0f);
+        }
+        Destroy(targetObject, 0f);
+
+        //Blood
+        //Corpse
+        //Sound
+        Destroy(gameObject, 0f);
     }
 	
 	

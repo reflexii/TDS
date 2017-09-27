@@ -17,6 +17,14 @@ public class PlayerMovement : MonoBehaviour {
     //Gun
     public Gun gun;
 
+    //Grenade
+    private float howFastGrenadeSpeedIncreases = 3f;
+    private float increasedGrenadeSpeed = 0f;
+    public GameObject grenadePrefab;
+
+    //Health
+    public float playerHealth = 100f;
+
     private void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
@@ -26,6 +34,7 @@ public class PlayerMovement : MonoBehaviour {
         MouseLook();
         WallCheck();
         Shooting();
+        Grenade();
 	}
 
     void Movement()
@@ -51,6 +60,34 @@ public class PlayerMovement : MonoBehaviour {
             else if (Input.GetKey(KeyCode.D) && !disableRight) {
                 transform.position += new Vector3(1f, 0f) * movementSpeed * Time.deltaTime;
             }
+        }
+    }
+
+    void Grenade()
+    {
+        if (Input.GetKey(KeyCode.E))
+        {
+            increasedGrenadeSpeed += Time.deltaTime * howFastGrenadeSpeedIncreases;
+            if (increasedGrenadeSpeed >= 6f)
+            {
+                increasedGrenadeSpeed = 6f;
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+
+            // convert mouse position into world coordinates
+            Vector2 mouseScreenPosition = gameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition);
+
+            // get direction you want to point at
+            Vector2 direction = (mouseScreenPosition - (Vector2)transform.position).normalized;
+
+            GameObject gre = Instantiate<GameObject>(grenadePrefab, gameObject.transform.position, Quaternion.identity);
+            Grenade g = gre.GetComponent<Grenade>();
+            g.grenadeMoveDirection = direction;
+            g.grenadeSpeed += increasedGrenadeSpeed;
+
+            increasedGrenadeSpeed = 0f;
         }
     }
 

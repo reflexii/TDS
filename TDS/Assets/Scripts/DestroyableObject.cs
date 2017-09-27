@@ -4,19 +4,18 @@ using UnityEngine;
 
 public class DestroyableObject : MonoBehaviour {
 
-    float runningTime = 0f;
-    public float destroyThisObjectTime = 4f;
-
 	void Start () {
 		
 	}
 	
 	void Update () {
-        runningTime += Time.deltaTime;
 
-        if (runningTime > destroyThisObjectTime)
-        {
-            Destroy(this.gameObject, 0f);
-        }
 	}
+
+    public void DestroyWall()
+    {
+        Destroy(gameObject, 0f);
+        //play animation
+        //play sound
+    }
 }

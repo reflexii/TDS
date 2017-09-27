@@ -15,6 +15,17 @@ public class Gun : MonoBehaviour {
     public float smgShootCooldown = 0.04f;
     public float rifleShootCooldown = 0.08f;
 
+    public float pistolDamage;
+    public float shotgunDamage;
+    public float smgDamage;
+    public float rifleDamage;
+
+    public int pistolMagazineSize = 7;
+    public int shotgunMagazineSize = 2;
+    public int smgMagazineSize = 30;
+    public int rifleMagazineSize = 20;
+    public int currentMagazineSize;
+
     private GameManager gameManager;
     private Vector3 shootingDirection = Vector3.zero;
     private Vector3 shotgunRandomSpread;
@@ -23,6 +34,7 @@ public class Gun : MonoBehaviour {
 
 	void Awake () {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        WeaponPreparation();
 	}
 	
 	void Update () {
@@ -49,61 +61,94 @@ public class Gun : MonoBehaviour {
             case Weapons.Melee:
                 break;
             case Weapons.Pistol:
-                if (runningCooldown > pistolShootCooldown) {
+                if (runningCooldown > pistolShootCooldown && currentMagazineSize > 0) {
                     GameObject pistolBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
                     pistolBullet.GetComponent<Bullet>().direction = shootingDirection;
                     pistolBullet.GetComponent<Bullet>().bulletSpeed = 10f;
+                    pistolBullet.GetComponent<Bullet>().bulletDamage = pistolDamage;
                     runningCooldown = 0f;
+                    currentMagazineSize--;
+
+                    if (!playerOwned)
+                    {
+                        pistolBullet.GetComponent<Bullet>().playerBullet = false;
+                    }
                 }
                 break;
             case Weapons.Shotgun:
-                if (runningCooldown > shotgunShootCooldown) {
+                if (runningCooldown > shotgunShootCooldown && currentMagazineSize > 0) {
                     for (int i = 0; i < 8; i++) {
                         GameObject shotgunPellet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
                         RandomizeShotgunDirection();
                         shotgunPellet.GetComponent<Bullet>().direction = shootingDirection + shotgunRandomSpread;
                         float randomizeSpeed = Random.Range(-10f, 10f);
                         shotgunPellet.GetComponent<Bullet>().bulletSpeed = 18f + randomizeSpeed;
+                        shotgunPellet.GetComponent<Bullet>().bulletDamage = shotgunDamage;
                         runningCooldown = 0f;
+
+                        if (!playerOwned)
+                        {
+                            shotgunPellet.GetComponent<Bullet>().playerBullet = false;
+                        }
                     }
+
+                    currentMagazineSize--;
                 }
                 break;
             case Weapons.SMG:
-                if (runningCooldown > smgShootCooldown)
+                if (runningCooldown > smgShootCooldown && currentMagazineSize > 0)
                 {
                     GameObject smgBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
                     RandomizeSMGDirection();
                     smgBullet.GetComponent<Bullet>().direction = shootingDirection + smgRandomSpread;
                     smgBullet.GetComponent<Bullet>().bulletSpeed = 17f;
+                    smgBullet.GetComponent<Bullet>().bulletDamage = smgDamage;
                     runningCooldown = 0f;
+                    currentMagazineSize--;
+
+                    if (!playerOwned)
+                    {
+                        smgBullet.GetComponent<Bullet>().playerBullet = false;
+                    }
                 }
                 break;
             case Weapons.Rifle:
-                if (runningCooldown > rifleShootCooldown)
+                if (runningCooldown > rifleShootCooldown && currentMagazineSize > 0)
                 {
                     GameObject rifleBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
                     rifleBullet.GetComponent<Bullet>().direction = shootingDirection;
                     rifleBullet.GetComponent<Bullet>().bulletSpeed = 20f;
+                    rifleBullet.GetComponent<Bullet>().bulletDamage = rifleDamage;
                     runningCooldown = 0f;
+                    currentMagazineSize--;
+
+                    if (!playerOwned)
+                    {
+                        rifleBullet.GetComponent<Bullet>().playerBullet = false;
+                    }
                 }
                 
                 break;
         }
     }
 
-    public void weaponPreparation()
+    public void WeaponPreparation()
     {
         switch (weaponInUse)
         {
             case Weapons.Melee:
                 break;
             case Weapons.Pistol:
+                currentMagazineSize = pistolMagazineSize;
                 break;
             case Weapons.Shotgun:
+                currentMagazineSize = shotgunMagazineSize;
                 break;
             case Weapons.SMG:
+                currentMagazineSize = smgMagazineSize;
                 break;
             case Weapons.Rifle:
+                currentMagazineSize = rifleMagazineSize;
                 break;
         }
     }
