@@ -40,6 +40,7 @@ public class MovingEnemy : MonoBehaviour {
 
     private void Awake()
     {
+        gun = transform.Find("Gun").gameObject;
         ai = GetComponent<AIPath>();
         gun.GetComponent<Gun>().playerOwned = false;
     }

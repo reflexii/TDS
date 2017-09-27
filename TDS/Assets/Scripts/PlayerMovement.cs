@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour {
     private bool disableRight = false;
 
     //Gun
-    public Gun gun;
+    public GameObject gun;
 
     //Grenade
     private float howFastGrenadeSpeedIncreases = 3f;
@@ -25,8 +25,13 @@ public class PlayerMovement : MonoBehaviour {
     //Health
     public float playerHealth = 100f;
 
+    //Gunswitching
+    private bool gunInRange = false;
+    private GameObject floorGun;
+
     private void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gun = transform.Find("Gun").gameObject;
     }
 
     void Update () {
@@ -35,6 +40,7 @@ public class PlayerMovement : MonoBehaviour {
         WallCheck();
         Shooting();
         Grenade();
+        GunSwitching();
 	}
 
     void Movement()
@@ -91,6 +97,55 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
+    void GunSwitching()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            if (gunInRange)
+            {
+                DropGun();
+                PickUpGun();
+            }
+        }
+    }
+
+    void DropGun()
+    {
+        gun.transform.parent = null;
+        gun.GetComponent<Gun>().playerOwned = false;
+        gun.GetComponent<Gun>().gunOnTheFloor = true;
+    }
+
+    void PickUpGun()
+    {
+        gun = floorGun;
+        gun.transform.parent = gameObject.transform;
+        gun.transform.position = gameObject.transform.position;
+        gun.GetComponent<Gun>().playerOwned = true;
+        gun.GetComponent<Gun>().gunOnTheFloor = false;
+        gun.GetComponent<Gun>().bulletSpawnPoint = transform.Find("BulletSpawnPoint");
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Gun") && collision.gameObject.GetComponent<Gun>().gunOnTheFloor == true)
+        {
+            gunInRange = true;
+            floorGun = collision.gameObject;
+        } else
+        {
+            
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Gun") && collision.gameObject.GetComponent<Gun>().gunOnTheFloor == true)
+        {
+            gunInRange = false;
+        }
+    }
+
     void MouseLook() {
         // convert mouse position into world coordinates
         Vector2 mouseScreenPosition = gameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -136,7 +191,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void Shooting() {
         if (Input.GetKey(KeyCode.Mouse0)) {
-            gun.Shoot();
+            gun.GetComponent<Gun>().Shoot();
         }
     }
 

@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gun : MonoBehaviour {
 
-    public enum Weapons { Melee, Pistol, Shotgun, SMG, Rifle};
+    public enum Weapons { Pistol, Shotgun, SMG, Rifle };
     public Weapons weaponInUse;
     public GameObject bulletPrefab;
     public Transform bulletSpawnPoint;
@@ -25,21 +26,44 @@ public class Gun : MonoBehaviour {
     public int smgMagazineSize = 30;
     public int rifleMagazineSize = 20;
     public int currentMagazineSize;
+    public bool gunOnTheFloor = false;
+
+    public Sprite pistolImage;
+    public Sprite shotgunImage;
+    public Sprite smgImage;
+    public Sprite rifleImage;
+    public Image currentGunImage;
+    public Text magazineText;
 
     private GameManager gameManager;
     private Vector3 shootingDirection = Vector3.zero;
     private Vector3 shotgunRandomSpread;
     private Vector3 smgRandomSpread;
     private float runningCooldown = 0f;
+    private int maxMagazineSize;
 
 	void Awake () {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        magazineText = GameObject.Find("MagazineText").GetComponent<Text>();
+        currentGunImage = GameObject.Find("GunImage").GetComponent<Image>();
         WeaponPreparation();
+
+        if (playerOwned)
+        {
+            SetUIImage();
+        }
 	}
 	
 	void Update () {
-        
+
         runningCooldown += Time.deltaTime;
+
+        //UI update
+        if (playerOwned)
+        {
+            magazineText.text = currentMagazineSize + " / " + maxMagazineSize;
+        }
+        
     }
 
     public void Shoot() {
@@ -58,8 +82,6 @@ public class Gun : MonoBehaviour {
         }
 
         switch (weaponInUse) {
-            case Weapons.Melee:
-                break;
             case Weapons.Pistol:
                 if (runningCooldown > pistolShootCooldown && currentMagazineSize > 0) {
                     GameObject pistolBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
@@ -136,8 +158,6 @@ public class Gun : MonoBehaviour {
     {
         switch (weaponInUse)
         {
-            case Weapons.Melee:
-                break;
             case Weapons.Pistol:
                 currentMagazineSize = pistolMagazineSize;
                 break;
@@ -149,6 +169,26 @@ public class Gun : MonoBehaviour {
                 break;
             case Weapons.Rifle:
                 currentMagazineSize = rifleMagazineSize;
+                break;
+        }
+        maxMagazineSize = currentMagazineSize;
+    }
+
+    public void SetUIImage()
+    {
+        switch (weaponInUse)
+        {
+            case Weapons.Pistol:
+                currentGunImage.sprite = pistolImage;
+                break;
+            case Weapons.Shotgun:
+                currentGunImage.sprite = shotgunImage;
+                break;
+            case Weapons.SMG:
+                currentGunImage.sprite = smgImage;
+                break;
+            case Weapons.Rifle:
+                currentGunImage.sprite = rifleImage;
                 break;
         }
     }
