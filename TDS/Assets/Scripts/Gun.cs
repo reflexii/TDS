@@ -28,10 +28,12 @@ public class Gun : MonoBehaviour {
     public int currentMagazineSize;
     public bool gunOnTheFloor = false;
 
+    //create own sprites for grounded weapons!
     public Sprite pistolImage;
     public Sprite shotgunImage;
     public Sprite smgImage;
     public Sprite rifleImage;
+
     public Image currentGunImage;
     public Text magazineText;
 
@@ -41,18 +43,20 @@ public class Gun : MonoBehaviour {
     private Vector3 smgRandomSpread;
     private float runningCooldown = 0f;
     private int maxMagazineSize;
+    private SpriteRenderer sr;
 
 	void Awake () {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         magazineText = GameObject.Find("MagazineText").GetComponent<Text>();
         currentGunImage = GameObject.Find("GunImage").GetComponent<Image>();
+        sr = GetComponent<SpriteRenderer>();
         WeaponPreparation();
 
         if (playerOwned)
         {
             SetUIImage();
         }
-	}
+    }
 	
 	void Update () {
 
@@ -62,95 +66,131 @@ public class Gun : MonoBehaviour {
         if (playerOwned)
         {
             magazineText.text = currentMagazineSize + " / " + maxMagazineSize;
+            SetUIImage();
         }
+
+        UpdateSprite();
         
     }
 
+    void UpdateSprite()
+    {
+        if (gunOnTheFloor)
+        {
+            sr.enabled = true;
+            switch(weaponInUse)
+            {
+                case Weapons.Pistol:
+                    sr.sprite = pistolImage;
+                    break;
+                case Weapons.Shotgun:
+                    sr.sprite = shotgunImage;
+                    break;
+                case Weapons.SMG:
+                    sr.sprite = smgImage;
+                    break;
+                case Weapons.Rifle:
+                    sr.sprite = rifleImage;
+                    break;
+            }
+        } else
+        {
+            sr.enabled = false;
+        }
+    }
+
     public void Shoot() {
-
-        // convert mouse position into world coordinates
-        Vector2 mouseScreenPosition = gameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition);
-
-        // get direction you want to point at
-        if (playerOwned)
+        if (!gunOnTheFloor)
         {
-            shootingDirection = (mouseScreenPosition - (Vector2)gameManager.Player.transform.position).normalized;
-        }
-        else
-        {
-            shootingDirection = (gameManager.Player.transform.position - transform.parent.position).normalized;
-        }
 
-        switch (weaponInUse) {
-            case Weapons.Pistol:
-                if (runningCooldown > pistolShootCooldown && currentMagazineSize > 0) {
-                    GameObject pistolBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
-                    pistolBullet.GetComponent<Bullet>().direction = shootingDirection;
-                    pistolBullet.GetComponent<Bullet>().bulletSpeed = 10f;
-                    pistolBullet.GetComponent<Bullet>().bulletDamage = pistolDamage;
-                    runningCooldown = 0f;
-                    currentMagazineSize--;
+            // convert mouse position into world coordinates
+            Vector2 mouseScreenPosition = gameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
-                    if (!playerOwned)
+            // get direction you want to point at
+            if (playerOwned)
+            {
+                shootingDirection = (mouseScreenPosition - (Vector2)gameManager.Player.transform.position).normalized;
+            }
+            else
+            {
+                shootingDirection = (gameManager.Player.transform.position - transform.parent.position).normalized;
+            }
+
+            switch (weaponInUse)
+            {
+                case Weapons.Pistol:
+                    if (runningCooldown > pistolShootCooldown && currentMagazineSize > 0)
                     {
-                        pistolBullet.GetComponent<Bullet>().playerBullet = false;
-                    }
-                }
-                break;
-            case Weapons.Shotgun:
-                if (runningCooldown > shotgunShootCooldown && currentMagazineSize > 0) {
-                    for (int i = 0; i < 8; i++) {
-                        GameObject shotgunPellet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
-                        RandomizeShotgunDirection();
-                        shotgunPellet.GetComponent<Bullet>().direction = shootingDirection + shotgunRandomSpread;
-                        float randomizeSpeed = Random.Range(-10f, 10f);
-                        shotgunPellet.GetComponent<Bullet>().bulletSpeed = 18f + randomizeSpeed;
-                        shotgunPellet.GetComponent<Bullet>().bulletDamage = shotgunDamage;
+                        GameObject pistolBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+                        pistolBullet.GetComponent<Bullet>().direction = shootingDirection;
+                        pistolBullet.GetComponent<Bullet>().bulletSpeed = 10f;
+                        pistolBullet.GetComponent<Bullet>().bulletDamage = pistolDamage;
                         runningCooldown = 0f;
+                        currentMagazineSize--;
 
                         if (!playerOwned)
                         {
-                            shotgunPellet.GetComponent<Bullet>().playerBullet = false;
+                            pistolBullet.GetComponent<Bullet>().playerBullet = false;
+                        }
+                    }
+                    break;
+                case Weapons.Shotgun:
+                    if (runningCooldown > shotgunShootCooldown && currentMagazineSize > 0)
+                    {
+                        for (int i = 0; i < 8; i++)
+                        {
+                            GameObject shotgunPellet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+                            RandomizeShotgunDirection();
+                            shotgunPellet.GetComponent<Bullet>().direction = shootingDirection + shotgunRandomSpread;
+                            float randomizeSpeed = Random.Range(-10f, 10f);
+                            shotgunPellet.GetComponent<Bullet>().bulletSpeed = 18f + randomizeSpeed;
+                            shotgunPellet.GetComponent<Bullet>().bulletDamage = shotgunDamage;
+                            runningCooldown = 0f;
+
+                            if (!playerOwned)
+                            {
+                                shotgunPellet.GetComponent<Bullet>().playerBullet = false;
+                            }
+                        }
+
+                        currentMagazineSize--;
+                    }
+                    break;
+                case Weapons.SMG:
+                    if (runningCooldown > smgShootCooldown && currentMagazineSize > 0)
+                    {
+                        GameObject smgBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+                        RandomizeSMGDirection();
+                        smgBullet.GetComponent<Bullet>().direction = shootingDirection + smgRandomSpread;
+                        smgBullet.GetComponent<Bullet>().bulletSpeed = 17f;
+                        smgBullet.GetComponent<Bullet>().bulletDamage = smgDamage;
+                        runningCooldown = 0f;
+                        currentMagazineSize--;
+
+                        if (!playerOwned)
+                        {
+                            smgBullet.GetComponent<Bullet>().playerBullet = false;
+                        }
+                    }
+                    break;
+                case Weapons.Rifle:
+                    if (runningCooldown > rifleShootCooldown && currentMagazineSize > 0)
+                    {
+                        GameObject rifleBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+                        rifleBullet.GetComponent<Bullet>().direction = shootingDirection;
+                        rifleBullet.GetComponent<Bullet>().bulletSpeed = 20f;
+                        rifleBullet.GetComponent<Bullet>().bulletDamage = rifleDamage;
+                        runningCooldown = 0f;
+                        currentMagazineSize--;
+
+                        if (!playerOwned)
+                        {
+                            rifleBullet.GetComponent<Bullet>().playerBullet = false;
                         }
                     }
 
-                    currentMagazineSize--;
-                }
-                break;
-            case Weapons.SMG:
-                if (runningCooldown > smgShootCooldown && currentMagazineSize > 0)
-                {
-                    GameObject smgBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
-                    RandomizeSMGDirection();
-                    smgBullet.GetComponent<Bullet>().direction = shootingDirection + smgRandomSpread;
-                    smgBullet.GetComponent<Bullet>().bulletSpeed = 17f;
-                    smgBullet.GetComponent<Bullet>().bulletDamage = smgDamage;
-                    runningCooldown = 0f;
-                    currentMagazineSize--;
-
-                    if (!playerOwned)
-                    {
-                        smgBullet.GetComponent<Bullet>().playerBullet = false;
-                    }
-                }
-                break;
-            case Weapons.Rifle:
-                if (runningCooldown > rifleShootCooldown && currentMagazineSize > 0)
-                {
-                    GameObject rifleBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
-                    rifleBullet.GetComponent<Bullet>().direction = shootingDirection;
-                    rifleBullet.GetComponent<Bullet>().bulletSpeed = 20f;
-                    rifleBullet.GetComponent<Bullet>().bulletDamage = rifleDamage;
-                    runningCooldown = 0f;
-                    currentMagazineSize--;
-
-                    if (!playerOwned)
-                    {
-                        rifleBullet.GetComponent<Bullet>().playerBullet = false;
-                    }
-                }
-                
-                break;
+                    break;
+            }
         }
     }
 

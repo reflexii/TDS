@@ -26,12 +26,20 @@ public class PlayerMovement : MonoBehaviour {
     public float playerHealth = 100f;
 
     //Gunswitching
-    private bool gunInRange = false;
+    public bool gunInRange = false;
     private GameObject floorGun;
+    public bool hasGun;
 
     private void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        gun = transform.Find("Gun").gameObject;
+
+        if (hasGun)
+        {
+            gun = transform.Find("Gun").gameObject;
+        } else
+        {
+            Destroy(transform.Find("Gun").gameObject, 0f);
+        }
     }
 
     void Update () {
@@ -101,9 +109,15 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            if (gunInRange)
+            if (gunInRange && hasGun)
             {
                 DropGun();
+                PickUpGun();
+            } else if (!gunInRange && hasGun)
+            {
+                DropGun();
+            } else if (gunInRange && !hasGun)
+            {
                 PickUpGun();
             }
         }
@@ -114,11 +128,21 @@ public class PlayerMovement : MonoBehaviour {
         gun.transform.parent = null;
         gun.GetComponent<Gun>().playerOwned = false;
         gun.GetComponent<Gun>().gunOnTheFloor = true;
+        gun.transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
+        gun = null;
+        gunInRange = false;
+        hasGun = false;
     }
 
     void PickUpGun()
     {
+        if (!hasGun)
+        {
+            gunInRange = false;
+        }
+        hasGun = true;
         gun = floorGun;
+        gun.transform.rotation = new Quaternion(0f, 0f, 0f , 0f);
         gun.transform.parent = gameObject.transform;
         gun.transform.position = gameObject.transform.position;
         gun.GetComponent<Gun>().playerOwned = true;
@@ -132,9 +156,6 @@ public class PlayerMovement : MonoBehaviour {
         {
             gunInRange = true;
             floorGun = collision.gameObject;
-        } else
-        {
-            
         }
     }
 
@@ -190,8 +211,11 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void Shooting() {
-        if (Input.GetKey(KeyCode.Mouse0)) {
+        if (Input.GetKey(KeyCode.Mouse0) && hasGun) {
             gun.GetComponent<Gun>().Shoot();
+        } else if (Input.GetKey(KeyCode.Mouse0) && !hasGun)
+        {
+            //Swing knife!
         }
     }
 
