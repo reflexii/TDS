@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour {
 
@@ -30,8 +31,15 @@ public class PlayerMovement : MonoBehaviour {
     private GameObject floorGun;
     public bool hasGun;
 
+    //hud sprites
+    public Sprite knifeSprite;
+    public Image currentGunImage;
+    public Text magazineText;
+
     private void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        magazineText = GameObject.Find("MagazineText").GetComponent<Text>();
+        currentGunImage = GameObject.Find("GunImage").GetComponent<Image>();
 
         if (hasGun)
         {
@@ -49,7 +57,17 @@ public class PlayerMovement : MonoBehaviour {
         Shooting();
         Grenade();
         GunSwitching();
+        KnifeSprite();
 	}
+
+    void KnifeSprite()
+    {
+        if (!hasGun)
+        {
+            currentGunImage.sprite = knifeSprite;
+            magazineText.text = "";
+        }
+    }
 
     void Movement()
     {
@@ -125,6 +143,13 @@ public class PlayerMovement : MonoBehaviour {
 
     void DropGun()
     {
+        // convert mouse position into world coordinates
+        Vector2 mouseScreenPosition = gameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition);
+
+        // get direction you want to point at
+        gun.GetComponent<Gun>().throwDirection = (mouseScreenPosition - (Vector2)gameManager.Player.transform.position).normalized;
+        gun.GetComponent<Gun>().throwWeapon = true;
+
         gun.transform.parent = null;
         gun.GetComponent<Gun>().playerOwned = false;
         gun.GetComponent<Gun>().gunOnTheFloor = true;
@@ -140,8 +165,10 @@ public class PlayerMovement : MonoBehaviour {
         {
             gunInRange = false;
         }
+        
         hasGun = true;
         gun = floorGun;
+        gun.GetComponent<Gun>().throwWeapon = false;
         gun.transform.rotation = new Quaternion(0f, 0f, 0f , 0f);
         gun.transform.parent = gameObject.transform;
         gun.transform.position = gameObject.transform.position;
@@ -213,9 +240,9 @@ public class PlayerMovement : MonoBehaviour {
     void Shooting() {
         if (Input.GetKey(KeyCode.Mouse0) && hasGun) {
             gun.GetComponent<Gun>().Shoot();
-        } else if (Input.GetKey(KeyCode.Mouse0) && !hasGun)
+        } else if (Input.GetKeyDown(KeyCode.Mouse0) && !hasGun)
         {
-            //Swing knife!
+            //knife
         }
     }
 

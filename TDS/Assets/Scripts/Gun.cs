@@ -45,11 +45,18 @@ public class Gun : MonoBehaviour {
     private int maxMagazineSize;
     private SpriteRenderer sr;
 
+    //throw weapon after switch
+    public bool throwWeapon = false;
+    public Vector3 throwDirection;
+    public float throwSpeed;
+    private float originalThrowSpeed;
+
 	void Awake () {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         magazineText = GameObject.Find("MagazineText").GetComponent<Text>();
         currentGunImage = GameObject.Find("GunImage").GetComponent<Image>();
         sr = GetComponent<SpriteRenderer>();
+        originalThrowSpeed = throwSpeed;
         WeaponPreparation();
 
         if (playerOwned)
@@ -57,19 +64,58 @@ public class Gun : MonoBehaviour {
             SetUIImage();
         }
     }
-	
-	void Update () {
+
+    void WeaponThrow()
+    {
+        if (throwWeapon)
+        {
+            gameObject.transform.position += throwDirection * Time.deltaTime * throwSpeed;
+            throwSpeed -= 0.5f;
+
+            if (throwSpeed < 0f)
+            {
+                throwWeapon = false;
+                throwSpeed = originalThrowSpeed;
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+            
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, throwDirection, 1f, 1 << LayerMask.NameToLayer("Wall"));
+            if (hit)
+            {
+                Vector3 hitNormal = hit.normal;
+                hitNormal = hit.transform.TransformDirection(hitNormal);
+
+                if (hitNormal == hit.transform.up || hitNormal == -hit.transform.up)
+                {
+                    throwDirection = Vector3.Reflect(throwDirection, Vector3.up);
+                }
+                else
+                {
+                    throwDirection = Vector3.Reflect(throwDirection, Vector3.right);
+                }
+
+            }
+
+        }
+    }
+
+    void Update () {
 
         runningCooldown += Time.deltaTime;
-
         //UI update
         if (playerOwned)
         {
-            magazineText.text = currentMagazineSize + " / " + maxMagazineSize;
             SetUIImage();
         }
 
         UpdateSprite();
+        WeaponThrow();
         
     }
 
@@ -216,22 +262,24 @@ public class Gun : MonoBehaviour {
 
     public void SetUIImage()
     {
-        switch (weaponInUse)
-        {
-            case Weapons.Pistol:
-                currentGunImage.sprite = pistolImage;
-                break;
-            case Weapons.Shotgun:
-                currentGunImage.sprite = shotgunImage;
-                break;
-            case Weapons.SMG:
-                currentGunImage.sprite = smgImage;
-                break;
-            case Weapons.Rifle:
-                currentGunImage.sprite = rifleImage;
-                break;
+            switch (weaponInUse)
+            {
+                case Weapons.Pistol:
+                    currentGunImage.sprite = pistolImage;
+                    break;
+                case Weapons.Shotgun:
+                    currentGunImage.sprite = shotgunImage;
+                    break;
+                case Weapons.SMG:
+                    currentGunImage.sprite = smgImage;
+                    break;
+                case Weapons.Rifle:
+                    currentGunImage.sprite = rifleImage;
+                    break;
+            }
+
+            magazineText.text = currentMagazineSize + " / " + maxMagazineSize;
         }
-    }
 
     private void RandomizeShotgunDirection() {
         float x = Random.Range(-0.12f, 0.12f);
