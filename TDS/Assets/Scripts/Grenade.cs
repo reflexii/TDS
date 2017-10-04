@@ -53,7 +53,7 @@ public class Grenade : MonoBehaviour {
             }
         }
 
-        //Explode enemies, in three different radiuses, when enemy is close he takes damage from all three etc
+        //Explode enemies, in two different radiuses, when enemy is close he takes damage from all three etc
         Collider2D[] firstExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 1.7f, 1 << LayerMask.NameToLayer("Enemy"));
         Collider2D[] secondExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 3f, 1 << LayerMask.NameToLayer("Enemy"));
 
@@ -63,8 +63,10 @@ public class Grenade : MonoBehaviour {
             {
                 if (firstExplosionRadius[i] != null)
                 {
-                    firstExplosionRadius[i].gameObject.GetComponent<MovingEnemy>().DamageEnemy(grenadeDamage);
-                    Debug.Log("First");
+                    if (!Physics2D.Raycast(transform.position, firstExplosionRadius[i].transform.position - transform.position, Vector3.Distance(transform.position, firstExplosionRadius[i].transform.position), 1 << LayerMask.NameToLayer("Wall")))
+                    {
+                        firstExplosionRadius[i].gameObject.GetComponent<MovingEnemy>().DamageEnemy(grenadeDamage);
+                    }
                 }
             }
         }
@@ -75,8 +77,32 @@ public class Grenade : MonoBehaviour {
             {
                 if (secondExplosionRadius[i] != null)
                 {
-                    secondExplosionRadius[i].gameObject.GetComponent<MovingEnemy>().DamageEnemy(grenadeDamage);
-                    Debug.Log("Second");
+                    if (!Physics2D.Raycast(transform.position, secondExplosionRadius[i].transform.position - transform.position, Vector3.Distance(transform.position, secondExplosionRadius[i].transform.position), 1 << LayerMask.NameToLayer("Wall")))
+                    {
+                        secondExplosionRadius[i].gameObject.GetComponent<MovingEnemy>().DamageEnemy(grenadeDamage);
+                    }
+                }
+            }
+        }
+
+        Collider2D[] explosionSoundWave = Physics2D.OverlapCircleAll(transform.position, 10f, 1 << LayerMask.NameToLayer("Enemy"));
+
+        if (explosionSoundWave != null)
+        {
+            for (int i = 0; i < explosionSoundWave.Length; i++)
+            {
+                if (explosionSoundWave[i] != null)
+                {
+                    
+                    if (explosionSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing == MovingEnemy.CurrentStance.Moving ||
+                        explosionSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing == MovingEnemy.CurrentStance.WaitingToMove ||
+                        explosionSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing == MovingEnemy.CurrentStance.SearchingPlayer &&
+                        explosionSoundWave[i].GetComponent<MovingEnemy>().GetRunningTime() >= 3f)
+                    {
+                        explosionSoundWave[i].GetComponent<MovingEnemy>().playerSearchPosition = transform.position;
+                        explosionSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing = MovingEnemy.CurrentStance.SearchingPlayer;
+                    }
+                    
                 }
             }
         }

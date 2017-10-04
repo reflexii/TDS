@@ -41,6 +41,10 @@ public class PlayerMovement : MonoBehaviour {
     public Image currentGunImage;
     public Text magazineText;
 
+    //use + buttons
+    public bool togglable = false;
+    private GameObject togglableButton;
+
     private void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         magazineText = GameObject.Find("MagazineText").GetComponent<Text>();
@@ -64,6 +68,7 @@ public class PlayerMovement : MonoBehaviour {
         Grenade();
         GunSwitching();
         KnifeSprite();
+        Use();
 	}
 
     void KnifeSprite()
@@ -149,6 +154,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void DropGun()
     {
+        gun.GetComponent<Collider2D>().enabled = true;
         // convert mouse position into world coordinates
         Vector2 mouseScreenPosition = gameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
@@ -158,7 +164,7 @@ public class PlayerMovement : MonoBehaviour {
         gun.GetComponent<Gun>().throwDirection = dir;
         gun.GetComponent<Gun>().throwWeapon = true;
         gun.transform.position += -dir * 0.3f;
-
+        
         gun.transform.parent = null;
         gun.GetComponent<Gun>().playerOwned = false;
         gun.GetComponent<Gun>().gunOnTheFloor = true;
@@ -184,6 +190,7 @@ public class PlayerMovement : MonoBehaviour {
         gun.GetComponent<Gun>().playerOwned = true;
         gun.GetComponent<Gun>().gunOnTheFloor = false;
         gun.GetComponent<Gun>().bulletSpawnPoint = transform.Find("BulletSpawnPoint");
+        gun.GetComponent<Collider2D>().enabled = false;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -193,6 +200,12 @@ public class PlayerMovement : MonoBehaviour {
             gunInRange = true;
             floorGun = collision.gameObject;
         }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Button"))
+        {
+            togglable = true;
+            togglableButton = collision.gameObject;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -200,6 +213,11 @@ public class PlayerMovement : MonoBehaviour {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Gun") && collision.gameObject.GetComponent<Gun>().gunOnTheFloor == true)
         {
             gunInRange = false;
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Button"))
+        {
+            togglable = false;
         }
     }
 
@@ -244,6 +262,14 @@ public class PlayerMovement : MonoBehaviour {
             }
         }
         
+    }
+
+    void Use()
+    {
+        if (Input.GetKeyDown(KeyCode.G) && togglable)
+        {
+            togglableButton.GetComponent<Button>().Toggle();
+        }
     }
 
     void Shooting() {

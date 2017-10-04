@@ -89,29 +89,26 @@ public class Gun : MonoBehaviour {
             {
                 Vector3 hitNormal = hit.normal;
                 hitNormal = hit.transform.TransformDirection(hitNormal);
-                Debug.Log(hitNormal);
 
                 if (hitNormal == hit.transform.up)
                 {
                     throwDirection = Vector3.Reflect(throwDirection, Vector3.up);
-                    Debug.Log("Down");
                 } else if (hitNormal == -hit.transform.up)
                 {
                     throwDirection = Vector3.Reflect(throwDirection, Vector3.down);
-                    Debug.Log("Up");
                 } else if (hitNormal == -hit.transform.right)
                 {
                     throwDirection = Vector3.Reflect(throwDirection, -Vector3.right);
-                    Debug.Log("Right");
                 }
                 else if (hitNormal == hit.transform.right)
                 {
                     throwDirection = Vector3.Reflect(throwDirection, Vector3.right);
-                    Debug.Log("Left");
                 }
 
             }
-
+        } else if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+            GetComponent<Collider2D>().enabled = false;
         }
     }
 

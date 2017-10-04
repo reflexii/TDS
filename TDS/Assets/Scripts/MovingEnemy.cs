@@ -291,4 +291,8 @@ public class MovingEnemy : MonoBehaviour {
 
         }
     }
+    public float GetRunningTime()
+    {
+        return runningWaitTime;
+    }
 }
