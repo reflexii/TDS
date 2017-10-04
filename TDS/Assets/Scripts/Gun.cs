@@ -82,22 +82,32 @@ public class Gun : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall") && !playerOwned && gunOnTheFloor)
         {
-            
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, throwDirection, 1f, 1 << LayerMask.NameToLayer("Wall"));
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, throwDirection, 1.5f, 1 << LayerMask.NameToLayer("Wall"));
             if (hit)
             {
                 Vector3 hitNormal = hit.normal;
                 hitNormal = hit.transform.TransformDirection(hitNormal);
+                Debug.Log(hitNormal);
 
-                if (hitNormal == hit.transform.up || hitNormal == -hit.transform.up)
+                if (hitNormal == hit.transform.up)
                 {
                     throwDirection = Vector3.Reflect(throwDirection, Vector3.up);
+                    Debug.Log("Down");
+                } else if (hitNormal == -hit.transform.up)
+                {
+                    throwDirection = Vector3.Reflect(throwDirection, Vector3.down);
+                    Debug.Log("Up");
+                } else if (hitNormal == -hit.transform.right)
+                {
+                    throwDirection = Vector3.Reflect(throwDirection, -Vector3.right);
+                    Debug.Log("Right");
                 }
-                else
+                else if (hitNormal == hit.transform.right)
                 {
                     throwDirection = Vector3.Reflect(throwDirection, Vector3.right);
+                    Debug.Log("Left");
                 }
 
             }
@@ -278,7 +288,7 @@ public class Gun : MonoBehaviour {
                     break;
             }
 
-            magazineText.text = currentMagazineSize + " / " + maxMagazineSize;
+            magazineText.text = currentMagazineSize + "/" + maxMagazineSize;
         }
 
     private void RandomizeShotgunDirection() {

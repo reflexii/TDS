@@ -22,6 +22,8 @@ public class MovingEnemy : MonoBehaviour {
     public int turnIndex = 0;
     public AIPath ai;
     public float enemyHealth = 10f;
+    public GameObject questionMarkPrefab;
+    public GameObject exclamationMarkPrefab;
 
     private float runningWaitTime = 0f;
     private float runningTurnTime = 3f;
@@ -35,6 +37,8 @@ public class MovingEnemy : MonoBehaviour {
     private float searchRotateSpeed = 6f;
     private bool didOnce = false;
     private float randomize = 0f;
+    private GameObject qm;
+    private GameObject em;
     
 
 
@@ -43,6 +47,7 @@ public class MovingEnemy : MonoBehaviour {
         gun = transform.Find("Gun").gameObject;
         ai = GetComponent<AIPath>();
         gun.GetComponent<Gun>().playerOwned = false;
+        CreateAlerts();
     }
 
     void Start()
@@ -66,6 +71,18 @@ public class MovingEnemy : MonoBehaviour {
         }
     }
 
+    void CreateAlerts()
+    {
+        qm = Instantiate<GameObject>(questionMarkPrefab, transform.position + new Vector3(0f, 0.9f, 0f), Quaternion.identity);
+        em = Instantiate<GameObject>(exclamationMarkPrefab, transform.position + new Vector3(0f, 0.9f, 0f), Quaternion.identity);
+    }
+
+    void UpdateAlerts()
+    {
+        qm.transform.position = transform.position + new Vector3(0f, 0.9f, 0f);
+        em.transform.position = transform.position + new Vector3(0f, 0.9f, 0f);
+    }
+
     public void Die()
     {
         for (int i = 0; i < movementPositionList.Length; i++)
@@ -73,19 +90,38 @@ public class MovingEnemy : MonoBehaviour {
             Destroy(movementPositionList[i].gameObject, 0f);
         }
         Destroy(targetObject, 0f);
+        Destroy(em);
+        Destroy(qm);
 
         //Blood
         //Corpse
         //Sound
         Destroy(gameObject, 0f);
     }
+
+    public void DamageEnemy(float damageValue)
+    {
+        //blood
+        //sound
+
+        enemyHealth -= damageValue;
+        if (enemyHealth <= 0f)
+        {
+            Die();
+        }
+
+    }
 	
 	
 	void Update () {
 
+        UpdateAlerts();
+        
         switch (whatEnemyIsDoing)
         {
             case CurrentStance.Moving:
+                em.GetComponent<SpriteRenderer>().enabled = false;
+                qm.GetComponent<SpriteRenderer>().enabled = false;
                 turnIndex = 0;
                 runningWaitTime = 0f;
                 break;
@@ -100,6 +136,8 @@ public class MovingEnemy : MonoBehaviour {
                 {
                     ai.canMove = true;
                     ai.canSearch = true;
+                    em.GetComponent<SpriteRenderer>().enabled = false;
+                    qm.GetComponent<SpriteRenderer>().enabled = true;
                 }
 
                 if (startSearching) {
@@ -110,15 +148,24 @@ public class MovingEnemy : MonoBehaviour {
                 }
                 break;
             case CurrentStance.Shooting:
+                
                 searchingTime = 0f;
                 runningWaitTime = 0f;
                 runningTurnTime = 0f;
                 shootingTime += Time.deltaTime;
 
+                if (shootingTime < 0.2f)
+                {
+                    em.GetComponent<SpriteRenderer>().enabled = false;
+                    qm.GetComponent<SpriteRenderer>().enabled = true;
+                }
+
                 if (shootingTime >= 0.2f)
                 {
                     ai.canMove = false;
                     ai.canSearch = false;
+                    em.GetComponent<SpriteRenderer>().enabled = true;
+                    qm.GetComponent<SpriteRenderer>().enabled = false;
                 }
                 if (shootingTime >= (timeBeforeShooting / 1.3f))
                 {
@@ -131,6 +178,8 @@ public class MovingEnemy : MonoBehaviour {
                 }
                 break;
             case CurrentStance.WaitingToMove:
+                em.GetComponent<SpriteRenderer>().enabled = false;
+                qm.GetComponent<SpriteRenderer>().enabled = false;
                 runningWaitTime += Time.deltaTime;
                 runningTurnTime += Time.deltaTime;
                 MoveTarget();
