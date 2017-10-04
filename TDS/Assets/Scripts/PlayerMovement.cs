@@ -23,6 +23,11 @@ public class PlayerMovement : MonoBehaviour {
     private float increasedGrenadeSpeed = 0f;
     public GameObject grenadePrefab;
 
+    //Knife
+    private Knife knife;
+    public float knifeDamage = 30f;
+    private float knifeTimer = 0f;
+
     //Health
     public float playerHealth = 100f;
 
@@ -40,6 +45,7 @@ public class PlayerMovement : MonoBehaviour {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         magazineText = GameObject.Find("MagazineText").GetComponent<Text>();
         currentGunImage = GameObject.Find("GunImage").GetComponent<Image>();
+        knife = transform.Find("KnifeSwingCollider").gameObject.GetComponent<Knife>();
 
         if (hasGun)
         {
@@ -147,8 +153,11 @@ public class PlayerMovement : MonoBehaviour {
         Vector2 mouseScreenPosition = gameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
         // get direction you want to point at
-        gun.GetComponent<Gun>().throwDirection = (mouseScreenPosition - (Vector2)gameManager.Player.transform.position).normalized;
+
+        Vector3 dir = (mouseScreenPosition - (Vector2)gameManager.Player.transform.position).normalized;
+        gun.GetComponent<Gun>().throwDirection = dir;
         gun.GetComponent<Gun>().throwWeapon = true;
+        gun.transform.position += -dir * 0.3f;
 
         gun.transform.parent = null;
         gun.GetComponent<Gun>().playerOwned = false;
@@ -238,11 +247,14 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void Shooting() {
+        knifeTimer += Time.deltaTime;
         if (Input.GetKey(KeyCode.Mouse0) && hasGun) {
             gun.GetComponent<Gun>().Shoot();
-        } else if (Input.GetKeyDown(KeyCode.Mouse0) && !hasGun)
+        } else if (Input.GetKeyDown(KeyCode.Mouse0) && !hasGun && knifeTimer >= 0.5f)
         {
-            //knife
+            knife.KnifeEnemiesInRange(knifeDamage);
+            knifeTimer = 0f;
+            Debug.Log("Knife!");
         }
     }
 

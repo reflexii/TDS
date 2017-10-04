@@ -77,9 +77,9 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
+    border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 0.48, y: 0.16}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -102,7 +102,8 @@ MonoBehaviour:
   grenadeSpeed: 5
   grenadeMoveDirection: {x: 1, y: 0, z: 0}
   grenadeVelocityReductionSpeed: 6
-  timeBeforeGrenadeExplosion: 4
+  timeBeforeGrenadeExplosion: 1.2
+  grenadeDamage: 5
 --- !u!212 &212696642780410142
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -135,7 +136,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300002, guid: 81ca8c1dac3ab9c43bf4ff45efdcdc28, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
