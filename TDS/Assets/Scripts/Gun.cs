@@ -70,7 +70,7 @@ public class Gun : MonoBehaviour {
         if (throwWeapon)
         {
             gameObject.transform.position += throwDirection * Time.deltaTime * throwSpeed;
-            throwSpeed -= 0.5f;
+            throwSpeed -= 0.2f;
 
             if (throwSpeed < 0f)
             {

@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour {
     public bool gunInRange = false;
     private GameObject floorGun;
     public bool hasGun;
+    public bool gunDeactivated = false;
 
     //hud sprites
     public Sprite knifeSprite;
@@ -73,7 +74,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void KnifeSprite()
     {
-        if (!hasGun)
+        if (!hasGun || gunDeactivated)
         {
             currentGunImage.sprite = knifeSprite;
             magazineText.text = "";
@@ -108,7 +109,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void Grenade()
     {
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.G))
         {
             increasedGrenadeSpeed += Time.deltaTime * howFastGrenadeSpeedIncreases;
             if (increasedGrenadeSpeed >= 6f)
@@ -116,7 +117,7 @@ public class PlayerMovement : MonoBehaviour {
                 increasedGrenadeSpeed = 6f;
             }
         }
-        if (Input.GetKeyUp(KeyCode.E))
+        if (Input.GetKeyUp(KeyCode.G))
         {
 
             // convert mouse position into world coordinates
@@ -150,10 +151,21 @@ public class PlayerMovement : MonoBehaviour {
                 PickUpGun();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (hasGun)
+            {
+                gun.SetActive(gunDeactivated);
+                gunDeactivated = !gunDeactivated;
+            }
+        }
     }
 
     void DropGun()
     {
+        gun.SetActive(true);
+        gunDeactivated = false;
         gun.GetComponent<Collider2D>().enabled = true;
         // convert mouse position into world coordinates
         Vector2 mouseScreenPosition = gameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -200,7 +212,10 @@ public class PlayerMovement : MonoBehaviour {
             gunInRange = true;
             floorGun = collision.gameObject;
         }
+    }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Button"))
         {
             togglable = true;
@@ -266,17 +281,18 @@ public class PlayerMovement : MonoBehaviour {
 
     void Use()
     {
-        if (Input.GetKeyDown(KeyCode.G) && togglable)
+        if (Input.GetKeyDown(KeyCode.E) && togglable)
         {
+            Debug.Log("Use");
             togglableButton.GetComponent<Button>().Toggle();
         }
     }
 
     void Shooting() {
         knifeTimer += Time.deltaTime;
-        if (Input.GetKey(KeyCode.Mouse0) && hasGun) {
+        if (Input.GetKey(KeyCode.Mouse0) && hasGun && !gunDeactivated) {
             gun.GetComponent<Gun>().Shoot();
-        } else if (Input.GetKeyDown(KeyCode.Mouse0) && !hasGun && knifeTimer >= 0.5f)
+        } else if (Input.GetKeyDown(KeyCode.Mouse0) && !hasGun && knifeTimer >= 0.5f || Input.GetKeyDown(KeyCode.Mouse0) && hasGun && knifeTimer >= 0.5f && gunDeactivated)
         {
             knife.KnifeEnemiesInRange(knifeDamage);
             knifeTimer = 0f;

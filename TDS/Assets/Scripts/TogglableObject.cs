@@ -17,10 +17,11 @@ public class TogglableObject : MonoBehaviour {
                 if (toggled)
                 {
                     GetComponent<Animator>().enabled = true;
+                    
                 } else
                 {
                     GetComponent<Animator>().enabled = false;
-                    GetComponent<SpriteRenderer>().sprite = offImage;
+                    GetComponent<SpriteRenderer>().sprite = offImage;  
                 }
                 break;
             case ObjectType.Gas:

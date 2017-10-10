@@ -4,17 +4,41 @@ using UnityEngine;
 
 public class Button : MonoBehaviour {
 
-    public float toggleDelay = 2f;
+    public float toggleDelay = 1f;
     public bool togglable = false;
-    public List<GameObject> toggledItems;
+    public List<GameObject> parentObjects;
+
+    private List<GameObject> allTogglableObjects;
+    private float runningDelayTime = 2f;
 
     private void Awake()
     {
-        toggledItems = new List<GameObject>();
+        allTogglableObjects = new List<GameObject>();
+        AddTogglableObjectsToList();
     }
 
-    private float runningDelayTime = 2f;
-	
+    void AddTogglableObjectsToList()
+    {
+        for (int i = 0; i < parentObjects.Count; i++)
+        {
+            //children objects
+            foreach (Transform child in parentObjects[i].transform)
+            {
+                if (child.GetComponent<TogglableObject>() != null)
+                {
+                    allTogglableObjects.Add(child.gameObject);
+                }
+                
+            }
+            //parents
+            if (parentObjects[i].GetComponent<TogglableObject>() != null)
+            {
+                allTogglableObjects.Add(parentObjects[i]);
+            }
+        }
+        
+    }
+
 	void Update () {
         runningDelayTime += Time.deltaTime;
 	}
@@ -23,13 +47,13 @@ public class Button : MonoBehaviour {
     {
         if (runningDelayTime >= toggleDelay)
         {
-            for (int i = 0; i < toggledItems.Count; i++)
+            for (int i = 0; i < allTogglableObjects.Count; i++)
             {
-                if (toggledItems != null)
+                if (allTogglableObjects != null)
                 {
-                    if (toggledItems[i] != null)
+                    if (allTogglableObjects[i] != null)
                     {
-                        toggledItems[i].GetComponent<TogglableObject>().toggled = !toggledItems[i].GetComponent<TogglableObject>().toggled;
+                        allTogglableObjects[i].GetComponent<TogglableObject>().toggled = !allTogglableObjects[i].GetComponent<TogglableObject>().toggled;
                     }
                 }
             }
