@@ -17,11 +17,13 @@ public class TogglableObject : MonoBehaviour {
                 if (toggled)
                 {
                     GetComponent<Animator>().enabled = true;
+                    transform.gameObject.layer = LayerMask.NameToLayer("Wall");
                     
                 } else
                 {
                     GetComponent<Animator>().enabled = false;
-                    GetComponent<SpriteRenderer>().sprite = offImage;  
+                    GetComponent<SpriteRenderer>().sprite = offImage;
+                    transform.gameObject.layer = LayerMask.NameToLayer("Default");
                 }
                 break;
             case ObjectType.Gas:
