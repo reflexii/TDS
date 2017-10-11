@@ -403,7 +403,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 65330465}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.54, y: -7.8, z: 0}
+  m_LocalPosition: {x: -3.7199998, y: -6.07, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2818,7 +2818,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 976034913}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: BulletSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: -982381405332843317, guid: 0000000000000000d000000000000000, type: 0}
@@ -3240,6 +3240,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1139694430}
   - component: {fileID: 1139694429}
+  - component: {fileID: 1139694431}
   m_Layer: 0
   m_Name: SecurityCamera
   m_TagString: Untagged
@@ -3278,7 +3279,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -3295,14 +3296,28 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1139694428}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.11, y: -0.95, z: -1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.9757948, w: 0.21868822}
+  m_LocalPosition: {x: 2, y: -1, z: -1}
   m_LocalScale: {x: 7, y: 3, z: 1}
   m_Children:
   - {fileID: 2052819294}
   m_Father: {fileID: 0}
   m_RootOrder: 20
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -154.73601}
+--- !u!114 &1139694431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1139694428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbb204e3c9c7a5b479d0942c783d8b35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateAngle: 180
+  rotateTime: 5
+  rightFirst: 0
 --- !u!1 &1192992974
 GameObject:
   m_ObjectHideFlags: 0
@@ -3461,7 +3476,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1192992974}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.32, y: -7.8, z: 0}
+  m_LocalPosition: {x: -7.5, y: -6.07, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3836,7 +3851,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1475846187}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.32, y: -6.34, z: 0}
+  m_LocalPosition: {x: -7.5, y: -4.61, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4094,7 +4109,7 @@ GameObject:
   - component: {fileID: 1551655911}
   - component: {fileID: 1551655912}
   - component: {fileID: 1551655913}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: KnifeSwingCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5004,7 +5019,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1973966116}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.09, y: -7.8, z: 0}
+  m_LocalPosition: {x: -5.27, y: -6.07, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5095,7 +5110,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2052819293}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -5113,8 +5128,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79678e6f44a71d04e80a9dfa236060ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserWidth: 0.01
-  laserMaxLength: 5
+  laserWidth: 0.1
+  laserMaxLength: 10
+  greenMaterial: {fileID: 2100000, guid: 234944f9083e25a4682d91e8550d8f32, type: 2}
+  redMaterial: {fileID: 2100000, guid: d17e7fec4a3e9aa44a0ddaa5e4d64535, type: 2}
+  playerSpotted: 0
+  playerObject: {fileID: 0}
 --- !u!120 &2052819296
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -5146,7 +5165,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
@@ -5194,13 +5213,13 @@ LineRenderer:
       m_Mode: 1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
-    alignment: 1
+    numCornerVertices: 20
+    numCapVertices: 20
+    alignment: 0
     textureMode: 0
     generateLightingData: 0
   m_UseWorldSpace: 1
-  m_Loop: 1
+  m_Loop: 0
 --- !u!1 &2098896612
 GameObject:
   m_ObjectHideFlags: 0
