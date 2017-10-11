@@ -20,7 +20,7 @@ public class CameraSmooth : MonoBehaviour {
     private void Start() {
         boundsBox = GameObject.Find("Bounds");
 
-        //keep camera inside the map only
+        //keep camera inside the map only if possible
         minBounds = boundsBox.GetComponent<Collider2D>().bounds.min;
         maxBounds = boundsBox.GetComponent<Collider2D>().bounds.max;
 
@@ -45,7 +45,11 @@ public class CameraSmooth : MonoBehaviour {
             transform.position = desiredPosition;
         }
 
-        
+        //keep camera inside the map only if possible
+        float clampedX = Mathf.Clamp(transform.position.x, minBounds.x + halfWidth, maxBounds.x - halfWidth);
+        float clampedY = Mathf.Clamp(transform.position.y, minBounds.y + halfHeight, maxBounds.y - halfHeight);
+
+        transform.position = new Vector3(clampedX, clampedY, transform.position.z);
 
 	}
 }
