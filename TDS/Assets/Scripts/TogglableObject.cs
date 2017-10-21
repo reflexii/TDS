@@ -6,12 +6,12 @@ public class TogglableObject : MonoBehaviour {
 
     public bool toggled = true;
     public enum ObjectType { Laser, Gas};
-    public ObjectType ot;
+    public ObjectType objectType;
     public Sprite offImage;
 
     private void Update()
     {
-        switch(ot)
+        switch(objectType)
         {
             case ObjectType.Laser:
                 if (toggled)

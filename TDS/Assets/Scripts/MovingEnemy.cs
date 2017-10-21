@@ -11,7 +11,6 @@ public class MovingEnemy : MonoBehaviour {
     public float WaitTimeBeforeNextWaypoint = 2f;
     public GameObject targetPrefab;
     public GameObject wayPointPrefab;
-    public Transform wayPointParentObject;
     public Transform targetParentObject;
     public bool shoot = false;
     public float timeBeforeShooting;
@@ -25,6 +24,7 @@ public class MovingEnemy : MonoBehaviour {
     public GameObject questionMarkPrefab;
     public GameObject exclamationMarkPrefab;
 
+    private Transform wayPointParentObject;
     private float runningWaitTime = 0f;
     private float runningTurnTime = 3f;
     private int positionIndex = 1;
@@ -44,14 +44,17 @@ public class MovingEnemy : MonoBehaviour {
 
     private void Awake()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         gun = transform.Find("Gun").gameObject;
         ai = GetComponent<AIPath>();
         gun.GetComponent<Gun>().playerOwned = false;
+        targetParentObject = GameObject.Find("EnemyTargets").transform;
         CreateAlerts();
     }
 
     void Start()
     {
+        //Generate waypoint list
         listLength = movementPositionList.Length;
         GameObject wp = Instantiate<GameObject>(wayPointPrefab, transform.position, Quaternion.identity, wayPointParentObject);
         wp.name = "Waypoint";
@@ -63,12 +66,27 @@ public class MovingEnemy : MonoBehaviour {
         }
         else
         {
+            //Generate target object
             GameObject target = Instantiate<GameObject>(targetPrefab, movementPositionList[1].transform.position, Quaternion.identity, targetParentObject);
             target.GetComponent<TargetMovement>().enemyObject = gameObject;
             target.name = enemyName + " target";
             ai.target = target.transform;
             targetObject = target;
         }
+    }
+
+    void DropGun() {
+        gun.SetActive(true);
+        gun.GetComponent<Collider2D>().enabled = true;
+
+        Vector3 dir = (gameManager.Player.transform.position - transform.position).normalized;
+        gun.GetComponent<Gun>().throwDirection = -dir;
+        gun.GetComponent<Gun>().throwWeapon = true;
+
+        gun.transform.parent = null;
+        gun.GetComponent<Gun>().gunOnTheFloor = true;
+        gun.transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
+        gun = null;
     }
 
     void CreateAlerts()
@@ -85,10 +103,13 @@ public class MovingEnemy : MonoBehaviour {
 
     public void Die()
     {
-        for (int i = 0; i < movementPositionList.Length; i++)
-        {
-            Destroy(movementPositionList[i].gameObject, 0f);
+        DropGun();
+        if (movementPositionList.Length > 0) {
+            for (int i = 0; i < movementPositionList.Length; i++) {
+                Destroy(movementPositionList[i].gameObject, 0f);
+            }
         }
+        
         Destroy(targetObject, 0f);
         Destroy(em);
         Destroy(qm);

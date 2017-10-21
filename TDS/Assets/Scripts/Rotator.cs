@@ -13,7 +13,6 @@ public class Rotator : MonoBehaviour {
     private SecurityCam laser;
 
     //return to original rotation
-    private float rotationLeft = 0f;
     private float rotateSpeed;
     private bool returning = false;
     private bool doneOnce = false;
@@ -69,9 +68,11 @@ public class Rotator : MonoBehaviour {
                 savedRotation = transform.rotation;
                 doneOnce = true;
             }
+
             Vector3 direction = laser.playerObject.transform.position - transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
         } else if (!laser.playerSpotted && returning)
         {
             if (!doneOnce2)
@@ -80,9 +81,13 @@ public class Rotator : MonoBehaviour {
 
                 savedEuler = savedRotation.eulerAngles.z;
                 startEuler = startingRotate.eulerAngles.z;
-                rate = Mathf.Abs((startEuler - savedEuler) / rotateAngle);
-
-                Debug.Log(rate);
+                float absoluteRotation = Mathf.Abs(startEuler - savedEuler);
+                if (absoluteRotation >= 180f) {
+                    absoluteRotation -= 360f;
+                    absoluteRotation = Mathf.Abs(absoluteRotation);
+                }
+                rate = absoluteRotation / rotateSpeed;
+                Debug.Log("Absolute: " + absoluteRotation + " TurnRatePerSecond: " + rotateSpeed + " Rate: " + rate);
 
                 doneOnce2 = true;
             }
@@ -93,7 +98,8 @@ public class Rotator : MonoBehaviour {
 
     void ReturnToOriginalRotation()
     {
-        runningOriginalRotate += Time.deltaTime * rate;
+        runningOriginalRotate += Time.deltaTime / rate;
+
         transform.rotation = Quaternion.Lerp(startingRotate, savedRotation, runningOriginalRotate);
         if (runningOriginalRotate >= 1f)
         {
