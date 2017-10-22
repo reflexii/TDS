@@ -23,6 +23,8 @@ public class MovingEnemy : MonoBehaviour {
     public float enemyHealth = 10f;
     public GameObject questionMarkPrefab;
     public GameObject exclamationMarkPrefab;
+    public GameObject dieBloodBigPrefab;
+    public GameObject dieBloodSmallPrefab;
 
     private Transform wayPointParentObject;
     private float runningWaitTime = 0f;
@@ -45,6 +47,7 @@ public class MovingEnemy : MonoBehaviour {
     private void Awake()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        wayPointParentObject = GameObject.Find("WayPoints").transform;
         gun = transform.Find("Gun").gameObject;
         ai = GetComponent<AIPath>();
         gun.GetComponent<Gun>().playerOwned = false;
@@ -115,6 +118,8 @@ public class MovingEnemy : MonoBehaviour {
         Destroy(qm);
 
         //Blood
+        Instantiate<GameObject>(dieBloodBigPrefab, transform.position, Quaternion.identity);
+        Instantiate<GameObject>(dieBloodSmallPrefab, transform.position, Quaternion.identity);
         //Corpse
         //Sound
         Destroy(gameObject, 0f);

@@ -9,6 +9,7 @@ public class Grenade : MonoBehaviour {
     public float grenadeVelocityReductionSpeed = 5f;
     public float timeBeforeGrenadeExplosion = 4f;
     public float grenadeDamage = 5;
+    public GameObject explosionPrefab;
 
     private float runningGrenadeTime = 0f;
 	
@@ -53,7 +54,7 @@ public class Grenade : MonoBehaviour {
             }
         }
 
-        //Explode enemies, in two different radiuses, when enemy is close he takes damage from all three etc
+        //Explode enemies, in two different radiuses, when enemy is close he takes damage from all two
         Collider2D[] firstExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 1.7f, 1 << LayerMask.NameToLayer("Enemy"));
         Collider2D[] secondExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 3f, 1 << LayerMask.NameToLayer("Enemy"));
 
@@ -108,7 +109,7 @@ public class Grenade : MonoBehaviour {
         }
 
         //play sound
-        //play animation
+        Instantiate<GameObject>(explosionPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject, 0f);
     }
 }

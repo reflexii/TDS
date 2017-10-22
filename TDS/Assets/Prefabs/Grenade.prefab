@@ -78,7 +78,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.73297495, y: 0.40143394}
     oldSize: {x: 0.48, y: 0.16}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
@@ -104,6 +104,8 @@ MonoBehaviour:
   grenadeVelocityReductionSpeed: 6
   timeBeforeGrenadeExplosion: 1.2
   grenadeDamage: 5
+  explosionPrefab: {fileID: 1544564302471500, guid: 6fddab62a20999c4bbf665508ee6c327,
+    type: 2}
 --- !u!212 &212696642780410142
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -113,6 +115,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -128,6 +131,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -135,7 +139,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 8
   m_Sprite: {fileID: 21300002, guid: 81ca8c1dac3ab9c43bf4ff45efdcdc28, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

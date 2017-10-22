@@ -22,6 +22,9 @@ public class PlayerMovement : MonoBehaviour {
     private float howFastGrenadeSpeedIncreases = 3f;
     private float increasedGrenadeSpeed = 0f;
     public GameObject grenadePrefab;
+    public int startGrenadeAmount;
+    private int currentGrenadeAmount;
+    private Text grenadeText;
 
     //Knife
     private Knife knife;
@@ -49,6 +52,7 @@ public class PlayerMovement : MonoBehaviour {
     private void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         magazineText = GameObject.Find("MagazineText").GetComponent<Text>();
+        grenadeText = GameObject.Find("GrenadeText").GetComponent<Text>();
         currentGunImage = GameObject.Find("GunImage").GetComponent<Image>();
         knife = transform.Find("KnifeSwingCollider").gameObject.GetComponent<Knife>();
 
@@ -59,6 +63,10 @@ public class PlayerMovement : MonoBehaviour {
         {
             Destroy(transform.Find("Gun").gameObject, 0f);
         }
+
+        currentGrenadeAmount = startGrenadeAmount;
+        grenadeText.text = "" + currentGrenadeAmount;
+
     }
 
     void Update () {
@@ -109,7 +117,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void Grenade()
     {
-        if (Input.GetKey(KeyCode.G))
+        if (Input.GetKey(KeyCode.G) && currentGrenadeAmount > 0)
         {
             increasedGrenadeSpeed += Time.deltaTime * howFastGrenadeSpeedIncreases;
             if (increasedGrenadeSpeed >= 6f)
@@ -117,7 +125,7 @@ public class PlayerMovement : MonoBehaviour {
                 increasedGrenadeSpeed = 6f;
             }
         }
-        if (Input.GetKeyUp(KeyCode.G))
+        if (Input.GetKeyUp(KeyCode.G) && currentGrenadeAmount > 0)
         {
 
             // convert mouse position into world coordinates
@@ -131,6 +139,8 @@ public class PlayerMovement : MonoBehaviour {
             g.grenadeMoveDirection = direction;
             g.grenadeSpeed += increasedGrenadeSpeed;
 
+            currentGrenadeAmount--;
+            grenadeText.text = "" + currentGrenadeAmount;
             increasedGrenadeSpeed = 0f;
         }
     }
