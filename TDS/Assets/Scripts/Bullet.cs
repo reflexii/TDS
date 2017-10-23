@@ -41,7 +41,10 @@ public class Bullet : MonoBehaviour {
 
         if (playerBullet && collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            collision.gameObject.GetComponent<MovingEnemy>().DamageEnemy(bulletDamage);
+            if (collision.gameObject.GetComponent<MovingEnemy>().enemyHealth > 0) {
+                collision.gameObject.GetComponent<MovingEnemy>().DamageEnemy(bulletDamage);
+            }
+            
 
             Destroy(gameObject, 0f);
         }

@@ -79,7 +79,6 @@ public class MovingEnemy : MonoBehaviour {
     }
 
     void DropGun() {
-        gun.SetActive(true);
         gun.GetComponent<Collider2D>().enabled = true;
 
         Vector3 dir = (gameManager.Player.transform.position - transform.position).normalized;

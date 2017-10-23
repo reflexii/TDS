@@ -49,12 +49,20 @@ public class PlayerMovement : MonoBehaviour {
     public bool togglable = false;
     private GameObject togglableButton;
 
+    //animations
+    private Animator animator;
+    private bool walking;
+    //1=pistol 2=shotgun 3=smg 4=rifle
+    private int weaponUsed;
+    private bool swingKnife = false;
+
     private void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         magazineText = GameObject.Find("MagazineText").GetComponent<Text>();
         grenadeText = GameObject.Find("GrenadeText").GetComponent<Text>();
         currentGunImage = GameObject.Find("GunImage").GetComponent<Image>();
         knife = transform.Find("KnifeSwingCollider").gameObject.GetComponent<Knife>();
+        animator = GetComponent<Animator>();
 
         if (hasGun)
         {
@@ -78,7 +86,34 @@ public class PlayerMovement : MonoBehaviour {
         GunSwitching();
         KnifeSprite();
         Use();
+        Animations();
 	}
+
+    void Animations() {
+        animator.SetBool("Walking", walking);
+        animator.SetBool("GunDeactivated", gunDeactivated);
+        animator.SetBool("HasGun", hasGun);
+        animator.SetInteger("WeaponUsed", weaponUsed);
+        animator.SetBool("SwingKnife", swingKnife);
+
+        //1=pistol 2=shotgun 3=smg 4=rifle
+        if (hasGun) {
+            switch (transform.Find("Gun").GetComponent<Gun>().weaponInUse) {
+                case Gun.Weapons.Pistol:
+                    weaponUsed = 1;
+                    break;
+                case Gun.Weapons.Shotgun:
+                    weaponUsed = 2;
+                    break;
+                case Gun.Weapons.SMG:
+                    weaponUsed = 3;
+                    break;
+                case Gun.Weapons.Rifle:
+                    weaponUsed = 4;
+                    break;
+            }
+        }
+    }
 
     void KnifeSprite()
     {
@@ -93,24 +128,34 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D) && !disableTop && !disableRight) {
             transform.position += new Vector3(1f, 1f).normalized * movementSpeed * Time.deltaTime;
+            walking = true;
         } else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A) && !disableTop && !disableLeft) {
             transform.position += new Vector3(-1f, 1f).normalized * movementSpeed * Time.deltaTime;
+            walking = true;
         } else if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D) && !disableBottom && !disableRight) {
             transform.position += new Vector3(1f, -1f).normalized * movementSpeed * Time.deltaTime;
+            walking = true;
         } else if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A) && !disableBottom && !disableLeft) {
             transform.position += new Vector3(-1f, -1f).normalized * movementSpeed * Time.deltaTime;
+            walking = true;
         } else {
             if (Input.GetKey(KeyCode.W) && !disableTop) {
                 transform.position += new Vector3(0f, 1f) * movementSpeed * Time.deltaTime;
+                walking = true;
             }
              else if (Input.GetKey(KeyCode.S) && !disableBottom) {
                 transform.position += new Vector3(0f, -1f) * movementSpeed * Time.deltaTime;
+                walking = true;
             }
             else if (Input.GetKey(KeyCode.A) && !disableLeft) {
                 transform.position += new Vector3(-1f, 0f) * movementSpeed * Time.deltaTime;
+                walking = true;
             }
             else if (Input.GetKey(KeyCode.D) && !disableRight) {
                 transform.position += new Vector3(1f, 0f) * movementSpeed * Time.deltaTime;
+                walking = true;
+            } else {
+                walking = false;
             }
         }
     }
@@ -162,13 +207,9 @@ public class PlayerMovement : MonoBehaviour {
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if (hasGun)
-            {
-                gun.SetActive(gunDeactivated);
-                gunDeactivated = !gunDeactivated;
-            }
+        if (Input.GetKeyDown(KeyCode.Q) && hasGun) {
+            gun.SetActive(gunDeactivated);
+            gunDeactivated = !gunDeactivated;
         }
     }
 
@@ -259,28 +300,28 @@ public class PlayerMovement : MonoBehaviour {
 
     void WallCheck() {
         if (Input.GetKey(KeyCode.W)) {
-            if (Physics2D.Raycast(transform.position, Vector3.up, 1f, 1 << LayerMask.NameToLayer("Wall"))) {
+            if (Physics2D.Raycast(transform.position + new Vector3(0.3f, 0f, 0f), Vector3.up, 0.5f, 1 << LayerMask.NameToLayer("Wall")) || Physics2D.Raycast(transform.position - new Vector3(0.3f, 0f, 0f), Vector3.up, 0.5f, 1 << LayerMask.NameToLayer("Wall"))) {
                 disableTop = true;
             } else {
                 disableTop = false;
             }
         }
         if (Input.GetKey(KeyCode.S)) {
-            if (Physics2D.Raycast(transform.position, Vector3.down, 1f, 1 << LayerMask.NameToLayer("Wall"))) {
+            if (Physics2D.Raycast(transform.position + new Vector3(0.3f, 0f, 0f), Vector3.down, 0.5f, 1 << LayerMask.NameToLayer("Wall")) || Physics2D.Raycast(transform.position - new Vector3(0.3f, 0f, 0f), Vector3.down, 0.5f, 1 << LayerMask.NameToLayer("Wall"))) {
                 disableBottom = true;
             } else {
                 disableBottom = false;
             }
         }
         if (Input.GetKey(KeyCode.A)) {
-            if (Physics2D.Raycast(transform.position, Vector3.left, 1f, 1 << LayerMask.NameToLayer("Wall"))) {
+            if (Physics2D.Raycast(transform.position + new Vector3(0f, 0.3f, 0f), Vector3.left, 0.5f, 1 << LayerMask.NameToLayer("Wall")) || Physics2D.Raycast(transform.position - new Vector3(0f, 0.3f, 0f), Vector3.left, 0.5f, 1 << LayerMask.NameToLayer("Wall"))) {
                 disableLeft = true;
             } else {
                 disableLeft = false;
             }
         }    
         if (Input.GetKey(KeyCode.D)) {
-            if (Physics2D.Raycast(transform.position, Vector3.right, 1f, 1 << LayerMask.NameToLayer("Wall"))) {
+            if (Physics2D.Raycast(transform.position + new Vector3(0f, 0.3f, 0f), Vector3.right, 0.5f, 1 << LayerMask.NameToLayer("Wall")) || Physics2D.Raycast(transform.position - new Vector3(0f, 0.3f, 0f), Vector3.right, 0.5f, 1 << LayerMask.NameToLayer("Wall"))) {
                 disableRight = true;
             } else {
                 disableRight = false;
@@ -299,6 +340,9 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void Shooting() {
+        if (swingKnife) {
+            swingKnife = false;
+        }
         knifeTimer += Time.deltaTime;
         if (Input.GetKey(KeyCode.Mouse0) && hasGun && !gunDeactivated) {
             gun.GetComponent<Gun>().Shoot();
@@ -306,6 +350,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             knife.KnifeEnemiesInRange(knifeDamage);
             knifeTimer = 0f;
+            swingKnife = true;
             Debug.Log("Knife!");
         }
     }
@@ -314,26 +359,40 @@ public class PlayerMovement : MonoBehaviour {
         if (drawPlayerGizmos) {
             Gizmos.color = Color.green;
 
-            //Top
+            //Top 1
             if (Input.GetKey(KeyCode.W)) {
-                Gizmos.DrawRay(transform.position, Vector3.up);
+                Gizmos.DrawRay(transform.position - new Vector3(0.3f, 0f, 0f), Vector3.up * 0.5f);
             }
-            
-            //Bottom
+            //Top 2
+            if (Input.GetKey(KeyCode.W)) {
+                Gizmos.DrawRay(transform.position + new Vector3(0.3f, 0f, 0f), Vector3.up * 0.5f);
+            }
+            //Bottom 1
             if (Input.GetKey(KeyCode.S)) {
-                Gizmos.DrawRay(transform.position, Vector3.down);
+                Gizmos.DrawRay(transform.position - new Vector3(0.3f, 0f, 0f), Vector3.down * 0.5f);
             }
-            //Left
+            //Bottom 2
+            if (Input.GetKey(KeyCode.S)) {
+                Gizmos.DrawRay(transform.position + new Vector3(0.3f, 0f, 0f), Vector3.down * 0.5f);
+            }
+            //Left 1
             if (Input.GetKey(KeyCode.A)) {
-                Gizmos.DrawRay(transform.position, Vector3.left);
+                Gizmos.DrawRay(transform.position - new Vector3(0f, 0.3f, 0f), Vector3.left * 0.5f);
             }
-            //Right
+            //Left 2
+            if (Input.GetKey(KeyCode.A)) {
+                Gizmos.DrawRay(transform.position + new Vector3(0f, 0.3f, 0f), Vector3.left * 0.5f);
+            }
+            //Right 1
             if (Input.GetKey(KeyCode.D)) {
-                Gizmos.DrawRay(transform.position, Vector3.right);
+                Gizmos.DrawRay(transform.position - new Vector3(0f, 0.3f, 0f), Vector3.right * 0.5f);
             }
-            
-            
-            
+            //Right 2
+            if (Input.GetKey(KeyCode.D)) {
+                Gizmos.DrawRay(transform.position + new Vector3(0f, 0.3f, 0f), Vector3.right * 0.5f);
+            }
+
+
         }
     }
 }
