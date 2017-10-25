@@ -296,6 +296,13 @@ public class PlayerMovement : MonoBehaviour {
 
         // set vector of transform directly
         transform.right = direction;
+
+        if (transform.eulerAngles.y != 0) {
+            //transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
+            GetComponent<SpriteRenderer>().flipY = true;
+        } else {
+            GetComponent<SpriteRenderer>().flipY = false;
+        }
     }
 
     void WallCheck() {

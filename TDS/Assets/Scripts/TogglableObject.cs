@@ -5,7 +5,7 @@ using UnityEngine;
 public class TogglableObject : MonoBehaviour {
 
     public bool toggled = true;
-    public enum ObjectType { Laser, Gas};
+    public enum ObjectType { Laser, Gas, Door};
     public ObjectType objectType;
     public Sprite offImage;
 
@@ -18,10 +18,12 @@ public class TogglableObject : MonoBehaviour {
                 {
                     GetComponent<Animator>().enabled = true;
                     transform.gameObject.layer = LayerMask.NameToLayer("Wall");
+                    GetComponent<BoxCollider2D>().enabled = true;
                     
                 } else
                 {
                     GetComponent<Animator>().enabled = false;
+                    GetComponent<BoxCollider2D>().enabled = false;
                     GetComponent<SpriteRenderer>().sprite = offImage;
                     transform.gameObject.layer = LayerMask.NameToLayer("Default");
                 }
@@ -32,6 +34,13 @@ public class TogglableObject : MonoBehaviour {
 
                 } else
                 {
+
+                }
+                break;
+            case ObjectType.Door:
+                if (toggled) {
+                    GetComponent<Animator>().enabled = true;
+                } else {
 
                 }
                 break;
