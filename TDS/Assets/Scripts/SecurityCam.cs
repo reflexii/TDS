@@ -46,6 +46,7 @@ public class SecurityCam : MonoBehaviour {
             endPos = hitPlayer.transform.position;
             laser.material = redMaterial;
             playerSpotted = true;
+            GameObject.Find("Alert").GetComponent<Alert>().AlertOn = true;
         } else
         {
             playerSpotted = false;

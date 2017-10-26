@@ -25,6 +25,7 @@ public class MovingEnemy : MonoBehaviour {
     public GameObject exclamationMarkPrefab;
     public GameObject dieBloodBigPrefab;
     public GameObject dieBloodSmallPrefab;
+    public bool destroyWaypoints = true;
 
     private Transform wayPointParentObject;
     private float runningWaitTime = 0f;
@@ -55,27 +56,24 @@ public class MovingEnemy : MonoBehaviour {
         CreateAlerts();
     }
 
-    void Start()
-    {
+    void Start() {
         //Generate waypoint list
         listLength = movementPositionList.Length;
-        GameObject wp = Instantiate<GameObject>(wayPointPrefab, transform.position, Quaternion.identity, wayPointParentObject);
-        wp.name = "Waypoint";
-        movementPositionList[0] = wp.transform;
+        GameObject target;
 
-        if (movementPositionList[1] == null)
-        {
-            Debug.Log("Error: You have to have waypoints!");
+        if (movementPositionList[0] == null) {
+            GameObject wp = Instantiate<GameObject>(wayPointPrefab, transform.position, Quaternion.identity, wayPointParentObject);
+            wp.name = "Waypoint";
+            movementPositionList[0] = wp.transform;
+            target = Instantiate<GameObject>(targetPrefab, movementPositionList[1].transform.position, Quaternion.identity, targetParentObject);
+        } else {
+            target = Instantiate<GameObject>(targetPrefab, movementPositionList[0].transform.position, Quaternion.identity, targetParentObject);
         }
-        else
-        {
-            //Generate target object
-            GameObject target = Instantiate<GameObject>(targetPrefab, movementPositionList[1].transform.position, Quaternion.identity, targetParentObject);
-            target.GetComponent<TargetMovement>().enemyObject = gameObject;
-            target.name = enemyName + " target";
-            ai.target = target.transform;
-            targetObject = target;
-        }
+        
+        target.GetComponent<TargetMovement>().enemyObject = gameObject;
+        target.name = enemyName + " target";
+        ai.target = target.transform;
+        targetObject = target;
     }
 
     void DropGun() {
@@ -94,7 +92,9 @@ public class MovingEnemy : MonoBehaviour {
     void CreateAlerts()
     {
         qm = Instantiate<GameObject>(questionMarkPrefab, transform.position + new Vector3(0f, 0.9f, 0f), Quaternion.identity);
+        qm.GetComponent<SpriteRenderer>().enabled = false;
         em = Instantiate<GameObject>(exclamationMarkPrefab, transform.position + new Vector3(0f, 0.9f, 0f), Quaternion.identity);
+        em.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     void UpdateAlerts()
@@ -106,7 +106,7 @@ public class MovingEnemy : MonoBehaviour {
     public void Die()
     {
         DropGun();
-        if (movementPositionList.Length > 0) {
+        if (movementPositionList.Length > 0 && destroyWaypoints) {
             for (int i = 0; i < movementPositionList.Length; i++) {
                 Destroy(movementPositionList[i].gameObject, 0f);
             }
