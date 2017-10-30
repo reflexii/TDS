@@ -174,6 +174,7 @@ public class Gun : MonoBehaviour {
                 case Weapons.Pistol:
                     if (runningCooldown > pistolShootCooldown && currentMagazineSize > 0)
                     {
+                        bulletSpawnPoint.localPosition = new Vector3(0.916f, -0.08f, bulletSpawnPoint.localPosition.z);
                         GameObject pistolBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
                         pistolBullet.GetComponent<Bullet>().direction = shootingDirection;
                         //rotate
@@ -194,6 +195,7 @@ public class Gun : MonoBehaviour {
                 case Weapons.Shotgun:
                     if (runningCooldown > shotgunShootCooldown && currentMagazineSize > 0)
                     {
+                        bulletSpawnPoint.localPosition = new Vector3(1.205f, -0.286f, bulletSpawnPoint.localPosition.z);
                         for (int i = 0; i < 8; i++)
                         {
                             GameObject shotgunPellet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
@@ -220,6 +222,7 @@ public class Gun : MonoBehaviour {
                 case Weapons.SMG:
                     if (runningCooldown > smgShootCooldown && currentMagazineSize > 0)
                     {
+                        bulletSpawnPoint.localPosition = new Vector3(0.801f, -0.286f, bulletSpawnPoint.localPosition.z);
                         GameObject smgBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
                         RandomizeSMGDirection();
                         smgBullet.GetComponent<Bullet>().direction = shootingDirection + smgRandomSpread;
@@ -241,6 +244,7 @@ public class Gun : MonoBehaviour {
                 case Weapons.Rifle:
                     if (runningCooldown > rifleShootCooldown && currentMagazineSize > 0)
                     {
+                        bulletSpawnPoint.localPosition = new Vector3(1.205f, -0.286f, bulletSpawnPoint.localPosition.z);
                         GameObject rifleBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
                         rifleBullet.GetComponent<Bullet>().direction = shootingDirection;
                         //rotate
@@ -269,15 +273,23 @@ public class Gun : MonoBehaviour {
         {
             case Weapons.Pistol:
                 currentMagazineSize = pistolMagazineSize;
+                GetComponent<BoxCollider2D>().offset = new Vector2(0.1f, -0.06f);
+                GetComponent<BoxCollider2D>().size = new Vector2(0.93f, 0.69f);
                 break;
             case Weapons.Shotgun:
                 currentMagazineSize = shotgunMagazineSize;
+                GetComponent<BoxCollider2D>().offset = new Vector2(-0.05f, -0.07f);
+                GetComponent<BoxCollider2D>().size = new Vector2(2f, 0.69f);
                 break;
             case Weapons.SMG:
                 currentMagazineSize = smgMagazineSize;
+                GetComponent<BoxCollider2D>().offset = new Vector2(-0.01f, -0.03f);
+                GetComponent<BoxCollider2D>().size = new Vector2(1.62f, 0.81f);
                 break;
             case Weapons.Rifle:
                 currentMagazineSize = rifleMagazineSize;
+                GetComponent<BoxCollider2D>().offset = new Vector2(0.38f, -0.03f);
+                GetComponent<BoxCollider2D>().size = new Vector2(2.24f, 0.93f);
                 break;
         }
         maxMagazineSize = currentMagazineSize;

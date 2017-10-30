@@ -74,10 +74,10 @@ GameObject:
   - component: {fileID: 4570248376587276}
   - component: {fileID: 114270224485291552}
   - component: {fileID: 114953953008716774}
-  - component: {fileID: 114138836044170868}
   - component: {fileID: 114420871504187092}
   - component: {fileID: 58864662847736250}
   - component: {fileID: 50023705509700198}
+  - component: {fileID: 114473814288569182}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
@@ -133,7 +133,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1544605733853386}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.5, y: 4.97, z: 0}
+  m_LocalPosition: {x: -6.22, y: 4.97, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4721661746755966}
@@ -298,20 +298,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.24, y: 0.12}
   m_EdgeRadius: 0
---- !u!114 &114138836044170868
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1544605733853386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77f586f285b3847808d79083bd19ef1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  unwrap: 1
-  splitAtEveryPortal: 0
 --- !u!114 &114206152905940474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -419,6 +405,28 @@ MonoBehaviour:
     type: 2}
   dieBloodSmallPrefab: {fileID: 1902671801952998, guid: 3a3b61156e826084cae6f6df61245ffb,
     type: 2}
+  destroyWaypoints: 1
+--- !u!114 &114473814288569182
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1544605733853386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6a34d769a1e4ac7b0b30e433aa443c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  smoothType: 0
+  subdivisions: 2
+  iterations: 2
+  strength: 0.1
+  uniformLength: 1
+  maxSegmentLength: 2
+  bezierTangentLength: 0.4
+  offset: 0.2
+  factor: 0.1
 --- !u!114 &114479617704109212
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -449,12 +457,12 @@ MonoBehaviour:
     m_Bits: 4294967295
   centerOffset: 1
   rotationIn2D: 1
-  repathRate: 0.5
+  repathRate: 0.25
   target: {fileID: 0}
   canSearch: 1
   canMove: 1
-  speed: 4
-  rotationSpeed: 360
+  speed: 5
+  rotationSpeed: 720
   slowdownDistance: 0.6
   pickNextWaypointDist: 1
   endReachedDistance: 0.2

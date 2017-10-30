@@ -226,7 +226,7 @@ public class PlayerMovement : MonoBehaviour {
         Vector3 dir = (mouseScreenPosition - (Vector2)gameManager.Player.transform.position).normalized;
         gun.GetComponent<Gun>().throwDirection = dir;
         gun.GetComponent<Gun>().throwWeapon = true;
-        gun.transform.position += dir * 0.3f;
+        gun.transform.position += -dir * 0.3f;
         
         gun.transform.parent = null;
         gun.GetComponent<Gun>().playerOwned = false;

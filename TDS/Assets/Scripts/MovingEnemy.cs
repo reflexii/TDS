@@ -82,6 +82,7 @@ public class MovingEnemy : MonoBehaviour {
         Vector3 dir = (gameManager.Player.transform.position - transform.position).normalized;
         gun.GetComponent<Gun>().throwDirection = -dir;
         gun.GetComponent<Gun>().throwWeapon = true;
+        //gun.transform.position += -dir * 0.3f;
 
         gun.transform.parent = null;
         gun.GetComponent<Gun>().gunOnTheFloor = true;
