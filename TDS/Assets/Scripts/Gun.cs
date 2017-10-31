@@ -198,6 +198,8 @@ public class Gun : MonoBehaviour {
                         if (!playerOwned)
                         {
                             pistolBullet.GetComponent<Bullet>().playerBullet = false;
+                        } else {
+                            pistolBullet.GetComponent<Bullet>().playerBullet = true;
                         }
                     }
                     break;
@@ -227,6 +229,8 @@ public class Gun : MonoBehaviour {
                             if (!playerOwned)
                             {
                                 shotgunPellet.GetComponent<Bullet>().playerBullet = false;
+                            } else {
+                                shotgunPellet.GetComponent<Bullet>().playerBullet = true;
                             }
                         }
 
@@ -257,6 +261,8 @@ public class Gun : MonoBehaviour {
                         if (!playerOwned)
                         {
                             smgBullet.GetComponent<Bullet>().playerBullet = false;
+                        } else {
+                            smgBullet.GetComponent<Bullet>().playerBullet = true;
                         }
                     }
                     break;
@@ -271,6 +277,7 @@ public class Gun : MonoBehaviour {
                         rifleBullet.SetActive(true);
                         rifleBullet.transform.position = bulletSpawnPoint.position;
                         rifleBullet.GetComponent<Bullet>().direction = shootingDirection;
+
                         //rotate
                         float angle = Mathf.Atan2(rifleBullet.GetComponent<Bullet>().direction.y, rifleBullet.GetComponent<Bullet>().direction.x) * Mathf.Rad2Deg;
                         rifleBullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -283,6 +290,8 @@ public class Gun : MonoBehaviour {
                         if (!playerOwned)
                         {
                             rifleBullet.GetComponent<Bullet>().playerBullet = false;
+                        } else {
+                            rifleBullet.GetComponent<Bullet>().playerBullet = true;
                         }
                     }
 

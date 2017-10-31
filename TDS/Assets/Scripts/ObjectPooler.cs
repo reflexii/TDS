@@ -93,4 +93,19 @@ public class ObjectPooler : MonoBehaviour {
         g.SetActive(false);
         return g;
     }
+
+    public GameObject GetPooledExplosion() {
+        for (int i = 0; i < explosionsList.Count; i++) {
+            if (!explosionsList[i].activeInHierarchy) {
+                return explosionsList[i];
+            }
+        }
+
+        GameObject g = Instantiate<GameObject>(explosionPrefab);
+        g.transform.parent = explosionParent.transform;
+        explosionsList.Add(g);
+        g.SetActive(false);
+        return g;
+    }
+
 }

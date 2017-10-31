@@ -23,6 +23,10 @@ public class Bullet : MonoBehaviour {
         }
     }
 
+    private void OnEnable() {
+        runningDeathTime = 0f;
+    }
+
     void Update () {
         runningDeathTime += Time.deltaTime;
         transform.position += direction.normalized * bulletSpeed * Time.deltaTime;
@@ -43,10 +47,9 @@ public class Bullet : MonoBehaviour {
         {
             if (collision.gameObject.GetComponent<MovingEnemy>().enemyHealth > 0) {
                 collision.gameObject.GetComponent<MovingEnemy>().DamageEnemy(bulletDamage);
+                gameObject.SetActive(false);
             }
 
-
-            gameObject.SetActive(false);
         }
         if (!playerBullet && collision.gameObject.layer == LayerMask.NameToLayer("Player1"))
         {

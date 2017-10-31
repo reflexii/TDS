@@ -27,6 +27,11 @@ public class MovingEnemy : MonoBehaviour {
     public GameObject dieBloodSmallPrefab;
     public bool destroyWaypoints = true;
 
+    //animation
+    private int weaponUsed;
+    private bool walking = false; 
+    private Animator animator;
+
     private Transform wayPointParentObject;
     private float runningWaitTime = 0f;
     private float runningTurnTime = 3f;
@@ -53,6 +58,7 @@ public class MovingEnemy : MonoBehaviour {
         ai = GetComponent<AIPath>();
         gun.GetComponent<Gun>().playerOwned = false;
         targetParentObject = GameObject.Find("EnemyTargets").transform;
+        animator = GetComponent<Animator>();
         CreateAlerts();
     }
 
@@ -74,6 +80,26 @@ public class MovingEnemy : MonoBehaviour {
         target.name = enemyName + " target";
         ai.target = target.transform;
         targetObject = target;
+    }
+
+    void Animations() {
+        animator.SetInteger("WeaponUsed", weaponUsed);
+        animator.SetBool("Walking", walking);
+
+        switch (transform.Find("Gun").GetComponent<Gun>().weaponInUse) {
+            case Gun.Weapons.Pistol:
+                weaponUsed = 1;
+                break;
+            case Gun.Weapons.Shotgun:
+                weaponUsed = 2;
+                break;
+            case Gun.Weapons.SMG:
+                weaponUsed = 3;
+                break;
+            case Gun.Weapons.Rifle:
+                weaponUsed = 4;
+                break;
+        }
     }
 
     void DropGun() {
@@ -142,10 +168,12 @@ public class MovingEnemy : MonoBehaviour {
 	void Update () {
 
         UpdateAlerts();
+        Animations();
         
         switch (whatEnemyIsDoing)
         {
             case CurrentStance.Moving:
+                walking = true;
                 em.GetComponent<SpriteRenderer>().enabled = false;
                 qm.GetComponent<SpriteRenderer>().enabled = false;
                 turnIndex = 0;
@@ -160,10 +188,13 @@ public class MovingEnemy : MonoBehaviour {
 
                 if (searchingTime >= 0.4f)
                 {
+                    walking = true;
                     ai.canMove = true;
                     ai.canSearch = true;
                     em.GetComponent<SpriteRenderer>().enabled = false;
                     qm.GetComponent<SpriteRenderer>().enabled = true;
+                } else {
+                    walking = false;
                 }
 
                 if (startSearching) {
@@ -174,7 +205,7 @@ public class MovingEnemy : MonoBehaviour {
                 }
                 break;
             case CurrentStance.Shooting:
-                
+                walking = false;
                 searchingTime = 0f;
                 runningWaitTime = 0f;
                 runningTurnTime = 0f;
@@ -204,6 +235,7 @@ public class MovingEnemy : MonoBehaviour {
                 }
                 break;
             case CurrentStance.WaitingToMove:
+                walking = false;
                 em.GetComponent<SpriteRenderer>().enabled = false;
                 qm.GetComponent<SpriteRenderer>().enabled = false;
                 runningWaitTime += Time.deltaTime;
@@ -272,6 +304,7 @@ public class MovingEnemy : MonoBehaviour {
     public void Search(float searchTime)
     {
         runningTurnTime += Time.deltaTime;
+        walking = false;
 
         if (runningWaitTime >= searchTime)
         {
