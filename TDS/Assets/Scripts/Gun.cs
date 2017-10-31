@@ -8,6 +8,7 @@ public class Gun : MonoBehaviour {
     public enum Weapons { Pistol, Shotgun, SMG, Rifle };
     public Weapons weaponInUse;
     public GameObject bulletPrefab;
+    public GameObject bulletPrefabBig;
     public Transform bulletSpawnPoint;
     public bool playerOwned = true;
 
@@ -38,6 +39,7 @@ public class Gun : MonoBehaviour {
     public Text magazineText;
 
     private GameManager gameManager;
+    private ObjectPooler pool;
     private Vector3 shootingDirection = Vector3.zero;
     private Vector3 shotgunRandomSpread;
     private Vector3 smgRandomSpread;
@@ -53,6 +55,7 @@ public class Gun : MonoBehaviour {
 
 	void Awake () {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        pool = gameManager.GetComponent<ObjectPooler>();
         magazineText = GameObject.Find("MagazineText").GetComponent<Text>();
         currentGunImage = GameObject.Find("GunImage").GetComponent<Image>();
         sr = GetComponent<SpriteRenderer>();
@@ -174,8 +177,14 @@ public class Gun : MonoBehaviour {
                 case Weapons.Pistol:
                     if (runningCooldown > pistolShootCooldown && currentMagazineSize > 0)
                     {
-                        bulletSpawnPoint.localPosition = new Vector3(0.916f, -0.08f, bulletSpawnPoint.localPosition.z);
-                        GameObject pistolBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+                        if (playerOwned) {
+                            bulletSpawnPoint.localPosition = new Vector3(0.916f, -0.08f, bulletSpawnPoint.localPosition.z);
+                        }
+
+                        //GameObject pistolBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+                        GameObject pistolBullet = pool.GetPooledBullet();
+                        pistolBullet.SetActive(true);
+                        pistolBullet.transform.position = bulletSpawnPoint.position;
                         pistolBullet.GetComponent<Bullet>().direction = shootingDirection;
                         //rotate
                         float angle = Mathf.Atan2(pistolBullet.GetComponent<Bullet>().direction.y, pistolBullet.GetComponent<Bullet>().direction.x) * Mathf.Rad2Deg;
@@ -195,10 +204,15 @@ public class Gun : MonoBehaviour {
                 case Weapons.Shotgun:
                     if (runningCooldown > shotgunShootCooldown && currentMagazineSize > 0)
                     {
-                        bulletSpawnPoint.localPosition = new Vector3(1.205f, -0.286f, bulletSpawnPoint.localPosition.z);
+                        if (playerOwned) {
+                            bulletSpawnPoint.localPosition = new Vector3(1.205f, -0.286f, bulletSpawnPoint.localPosition.z);
+                        }
                         for (int i = 0; i < 8; i++)
                         {
-                            GameObject shotgunPellet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+                            //GameObject shotgunPellet = Instantiate<GameObject>(bulletPrefabBig, bulletSpawnPoint.position, Quaternion.identity);
+                            GameObject shotgunPellet = pool.GetPooledBigBullet();
+                            shotgunPellet.SetActive(true);
+                            shotgunPellet.transform.position = bulletSpawnPoint.position;
                             RandomizeShotgunDirection();
                             shotgunPellet.GetComponent<Bullet>().direction = shootingDirection + shotgunRandomSpread;
                             //rotate
@@ -222,8 +236,13 @@ public class Gun : MonoBehaviour {
                 case Weapons.SMG:
                     if (runningCooldown > smgShootCooldown && currentMagazineSize > 0)
                     {
-                        bulletSpawnPoint.localPosition = new Vector3(0.801f, -0.286f, bulletSpawnPoint.localPosition.z);
-                        GameObject smgBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+                        if (playerOwned) {
+                            bulletSpawnPoint.localPosition = new Vector3(0.801f, -0.286f, bulletSpawnPoint.localPosition.z);
+                        }
+                        //GameObject smgBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+                        GameObject smgBullet = pool.GetPooledBullet();
+                        smgBullet.SetActive(true);
+                        smgBullet.transform.position = bulletSpawnPoint.position;
                         RandomizeSMGDirection();
                         smgBullet.GetComponent<Bullet>().direction = shootingDirection + smgRandomSpread;
                         //rotate
@@ -244,8 +263,13 @@ public class Gun : MonoBehaviour {
                 case Weapons.Rifle:
                     if (runningCooldown > rifleShootCooldown && currentMagazineSize > 0)
                     {
-                        bulletSpawnPoint.localPosition = new Vector3(1.205f, -0.286f, bulletSpawnPoint.localPosition.z);
-                        GameObject rifleBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+                        if (playerOwned) {
+                            bulletSpawnPoint.localPosition = new Vector3(1.205f, -0.286f, bulletSpawnPoint.localPosition.z);
+                        }
+                        //GameObject rifleBullet = Instantiate<GameObject>(bulletPrefabBig, bulletSpawnPoint.position, Quaternion.identity);
+                        GameObject rifleBullet = pool.GetPooledBigBullet();
+                        rifleBullet.SetActive(true);
+                        rifleBullet.transform.position = bulletSpawnPoint.position;
                         rifleBullet.GetComponent<Bullet>().direction = shootingDirection;
                         //rotate
                         float angle = Mathf.Atan2(rifleBullet.GetComponent<Bullet>().direction.y, rifleBullet.GetComponent<Bullet>().direction.x) * Mathf.Rad2Deg;

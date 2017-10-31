@@ -29,14 +29,14 @@ public class Bullet : MonoBehaviour {
 
         if (runningDeathTime >= bulletExistTime)
         {
-            Destroy(gameObject, 0f);
+            gameObject.SetActive(false);
         }
 
 	}
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Wall")) {
-            Destroy(gameObject, 0f);
+            gameObject.SetActive(false);
         }
 
         if (playerBullet && collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
@@ -44,9 +44,9 @@ public class Bullet : MonoBehaviour {
             if (collision.gameObject.GetComponent<MovingEnemy>().enemyHealth > 0) {
                 collision.gameObject.GetComponent<MovingEnemy>().DamageEnemy(bulletDamage);
             }
-            
 
-            Destroy(gameObject, 0f);
+
+            gameObject.SetActive(false);
         }
         if (!playerBullet && collision.gameObject.layer == LayerMask.NameToLayer("Player1"))
         {
