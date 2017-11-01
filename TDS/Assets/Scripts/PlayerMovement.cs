@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour {
 
     //Knife
     private Knife knife;
-    public float knifeDamage = 30f;
+    public float knifeDamage = 5f;
     private float knifeTimer = 0f;
 
     //Health

@@ -26,6 +26,7 @@ public class MovingEnemy : MonoBehaviour {
     public GameObject dieBloodBigPrefab;
     public GameObject dieBloodSmallPrefab;
     public bool destroyWaypoints = true;
+    public bool backstabbable = false;
 
     //animation
     private int weaponUsed;

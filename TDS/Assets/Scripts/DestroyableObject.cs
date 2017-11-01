@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class DestroyableObject : MonoBehaviour {
 
+    public GameObject ps;
+
     public void DestroyWall()
     {
+        Instantiate<GameObject>(ps, transform.position, Quaternion.identity);
         Destroy(gameObject, 0f);
         //play animation
         //play sound

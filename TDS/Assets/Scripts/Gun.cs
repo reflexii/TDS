@@ -177,6 +177,7 @@ public class Gun : MonoBehaviour {
                 case Weapons.Pistol:
                     if (runningCooldown > pistolShootCooldown && currentMagazineSize > 0)
                     {
+                        transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
                         if (playerOwned) {
                             bulletSpawnPoint.localPosition = new Vector3(0.916f, -0.08f, bulletSpawnPoint.localPosition.z);
                         }
@@ -201,11 +202,14 @@ public class Gun : MonoBehaviour {
                         } else {
                             pistolBullet.GetComponent<Bullet>().playerBullet = true;
                         }
+                    } else {
+                        transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
                     }
                     break;
                 case Weapons.Shotgun:
                     if (runningCooldown > shotgunShootCooldown && currentMagazineSize > 0)
                     {
+                        transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
                         if (playerOwned) {
                             bulletSpawnPoint.localPosition = new Vector3(1.205f, -0.286f, bulletSpawnPoint.localPosition.z);
                         }
@@ -235,11 +239,14 @@ public class Gun : MonoBehaviour {
                         }
 
                         currentMagazineSize--;
+                    } else {
+                        transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
                     }
                     break;
                 case Weapons.SMG:
                     if (runningCooldown > smgShootCooldown && currentMagazineSize > 0)
                     {
+                        transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
                         if (playerOwned) {
                             bulletSpawnPoint.localPosition = new Vector3(0.801f, -0.286f, bulletSpawnPoint.localPosition.z);
                         }
@@ -264,11 +271,14 @@ public class Gun : MonoBehaviour {
                         } else {
                             smgBullet.GetComponent<Bullet>().playerBullet = true;
                         }
+                    } else {
+                        transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
                     }
                     break;
                 case Weapons.Rifle:
                     if (runningCooldown > rifleShootCooldown && currentMagazineSize > 0)
                     {
+                        transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
                         if (playerOwned) {
                             bulletSpawnPoint.localPosition = new Vector3(1.205f, -0.286f, bulletSpawnPoint.localPosition.z);
                         }
@@ -293,8 +303,9 @@ public class Gun : MonoBehaviour {
                         } else {
                             rifleBullet.GetComponent<Bullet>().playerBullet = true;
                         }
+                    } else {
+                        transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
                     }
-
                     break;
             }
         }

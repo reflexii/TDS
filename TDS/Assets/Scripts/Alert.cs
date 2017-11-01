@@ -12,7 +12,9 @@ public class Alert : MonoBehaviour {
     private GameObject[] primaryWaypoints;
     private GameObject[] secondaryWaypoints;
     public List<GameObject> primaryWpList;
-    private bool noSameWaypoint = false;
+    private bool sameWaypoint = true;
+    private int randomSecondaryOne;
+    private int randomSecondaryTwo;
 
     public GameObject[] enemySpawnPositions;
     public int numberOfEnemiesSpawned;
@@ -78,21 +80,28 @@ public class Alert : MonoBehaviour {
         }
         //assign secondary waypoints at random, two per enemy
         if (secondaryWaypoints.Length > 1) {
-            int randomSecondaryOne = Random.Range(0, secondaryWaypoints.Length);
-            int randomSecondaryTwo = Random.Range(0, secondaryWaypoints.Length);
 
-            while (noSameWaypoint) {
-                if (randomSecondaryOne == randomSecondaryTwo) {
-                    noSameWaypoint = true;
-                } else {
-                    noSameWaypoint = false;
-                }
+            if (sameWaypoint) {
+                SecondaryRandomizer();
             }
 
             enemy.GetComponent<MovingEnemy>().movementPositionList[1] = secondaryWaypoints[randomSecondaryOne].transform;
             enemy.GetComponent<MovingEnemy>().movementPositionList[2] = secondaryWaypoints[randomSecondaryTwo].transform;
+            sameWaypoint = true;
         } else {
             Debug.Log("Not enough secondary waypoints!");
+        }
+    }
+
+    private void SecondaryRandomizer() {
+        randomSecondaryOne = Random.Range(0, secondaryWaypoints.Length);
+        randomSecondaryTwo = Random.Range(0, secondaryWaypoints.Length);
+
+        if (randomSecondaryOne == randomSecondaryTwo) {
+            sameWaypoint = true;
+            SecondaryRandomizer();
+        } else {
+            sameWaypoint = false;
         }
     }
 
