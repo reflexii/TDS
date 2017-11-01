@@ -242,9 +242,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.02, y: 0}
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.54
 --- !u!60 &60821885026737610
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -410,6 +410,18 @@ MonoBehaviour:
   dieBloodSmallPrefab: {fileID: 1902671801952998, guid: 3a3b61156e826084cae6f6df61245ffb,
     type: 2}
   destroyWaypoints: 1
+  greenCorpse1: {fileID: 1502385986439248, guid: b364b3f936b2b074e9d77bc5dbd8a365,
+    type: 2}
+  greenCorpse2: {fileID: 1682718179531996, guid: c76fafabb997b5c4991b3de976ec7e64,
+    type: 2}
+  greenCorpse3: {fileID: 1624084725941678, guid: b47437a9ca8125c41bfabb6742e761b7,
+    type: 2}
+  greenCorpse4: {fileID: 1954401124855998, guid: e25d3deeab558784b88cbe4b95791a74,
+    type: 2}
+  redCorpse1: {fileID: 1610631271241510, guid: 87a2c2045d18e834eb66d0cc942a3fc2, type: 2}
+  redCorpse2: {fileID: 1470463964887592, guid: 766b6f3e27c04db4fab13425e444c67b, type: 2}
+  redCorpse3: {fileID: 1916608638759994, guid: 4c793aad7be024d4b893de20810b7ce5, type: 2}
+  redCorpse4: {fileID: 1541100733105640, guid: 6a91f74b1220c184a843ef50320cc981, type: 2}
 --- !u!114 &114745839479563404
 MonoBehaviour:
   m_ObjectHideFlags: 1

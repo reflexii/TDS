@@ -47,6 +47,18 @@ public class MovingEnemy : MonoBehaviour {
     private float randomize = 0f;
     private GameObject qm;
     private GameObject em;
+    private GameObject symbolObject;
+
+    //corpses
+    public GameObject greenCorpse1;
+    public GameObject greenCorpse2;
+    public GameObject greenCorpse3;
+    public GameObject greenCorpse4;
+    public GameObject redCorpse1;
+    public GameObject redCorpse2;
+    public GameObject redCorpse3;
+    public GameObject redCorpse4;
+
     
 
 
@@ -80,6 +92,44 @@ public class MovingEnemy : MonoBehaviour {
         target.name = enemyName + " target";
         ai.target = target.transform;
         targetObject = target;
+    }
+
+    void RandomizeAndSpawnCorpse() {
+        int randomize = Random.Range(0, 4);
+        GameObject chosenCorpse = null;
+        if (gun.GetComponent<Gun>().weaponInUse == Gun.Weapons.Pistol || gun.GetComponent<Gun>().weaponInUse == Gun.Weapons.SMG) {
+            switch(randomize) {
+                case 0:
+                    chosenCorpse = greenCorpse1;
+                    break;
+                case 1:
+                    chosenCorpse = greenCorpse2;
+                    break;
+                case 2:
+                    chosenCorpse = greenCorpse3;
+                    break;
+                case 3:
+                    chosenCorpse = greenCorpse4;
+                    break;
+            }
+        } else if (gun.GetComponent<Gun>().weaponInUse == Gun.Weapons.Shotgun || gun.GetComponent<Gun>().weaponInUse == Gun.Weapons.Rifle) {
+            switch (randomize) {
+                case 0:
+                    chosenCorpse = redCorpse1;
+                    break;
+                case 1:
+                    chosenCorpse = redCorpse2;
+                    break;
+                case 2:
+                    chosenCorpse = redCorpse3;
+                    break;
+                case 3:
+                    chosenCorpse = redCorpse4;
+                    break;
+            }
+        }
+
+        Instantiate<GameObject>(chosenCorpse, transform.position, Quaternion.identity);
     }
 
     void Animations() {
@@ -118,9 +168,17 @@ public class MovingEnemy : MonoBehaviour {
 
     void CreateAlerts()
     {
+        if (GameObject.Find("Symbols") == null) {
+            symbolObject = new GameObject();
+            symbolObject.name = "Symbols";
+        } else {
+            symbolObject = GameObject.Find("Symbols");
+        }
         qm = Instantiate<GameObject>(questionMarkPrefab, transform.position + new Vector3(0f, 0.9f, 0f), Quaternion.identity);
+        qm.transform.parent = symbolObject.transform;
         qm.GetComponent<SpriteRenderer>().enabled = false;
         em = Instantiate<GameObject>(exclamationMarkPrefab, transform.position + new Vector3(0f, 0.9f, 0f), Quaternion.identity);
+        em.transform.parent = symbolObject.transform;
         em.GetComponent<SpriteRenderer>().enabled = false;
     }
 
@@ -132,6 +190,13 @@ public class MovingEnemy : MonoBehaviour {
 
     public void Die()
     {
+
+        //Blood
+        Instantiate<GameObject>(dieBloodBigPrefab, transform.position, Quaternion.identity);
+        Instantiate<GameObject>(dieBloodSmallPrefab, transform.position, Quaternion.identity);
+        //Corpse
+        RandomizeAndSpawnCorpse();
+
         DropGun();
         if (movementPositionList.Length > 0 && destroyWaypoints) {
             for (int i = 0; i < movementPositionList.Length; i++) {
@@ -139,14 +204,12 @@ public class MovingEnemy : MonoBehaviour {
             }
         }
         
+        //Destroy targets and alerts(! and ?)
         Destroy(targetObject, 0f);
         Destroy(em);
         Destroy(qm);
 
-        //Blood
-        Instantiate<GameObject>(dieBloodBigPrefab, transform.position, Quaternion.identity);
-        Instantiate<GameObject>(dieBloodSmallPrefab, transform.position, Quaternion.identity);
-        //Corpse
+        
         //Sound
         Destroy(gameObject, 0f);
     }
@@ -154,6 +217,7 @@ public class MovingEnemy : MonoBehaviour {
     public void DamageEnemy(float damageValue)
     {
         //blood
+        Instantiate<GameObject>(dieBloodSmallPrefab, transform.position, Quaternion.identity);
         //sound
 
         enemyHealth -= damageValue;
