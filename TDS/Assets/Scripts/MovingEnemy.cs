@@ -219,11 +219,12 @@ public class MovingEnemy : MonoBehaviour {
         //blood
         Instantiate<GameObject>(dieBloodSmallPrefab, transform.position, Quaternion.identity);
         //sound
-
-        enemyHealth -= damageValue;
+        
         if (enemyHealth <= 0f)
         {
             Die();
+        } else {
+            enemyHealth -= damageValue;
         }
 
     }
