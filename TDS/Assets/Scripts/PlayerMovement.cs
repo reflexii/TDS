@@ -360,6 +360,9 @@ public class PlayerMovement : MonoBehaviour {
             swingKnife = true;
             Debug.Log("Knife!");
         }
+        if (Input.GetKeyUp(KeyCode.Mouse0) && hasGun && !gunDeactivated) {
+            transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+        }
     }
 
     private void OnDrawGizmos() {

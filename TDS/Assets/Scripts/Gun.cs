@@ -180,6 +180,8 @@ public class Gun : MonoBehaviour {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
                         if (playerOwned) {
                             bulletSpawnPoint.localPosition = new Vector3(0.916f, -0.08f, bulletSpawnPoint.localPosition.z);
+                        } else {
+                            bulletSpawnPoint.localPosition = new Vector3(0.089f, 1.001f, bulletSpawnPoint.localPosition.z);
                         }
 
                         //GameObject pistolBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
@@ -212,6 +214,8 @@ public class Gun : MonoBehaviour {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
                         if (playerOwned) {
                             bulletSpawnPoint.localPosition = new Vector3(1.205f, -0.286f, bulletSpawnPoint.localPosition.z);
+                        } else {
+                            bulletSpawnPoint.localPosition = new Vector3(0.2502f, 1.001f, bulletSpawnPoint.localPosition.z);
                         }
                         for (int i = 0; i < 8; i++)
                         {
@@ -248,7 +252,9 @@ public class Gun : MonoBehaviour {
                     {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
                         if (playerOwned) {
-                            bulletSpawnPoint.localPosition = new Vector3(0.801f, -0.286f, bulletSpawnPoint.localPosition.z);
+                            bulletSpawnPoint.localPosition = new Vector3(0.875f, -0.297f, bulletSpawnPoint.localPosition.z);
+                        } else {
+                            bulletSpawnPoint.localPosition = new Vector3(0.253f, 0.904f, bulletSpawnPoint.localPosition.z);
                         }
                         //GameObject smgBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
                         GameObject smgBullet = pool.GetPooledBullet();
@@ -281,6 +287,8 @@ public class Gun : MonoBehaviour {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
                         if (playerOwned) {
                             bulletSpawnPoint.localPosition = new Vector3(1.205f, -0.286f, bulletSpawnPoint.localPosition.z);
+                        } else {
+                            bulletSpawnPoint.localPosition = new Vector3(0.2503f, 1.3389f, bulletSpawnPoint.localPosition.z);
                         }
                         //GameObject rifleBullet = Instantiate<GameObject>(bulletPrefabBig, bulletSpawnPoint.position, Quaternion.identity);
                         GameObject rifleBullet = pool.GetPooledBigBullet();

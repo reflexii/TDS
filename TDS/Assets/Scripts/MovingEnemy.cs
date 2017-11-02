@@ -191,14 +191,12 @@ public class MovingEnemy : MonoBehaviour {
 
     public void Die()
     {
-
+        //Corpse
+        RandomizeAndSpawnCorpse();
         //Blood
         Instantiate<GameObject>(dieBloodBigPrefab, transform.position, Quaternion.identity);
         Instantiate<GameObject>(dieBloodSmallPrefab, transform.position, Quaternion.identity);
-        //Corpse
-        RandomizeAndSpawnCorpse();
-
-        DropGun();
+        
         if (movementPositionList.Length > 0 && destroyWaypoints) {
             for (int i = 0; i < movementPositionList.Length; i++) {
                 Destroy(movementPositionList[i].gameObject, 0f);
@@ -209,8 +207,9 @@ public class MovingEnemy : MonoBehaviour {
         Destroy(targetObject, 0f);
         Destroy(em);
         Destroy(qm);
+        DropGun();
 
-        
+
         //Sound
         Destroy(gameObject, 0f);
     }
@@ -243,8 +242,10 @@ public class MovingEnemy : MonoBehaviour {
                 qm.GetComponent<SpriteRenderer>().enabled = false;
                 turnIndex = 0;
                 runningWaitTime = 0f;
+                transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
                 break;
             case CurrentStance.SearchingPlayer:
+                transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
                 searchingTime += Time.deltaTime;
                 runningWaitTime += Time.deltaTime;
                 targetObject.transform.position = playerSearchPosition;
@@ -300,6 +301,7 @@ public class MovingEnemy : MonoBehaviour {
                 }
                 break;
             case CurrentStance.WaitingToMove:
+                transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
                 walking = false;
                 em.GetComponent<SpriteRenderer>().enabled = false;
                 qm.GetComponent<SpriteRenderer>().enabled = false;
