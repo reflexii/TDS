@@ -49,6 +49,7 @@ public class MovingEnemy : MonoBehaviour {
     private GameObject qm;
     private GameObject em;
     private GameObject symbolObject;
+    private bool dead = false;
 
     //corpses
     public GameObject greenCorpse1;
@@ -191,6 +192,7 @@ public class MovingEnemy : MonoBehaviour {
 
     public void Die()
     {
+        dead = true;
         //Corpse
         RandomizeAndSpawnCorpse();
         //Blood
@@ -219,12 +221,12 @@ public class MovingEnemy : MonoBehaviour {
         //blood
         Instantiate<GameObject>(dieBloodSmallPrefab, transform.position, Quaternion.identity);
         //sound
-        
-        if (enemyHealth <= 0f)
+
+        enemyHealth -= damageValue;
+
+        if (enemyHealth <= 0f && !dead)
         {
             Die();
-        } else {
-            enemyHealth -= damageValue;
         }
 
     }

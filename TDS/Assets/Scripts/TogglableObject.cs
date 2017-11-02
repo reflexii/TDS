@@ -13,13 +13,29 @@ public class TogglableObject : MonoBehaviour {
     private float runningGasTime = 0f;
     public float gasInterval = 0.2f;
     public int gasDamage = 2;
+    private bool toggleDoorAnimation = false;
+    private Animator animator;
 
 
 
 
     private void Awake() {
+        if (objectType == ObjectType.Door || objectType == ObjectType.Laser) {
+            animator = GetComponent<Animator>();
+        }
         damageGasList = new List<GameObject>();
+
+        if (objectType == ObjectType.Door) {
+            animator.SetBool("StartToggle", toggled);
+
+            if (toggled) {
+                GetComponent<BoxCollider2D>().enabled = false;
+            } else {
+                GetComponent<BoxCollider2D>().enabled = true;
+            }
+        }
     }
+
     private void Update()
     {
         switch(objectType)
@@ -27,13 +43,13 @@ public class TogglableObject : MonoBehaviour {
             case ObjectType.Laser:
                 if (toggled)
                 {
-                    GetComponent<Animator>().enabled = true;
+                    animator.enabled = true;
                     transform.gameObject.layer = LayerMask.NameToLayer("Wall");
                     GetComponent<BoxCollider2D>().enabled = true;
                     
                 } else
                 {
-                    GetComponent<Animator>().enabled = false;
+                    animator.enabled = false;
                     GetComponent<BoxCollider2D>().enabled = false;
                     GetComponent<SpriteRenderer>().sprite = offImage;
                     transform.gameObject.layer = LayerMask.NameToLayer("Default");
@@ -63,23 +79,30 @@ public class TogglableObject : MonoBehaviour {
                 }
                 break;
             case ObjectType.Door:
-                if (toggled) {
-                    
-                } else {
 
+                animator.SetBool("doorToggled", toggleDoorAnimation);
+
+                if (toggled) {
+                    toggleDoorAnimation = true;
+                    GetComponent<BoxCollider2D>().enabled = false;
+                } else {
+                    toggleDoorAnimation = false;
+                    if (GetComponent<BoxCollider2D>().size.y >= 2f) {
+                        GetComponent<BoxCollider2D>().enabled = true;
+                    }  
                 }
                 break;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") && objectType == ObjectType.Gas) {
             damageGasList.Add(collision.gameObject);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") && objectType == ObjectType.Gas) {
             damageGasList.Remove(collision.gameObject);
         }
     }
