@@ -46,10 +46,8 @@ public class Grenade : MonoBehaviour {
         
 	}
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
-        {
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall")) {
             ExplodeGrenade();
         }
     }

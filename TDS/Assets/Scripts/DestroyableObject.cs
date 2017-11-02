@@ -5,6 +5,7 @@ using UnityEngine;
 public class DestroyableObject : MonoBehaviour {
 
     public GameObject ps;
+    public bool breakableWithBullets = false;
 
     public void DestroyWall()
     {

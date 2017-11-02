@@ -356,6 +356,7 @@ public class PlayerMovement : MonoBehaviour {
         } else if (Input.GetKeyDown(KeyCode.Mouse0) && !hasGun && knifeTimer >= 0.5f || Input.GetKeyDown(KeyCode.Mouse0) && hasGun && knifeTimer >= 0.5f && gunDeactivated)
         {
             knife.KnifeEnemiesInRange(knifeDamage);
+            knife.DestroyObjectsInRange();
             knifeTimer = 0f;
             swingKnife = true;
             Debug.Log("Knife!");

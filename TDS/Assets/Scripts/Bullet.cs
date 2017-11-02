@@ -43,6 +43,13 @@ public class Bullet : MonoBehaviour {
             gameObject.SetActive(false);
         }
 
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall") && collision.gameObject.tag == "Destructable" && collision.gameObject.GetComponent<DestroyableObject>() != null) {
+            if (collision.gameObject.GetComponent<DestroyableObject>().breakableWithBullets) {
+                gameObject.SetActive(false);
+                collision.gameObject.GetComponent<DestroyableObject>().DestroyWall();
+            }
+        }
+
         if (playerBullet && collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             if (collision.gameObject.GetComponent<MovingEnemy>().enemyHealth > 0) {
