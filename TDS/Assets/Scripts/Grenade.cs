@@ -11,9 +11,22 @@ public class Grenade : MonoBehaviour {
     public float grenadeDamage = 5;
     public GameObject explosionPrefab;
 
+    private Vector3 rotationVector;
+
     private float runningGrenadeTime = 0f;
-	
-	void Update () {
+
+
+    private void Awake() {
+        int randomized = Random.Range(0, 2);
+
+        if (randomized == 0) {
+            rotationVector = Vector3.forward;
+        } else {
+            rotationVector = Vector3.back;
+        }
+    }
+
+    void Update () {
         runningGrenadeTime += Time.deltaTime;
         grenadeSpeed -= Time.deltaTime * grenadeVelocityReductionSpeed;
 
@@ -21,6 +34,8 @@ public class Grenade : MonoBehaviour {
         {
             grenadeSpeed = 0f;
         }
+
+        transform.Rotate(rotationVector * grenadeSpeed * Time.deltaTime * 100f);
 
         gameObject.transform.position += grenadeMoveDirection.normalized * Time.deltaTime * grenadeSpeed;
 
@@ -55,8 +70,8 @@ public class Grenade : MonoBehaviour {
         }
 
         //Explode enemies, in two different radiuses, when enemy is close he takes damage from all two
-        Collider2D[] firstExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 1.7f, 1 << LayerMask.NameToLayer("Enemy"));
-        Collider2D[] secondExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 3f, 1 << LayerMask.NameToLayer("Enemy"));
+        Collider2D[] firstExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 2f, 1 << LayerMask.NameToLayer("Enemy"));
+        Collider2D[] secondExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 4f, 1 << LayerMask.NameToLayer("Enemy"));
 
         if (firstExplosionRadius != null)
         {

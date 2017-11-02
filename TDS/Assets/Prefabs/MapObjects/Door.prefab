@@ -25,8 +25,6 @@ GameObject:
   - component: {fileID: 50001755930848958}
   - component: {fileID: 114362831651080624}
   - component: {fileID: 114175346583232710}
-  - component: {fileID: 114896807405062630}
-  - component: {fileID: 114887167877811084}
   m_Layer: 10
   m_Name: BlastDoor (1)
   m_TagString: Untagged
@@ -407,37 +405,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   uniqueID: 8208865789502257898
-  updateError: 1
-  checkTime: 0.2
---- !u!114 &114887167877811084
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1152138017688086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d749f04cbe5c97547a979d58bc826caa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toggled: 1
-  objectType: 2
-  offImage: {fileID: 21300000, guid: cb268243cb10d42439bebb35246849a0, type: 3}
-  gasInterval: 0.2
-  gasDamage: 2
---- !u!114 &114896807405062630
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1152138017688086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6af138a529b4ec340aa2fe8701954264, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  uniqueID: 7756812716330786513
   updateError: 1
   checkTime: 0.2
 --- !u!212 &212196924465623716
