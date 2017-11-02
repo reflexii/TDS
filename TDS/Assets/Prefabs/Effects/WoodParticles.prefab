@@ -9,44 +9,44 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1145668396007538}
+  m_RootGameObject: {fileID: 1391731309425312}
   m_IsPrefabParent: 1
---- !u!1 &1145668396007538
+--- !u!1 &1391731309425312
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4014715113229164}
-  - component: {fileID: 198500540097076038}
-  - component: {fileID: 199214972813555894}
+  - component: {fileID: 4542756636586092}
+  - component: {fileID: 198161331305363152}
+  - component: {fileID: 199697153108461242}
   m_Layer: 0
-  m_Name: Shards
+  m_Name: WoodParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4014715113229164
+--- !u!4 &4542756636586092
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1145668396007538}
+  m_GameObject: {fileID: 1391731309425312}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9, y: -2, z: 0}
+  m_LocalPosition: {x: -10, y: -10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!198 &198500540097076038
+--- !u!198 &198161331305363152
 ParticleSystem:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1145668396007538}
+  m_GameObject: {fileID: 1391731309425312}
   serializedVersion: 5
   lengthInSec: 0.1
   simulationSpeed: 1
@@ -101,7 +101,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 180649532
+  randomSeed: -408064232
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -497,7 +497,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 10
+    maxNumParticles: 15
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -661,7 +661,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 200
+      scalar: 300
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1145,7 +1145,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     tilesX: 1
-    tilesY: 4
+    tilesY: 8
     animationType: 1
     rowIndex: 0
     cycles: 1
@@ -3358,13 +3358,13 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!199 &199214972813555894
+--- !u!199 &199697153108461242
 ParticleSystemRenderer:
   serializedVersion: 4
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1145668396007538}
+  m_GameObject: {fileID: 1391731309425312}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -3373,7 +3373,7 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: 059888334ebd3ff44b196939872d9df0, type: 2}
+  - {fileID: 2100000, guid: 91e78760e331a2e4fa0340f8b059cc68, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
