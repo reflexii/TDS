@@ -26,7 +26,7 @@ public class Rotator : MonoBehaviour {
 
 	void Start () {
 
-        laser = transform.Find("Laser").GetComponent<SecurityCam>();
+        laser = transform.Find("LaserDetect").GetComponent<SecurityCam>();
         rotateSpeed = rotateAngle / rotateTime;
 
 		if (rightFirst)

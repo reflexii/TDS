@@ -39,11 +39,12 @@ public class Bullet : MonoBehaviour {
 	}
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall")) {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall") && collision.transform.tag != "SeeThroughItem") {
             gameObject.SetActive(false);
         }
 
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall") && collision.gameObject.tag == "Destructable" && collision.gameObject.GetComponent<DestroyableObject>() != null) {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall") && collision.gameObject.tag == "Destructable" && collision.gameObject.GetComponent<DestroyableObject>() != null ||
+            collision.gameObject.layer == LayerMask.NameToLayer("Wall") && collision.gameObject.tag == "SeeThroughDestructable" && collision.gameObject.GetComponent<DestroyableObject>() != null) {
             if (collision.gameObject.GetComponent<DestroyableObject>().breakableWithBullets) {
                 gameObject.SetActive(false);
                 collision.gameObject.GetComponent<DestroyableObject>().DestroyWall();

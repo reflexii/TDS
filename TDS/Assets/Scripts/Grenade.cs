@@ -47,7 +47,7 @@ public class Grenade : MonoBehaviour {
 	}
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall")) {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall") && collision.transform.tag != "SeeThroughItem") {
             ExplodeGrenade();
         }
     }
@@ -60,8 +60,9 @@ public class Grenade : MonoBehaviour {
         {
             for (int i = 0; i < colliders.Length; i++)
             {
-                if (colliders[i] != null && colliders[i].gameObject.tag == "Destructable")
+                if (colliders[i] != null)
                 {
+                    if (colliders[i].gameObject.tag == "Destructable" || colliders[i].gameObject.tag == "SeeThroughDestructable")
                     colliders[i].gameObject.GetComponent<DestroyableObject>().DestroyWall();
                 }
             }

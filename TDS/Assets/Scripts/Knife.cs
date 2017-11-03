@@ -6,6 +6,7 @@ public class Knife : MonoBehaviour {
 
     public List<GameObject> knifableEnemies;
     public List<GameObject> destroyableObjects;
+    public GameObject[] destroyObjects;
 
     private void Awake()
     {
@@ -20,7 +21,8 @@ public class Knife : MonoBehaviour {
             knifableEnemies.Add(collision.gameObject);
         }
 
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall") && collision.gameObject.tag == "Destructable" && collision.gameObject.GetComponent<DestroyableObject>() != null) {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall") && collision.gameObject.tag == "Destructable" && collision.gameObject.GetComponent<DestroyableObject>() != null ||
+            collision.gameObject.layer == LayerMask.NameToLayer("Wall") && collision.gameObject.tag == "SeeThroughDestructable" && collision.gameObject.GetComponent<DestroyableObject>() != null) {
             if (collision.gameObject.GetComponent<DestroyableObject>().breakableWithBullets) {
                 destroyableObjects.Add(collision.gameObject);
                 Debug.Log("Glass added");
@@ -39,7 +41,8 @@ public class Knife : MonoBehaviour {
             knifableEnemies.Remove(collision.gameObject);
         }
 
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall") && collision.gameObject.tag == "Destructable" && collision.gameObject.GetComponent<DestroyableObject>() != null) {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall") && collision.gameObject.tag == "Destructable" && collision.gameObject.GetComponent<DestroyableObject>() != null ||
+            collision.gameObject.layer == LayerMask.NameToLayer("Wall") && collision.gameObject.tag == "SeeThroughDestructable" && collision.gameObject.GetComponent<DestroyableObject>() != null) {
             if (collision.gameObject.GetComponent<DestroyableObject>().breakableWithBullets) {
                 destroyableObjects.Remove(collision.gameObject);
                 Debug.Log("Glass removed");
@@ -53,13 +56,16 @@ public class Knife : MonoBehaviour {
 
     public void DestroyObjectsInRange() {
         if (destroyableObjects != null) {
-            if (destroyableObjects.Count >= 1) {
-                for (int i = 0; i < destroyableObjects.Count; i++) {
-                    Debug.Log(destroyableObjects.Count);
-                    destroyableObjects[i].GetComponent<DestroyableObject>().DestroyWall();
-                }
+            destroyObjects = new GameObject[destroyableObjects.Count];
+            for (int i = 0; i < destroyableObjects.Count; i++) {
+                destroyObjects[i] = destroyableObjects[i];
+            }
+
+            for (int j = 0; j < destroyObjects.Length; j++) {
+                destroyObjects[j].GetComponent<DestroyableObject>().DestroyWall();
             }
         }
+
     }
 
     public void KnifeEnemiesInRange(float damageValue)

@@ -44,11 +44,26 @@ public class PlayerSpotter : MonoBehaviour {
     }
 
     public bool IsPlayerVisible() {
+
+        RaycastHit2D[] hits = Physics2D.RaycastAll(enemy.transform.position, gameManager.Player.transform.position - enemy.transform.position, Vector3.Distance(gameManager.Player.transform.position, enemy.transform.position));
+        bool returnValue = true;
+        if (hits != null) {
+            for (int i = 0; i < hits.Length; i++) {
+                if (hits[i].transform.tag != "SeeThroughItem" && hits[i].transform.tag != "SeeThroughDestructable" && hits[i].transform.gameObject.layer == LayerMask.NameToLayer("Wall")) {
+                    returnValue = false;
+                }
+            }
+        }
+        return returnValue;
+
+        /*
         if (Physics2D.Raycast(enemy.transform.position, gameManager.Player.transform.position - enemy.transform.position, Vector3.Distance(gameManager.Player.transform.position, enemy.transform.position), 1 << LayerMask.NameToLayer("Wall"))) {
             return false;
         } else {
             return true;
         }
+        */
+
     }
 
     /*

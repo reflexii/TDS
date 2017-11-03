@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114218227746016534}
   m_Layer: 10
   m_Name: Glass
-  m_TagString: Destructable
+  m_TagString: SeeThroughDestructable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ps: {fileID: 1145668396007538, guid: 0a6cb8a1ce90c2d4aa582cd89ff81ef8, type: 2}
+  breakableWithBullets: 1
 --- !u!212 &212150792857420674
 SpriteRenderer:
   m_ObjectHideFlags: 1
