@@ -61,7 +61,10 @@ public class TogglableObject : MonoBehaviour {
                     runningGasTime += Time.deltaTime;
                     GetComponent<BoxCollider2D>().enabled = true;
                     for (int i = 0; i < transform.childCount; i++) {
-                        transform.GetChild(i).gameObject.GetComponent<ParticleSystem>().Play();
+                        if (transform.GetChild(i).gameObject.GetComponent<ParticleSystem>().isStopped) {
+                            transform.GetChild(i).gameObject.GetComponent<ParticleSystem>().Play();
+                        }
+                        
                     }
 
                     if (runningGasTime >= gasInterval && damageGasList.Count >= 1) {
@@ -74,7 +77,10 @@ public class TogglableObject : MonoBehaviour {
                 {
                     GetComponent<BoxCollider2D>().enabled = false;
                     for (int i = 0; i < transform.childCount; i++) {
-                        transform.GetChild(i).gameObject.GetComponent<ParticleSystem>().Stop();
+                        if (transform.GetChild(i).gameObject.GetComponent<ParticleSystem>().isPlaying) {
+                            transform.GetChild(i).gameObject.GetComponent<ParticleSystem>().Stop();
+                        }
+                        
                     }
                 }
                 break;

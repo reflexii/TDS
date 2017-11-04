@@ -246,6 +246,7 @@ public class MovingEnemy : MonoBehaviour {
                 turnIndex = 0;
                 runningWaitTime = 0f;
                 transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+                startSearching = false;
                 break;
             case CurrentStance.SearchingPlayer:
                 transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
@@ -275,6 +276,7 @@ public class MovingEnemy : MonoBehaviour {
                 break;
             case CurrentStance.Shooting:
                 walking = false;
+                startSearching = false;
                 searchingTime = 0f;
                 runningWaitTime = 0f;
                 runningTurnTime = 0f;
@@ -306,6 +308,7 @@ public class MovingEnemy : MonoBehaviour {
             case CurrentStance.WaitingToMove:
                 transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
                 walking = false;
+                startSearching = false;
                 em.GetComponent<SpriteRenderer>().enabled = false;
                 qm.GetComponent<SpriteRenderer>().enabled = false;
                 runningWaitTime += Time.deltaTime;
