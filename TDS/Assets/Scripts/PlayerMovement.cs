@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour {
     public GameObject gun;
 
     //Grenade
-    private float howFastGrenadeSpeedIncreases = 3f;
+    public float howFastGrenadeSpeedIncreases = 3f;
     private float increasedGrenadeSpeed = 0f;
     public GameObject grenadePrefab;
     public int startGrenadeAmount;
@@ -56,13 +56,25 @@ public class PlayerMovement : MonoBehaviour {
     private int weaponUsed;
     private bool swingKnife = false;
 
+    //grenadebar
+    private Image grenadeBar;
+    private Image grenadeBar_bg;
+    private bool didOnce = false;
+
     private void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         magazineText = GameObject.Find("MagazineText").GetComponent<Text>();
         grenadeText = GameObject.Find("GrenadeText").GetComponent<Text>();
         currentGunImage = GameObject.Find("GunImage").GetComponent<Image>();
         knife = transform.Find("KnifeSwingCollider").gameObject.GetComponent<Knife>();
+        grenadeBar = GameObject.Find("grenadeBar").GetComponent<Image>();
+        grenadeBar_bg = GameObject.Find("grenadeBar_bg").GetComponent<Image>();
         animator = GetComponent<Animator>();
+
+        grenadeBar.fillAmount = 0f;
+        grenadeBar_bg.fillAmount = 0f;
+        grenadeBar.enabled = false;
+        grenadeBar_bg.enabled = false;
 
         if (hasGun)
         {
@@ -162,13 +174,28 @@ public class PlayerMovement : MonoBehaviour {
 
     void Grenade()
     {
+
         if (Input.GetKey(KeyCode.G) && currentGrenadeAmount > 0)
         {
+
+            Vector3 pos = gameManager.mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position) + new Vector3(0f, 45f, 0f);
+            grenadeBar.transform.position = pos;
+            grenadeBar_bg.transform.position = pos;
+
             increasedGrenadeSpeed += Time.deltaTime * howFastGrenadeSpeedIncreases;
             if (increasedGrenadeSpeed >= 6f)
             {
                 increasedGrenadeSpeed = 6f;
             }
+
+            if (!didOnce) {
+                
+                grenadeBar.enabled = true;
+                grenadeBar_bg.enabled = true;
+                didOnce = true;
+            }
+
+            grenadeBar.fillAmount = (increasedGrenadeSpeed/6f);
         }
         if (Input.GetKeyUp(KeyCode.G) && currentGrenadeAmount > 0)
         {
@@ -187,6 +214,10 @@ public class PlayerMovement : MonoBehaviour {
             currentGrenadeAmount--;
             grenadeText.text = "" + currentGrenadeAmount;
             increasedGrenadeSpeed = 0f;
+
+            grenadeBar.enabled = false;
+            grenadeBar_bg.enabled = false;
+            didOnce = false;
         }
     }
 

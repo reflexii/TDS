@@ -8,8 +8,9 @@ public class DialogManager : MonoBehaviour {
 
     public FileInfo sourceFile;
     public StreamReader reader;
-    public string text;
     public List<string> dialogueList;
+
+    private string text;
 
     private void Awake() {
         dialogueList = new List<string>();
