@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4864423201800424}
   - component: {fileID: 198105216792893070}
-  - component: {fileID: 114292411224914218}
   - component: {fileID: 199051334872670508}
   m_Layer: 0
   m_Name: PoisonParticlesSphere
@@ -42,17 +41,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 270, y: 0, z: 0}
---- !u!114 &114292411224914218
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1734456630164542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d83e608085f29bc4ca820c84ceb0a929, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!198 &198105216792893070
 ParticleSystem:
   m_ObjectHideFlags: 1

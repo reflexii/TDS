@@ -63,6 +63,7 @@ public class TogglableObject : MonoBehaviour {
                     for (int i = 0; i < transform.childCount; i++) {
                         if (transform.GetChild(i).gameObject.GetComponent<ParticleSystem>().isStopped) {
                             transform.GetChild(i).gameObject.GetComponent<ParticleSystem>().Play();
+                            Debug.Log("Play");
                         }
                         
                     }
@@ -79,6 +80,7 @@ public class TogglableObject : MonoBehaviour {
                     for (int i = 0; i < transform.childCount; i++) {
                         if (transform.GetChild(i).gameObject.GetComponent<ParticleSystem>().isPlaying) {
                             transform.GetChild(i).gameObject.GetComponent<ParticleSystem>().Stop();
+                            Debug.Log("Stop");
                         }
                         
                     }

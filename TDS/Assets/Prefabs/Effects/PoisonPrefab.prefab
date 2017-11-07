@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4161328766073648}
   - component: {fileID: 198378710168736800}
-  - component: {fileID: 114724255433076582}
   - component: {fileID: 199057434282722710}
   m_Layer: 0
   m_Name: PoisonParticles
@@ -38,7 +37,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4806610640939258}
   - component: {fileID: 198777314269545128}
-  - component: {fileID: 114346810476138622}
   - component: {fileID: 199407796838073268}
   m_Layer: 0
   m_Name: PoisonParticlesSphere
@@ -165,28 +163,8 @@ MonoBehaviour:
   toggled: 1
   objectType: 1
   offImage: {fileID: 0}
---- !u!114 &114346810476138622
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1405323766745108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d83e608085f29bc4ca820c84ceb0a929, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114724255433076582
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1402760560114110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d83e608085f29bc4ca820c84ceb0a929, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  gasInterval: 0.2
+  gasDamage: 2
 --- !u!198 &198378710168736800
 ParticleSystem:
   m_ObjectHideFlags: 1
