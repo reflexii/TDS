@@ -61,6 +61,12 @@ public class PlayerMovement : MonoBehaviour {
     private Image grenadeBar_bg;
     private bool didOnce = false;
 
+    //dialogue
+    private float runningDialogueTimer = 0f;
+    public float dialogueTime;
+    private bool dialogueTogglable = false;
+    private GameObject togglableDialogueObject;
+
     private void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         magazineText = GameObject.Find("MagazineText").GetComponent<Text>();
@@ -90,6 +96,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void Update () {
+
         Movement();
         MouseLook();
         WallCheck();
@@ -303,6 +310,11 @@ public class PlayerMovement : MonoBehaviour {
             togglable = true;
             togglableButton = collision.gameObject;
         }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Dialogue")) {
+            dialogueTogglable = true;
+            togglableDialogueObject = collision.gameObject;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -315,6 +327,10 @@ public class PlayerMovement : MonoBehaviour {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Button"))
         {
             togglable = false;
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Dialogue")) {
+            dialogueTogglable = false;
         }
     }
 
@@ -375,6 +391,10 @@ public class PlayerMovement : MonoBehaviour {
             Debug.Log("Use");
             togglableButton.GetComponent<Button>().Toggle();
         }
+
+        if (Input.GetKeyDown(KeyCode.E) && dialogueTogglable) {
+            togglableDialogueObject.gameObject.GetComponent<DialogueToggle>().TriggerDialogue();
+        }
     }
 
     void Shooting() {
@@ -382,9 +402,18 @@ public class PlayerMovement : MonoBehaviour {
             swingKnife = false;
         }
         knifeTimer += Time.deltaTime;
-        if (Input.GetKey(KeyCode.Mouse0) && hasGun && !gunDeactivated) {
+
+        if (gameManager.GetComponent<DialogManager>().DialogueActive()) {
+            runningDialogueTimer += Time.deltaTime;
+            if (Input.GetKeyUp(KeyCode.Mouse0) && runningDialogueTimer >= dialogueTime) {
+                gameManager.GetComponent<DialogManager>().ToggleDialogueUIOff();
+                runningDialogueTimer = 0f;
+            }
+        }
+        else if (Input.GetKey(KeyCode.Mouse0) && hasGun && !gunDeactivated && !gameManager.GetComponent<DialogManager>().DialogueActive()) {
             gun.GetComponent<Gun>().Shoot();
-        } else if (Input.GetKeyDown(KeyCode.Mouse0) && !hasGun && knifeTimer >= 0.5f || Input.GetKeyDown(KeyCode.Mouse0) && hasGun && knifeTimer >= 0.5f && gunDeactivated)
+        } else if (Input.GetKeyDown(KeyCode.Mouse0) && !hasGun && knifeTimer >= 0.5f && !gameManager.GetComponent<DialogManager>().DialogueActive() || 
+            Input.GetKeyDown(KeyCode.Mouse0) && hasGun && knifeTimer >= 0.5f && gunDeactivated && !gameManager.GetComponent<DialogManager>().DialogueActive())
         {
             knife.KnifeEnemiesInRange(knifeDamage);
             knife.DestroyObjectsInRange();
@@ -392,7 +421,7 @@ public class PlayerMovement : MonoBehaviour {
             swingKnife = true;
             Debug.Log("Knife!");
         }
-        if (Input.GetKeyUp(KeyCode.Mouse0) && hasGun && !gunDeactivated) {
+        if (Input.GetKeyUp(KeyCode.Mouse0) && hasGun && !gunDeactivated && !gameManager.GetComponent<DialogManager>().DialogueActive()) {
             transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
         }
     }
