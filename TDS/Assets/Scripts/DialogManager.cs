@@ -9,11 +9,15 @@ public class DialogManager : MonoBehaviour {
     public FileInfo sourceFile;
     public StreamReader reader;
     public List<string> dialogueList;
+    public bool dialogueIsActive = false;
 
-    private string text;
+    private GameObject dialogueParent;
+    private string text = "";
 
     private void Awake() {
         dialogueList = new List<string>();
+        dialogueParent = GameObject.Find("Dialogue");
+        dialogueParent.SetActive(false);
         sourceFile = new FileInfo("Assets/Text/Dialogue.txt");
         reader = sourceFile.OpenText();
 
@@ -23,7 +27,6 @@ public class DialogManager : MonoBehaviour {
             if (text != null) {
                 dialogueList.Add(text);
             }
-            
         }
     }
 
@@ -35,5 +38,23 @@ public class DialogManager : MonoBehaviour {
             }
         }
         return "ERROR: CANT FIND THE STRING.";
+    }
+
+    public void ToggleDialogueUIOn() {
+        dialogueParent.SetActive(true);
+        dialogueIsActive = true;
+    }
+
+    public void ToggleDialogueUIOff() {
+        dialogueIsActive = false;
+        dialogueParent.SetActive(false);
+    }
+
+    public bool DialogueActive() {
+        if (dialogueIsActive) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

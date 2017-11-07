@@ -25,7 +25,6 @@ public class Knife : MonoBehaviour {
             collision.gameObject.layer == LayerMask.NameToLayer("Wall") && collision.gameObject.tag == "SeeThroughDestructable" && collision.gameObject.GetComponent<DestroyableObject>() != null) {
             if (collision.gameObject.GetComponent<DestroyableObject>().breakableWithBullets) {
                 destroyableObjects.Add(collision.gameObject);
-                Debug.Log("Glass added");
             }
         }
 
@@ -45,7 +44,6 @@ public class Knife : MonoBehaviour {
             collision.gameObject.layer == LayerMask.NameToLayer("Wall") && collision.gameObject.tag == "SeeThroughDestructable" && collision.gameObject.GetComponent<DestroyableObject>() != null) {
             if (collision.gameObject.GetComponent<DestroyableObject>().breakableWithBullets) {
                 destroyableObjects.Remove(collision.gameObject);
-                Debug.Log("Glass removed");
             }
         }
 
