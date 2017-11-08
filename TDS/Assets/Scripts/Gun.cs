@@ -53,7 +53,12 @@ public class Gun : MonoBehaviour {
     public float throwSpeed;
     private float originalThrowSpeed;
 
-	void Awake () {
+    private Camera mainCamera;
+    private GameObject player;
+
+    void Awake () {
+        mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        player = GameObject.Find("Player");
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         pool = gameManager.GetComponent<ObjectPooler>();
         magazineText = GameObject.Find("MagazineText").GetComponent<Text>();
@@ -160,16 +165,16 @@ public class Gun : MonoBehaviour {
         {
 
             // convert mouse position into world coordinates
-            Vector2 mouseScreenPosition = gameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mouseScreenPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
             // get direction you want to point at
             if (playerOwned)
             {
-                shootingDirection = (mouseScreenPosition - (Vector2)gameManager.Player.transform.position).normalized;
+                shootingDirection = (mouseScreenPosition - (Vector2)player.transform.position).normalized;
             }
             else
             {
-                shootingDirection = (gameManager.Player.transform.position - transform.parent.position).normalized;
+                shootingDirection = (player.transform.position - transform.parent.position).normalized;
             }
 
             switch (weaponInUse)

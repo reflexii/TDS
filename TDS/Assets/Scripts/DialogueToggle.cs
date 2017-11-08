@@ -11,25 +11,24 @@ public class DialogueToggle : MonoBehaviour {
     private Text dialogueText;
 
     public string searchedCode = "";
+    public bool useOneByOne = false;
     public bool useToTrigger = false;
+    public float waitTimeInBetweenLetters = 0.02f;
 
-    private void Awake() {
+    private void Start() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        dialogueText = GameObject.Find("DialogueText").GetComponent<Text>();
+        dialogueText = gameManager.gameObject.GetComponent<DialogManager>().dialogueText.GetComponent<Text>();
     }
-
-    void Start () {
-		
-	}
-	
-	void Update () {
-
-	}
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (!didOnce && collision.gameObject.layer == LayerMask.NameToLayer("Player1") && !useToTrigger) {
             gameManager.gameObject.GetComponent<DialogManager>().ToggleDialogueUIOn();
-            dialogueText.text = gameManager.gameObject.GetComponent<DialogManager>().GetStringFromList(searchedCode);
+            if (!useOneByOne) {
+                dialogueText.text = gameManager.gameObject.GetComponent<DialogManager>().GetStringFromList(searchedCode);
+            } else {
+                StartCoroutine("OneCharacterAtATime", searchedCode);
+            }
+            
             didOnce = true;
         }   
     }
@@ -37,7 +36,25 @@ public class DialogueToggle : MonoBehaviour {
     public void TriggerDialogue() {
         if (useToTrigger) {
             gameManager.gameObject.GetComponent<DialogManager>().ToggleDialogueUIOn();
-            dialogueText.text = gameManager.gameObject.GetComponent<DialogManager>().GetStringFromList(searchedCode);
+            if (!useOneByOne) {
+                dialogueText.text = gameManager.gameObject.GetComponent<DialogManager>().GetStringFromList(searchedCode);
+            } else {
+                StartCoroutine("OneCharacterAtATime", searchedCode);
+                Debug.Log("started");
+            }
+            
         }
+    }
+
+    IEnumerator OneCharacterAtATime(string keyCode) {
+        string text = gameManager.gameObject.GetComponent<DialogManager>().GetStringFromList(keyCode);
+        char[] textOneByOne = text.ToCharArray();
+        dialogueText.text = "";
+
+        for (int i = 0; i < textOneByOne.Length; i++) {
+            dialogueText.text += textOneByOne[i];
+            yield return new WaitForSeconds(waitTimeInBetweenLetters);
+        }
+
     }
 }

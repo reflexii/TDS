@@ -29,13 +29,10 @@ public class ObjectPooler : MonoBehaviour {
         explosionParent = new GameObject();
         SpawnObjects();
 	}
-	
-	void Update () {
-		
-	}
 
     void SpawnObjects() {
         parent.name = "PooledObjects";
+        parent.AddComponent<DontDestroyOnLoad>();
         bulletParent.name = "Bullets";
         bulletParent.transform.parent = parent.transform;
         bulletBigParent.name = "BulletsBig";

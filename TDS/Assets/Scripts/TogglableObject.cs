@@ -10,6 +10,8 @@ public class TogglableObject : MonoBehaviour {
     public Sprite offImage;
 
     private List<GameObject> damageGasList;
+    private bool playerInGas = false;
+    private GameObject playerObject;
     private float runningGasTime = 0f;
     public float gasInterval = 0.2f;
     public int gasDamage = 2;
@@ -63,15 +65,22 @@ public class TogglableObject : MonoBehaviour {
                     for (int i = 0; i < transform.childCount; i++) {
                         if (transform.GetChild(i).gameObject.GetComponent<ParticleSystem>().isStopped) {
                             transform.GetChild(i).gameObject.GetComponent<ParticleSystem>().Play();
-                            Debug.Log("Play");
                         }
                         
                     }
 
-                    if (runningGasTime >= gasInterval && damageGasList.Count >= 1) {
-                        for (int i = 0; i < damageGasList.Count; i++) {
-                            damageGasList[i].GetComponent<MovingEnemy>().DamageEnemy(gasDamage);
+                    //damage enemies
+                    if (runningGasTime >= gasInterval) {
+                        if (damageGasList.Count >= 1) {
+                            for (int i = 0; i < damageGasList.Count; i++) {
+                                damageGasList[i].GetComponent<MovingEnemy>().DamageEnemy(gasDamage);
+                            }
                         }
+
+                        if (playerInGas) {
+                            playerObject.GetComponent<PlayerMovement>().TakeDamage(gasDamage);
+                        }
+
                         runningGasTime = 0f;
                     }
                 } else
@@ -80,7 +89,6 @@ public class TogglableObject : MonoBehaviour {
                     for (int i = 0; i < transform.childCount; i++) {
                         if (transform.GetChild(i).gameObject.GetComponent<ParticleSystem>().isPlaying) {
                             transform.GetChild(i).gameObject.GetComponent<ParticleSystem>().Stop();
-                            Debug.Log("Stop");
                         }
                         
                     }
@@ -107,11 +115,18 @@ public class TogglableObject : MonoBehaviour {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") && objectType == ObjectType.Gas) {
             damageGasList.Add(collision.gameObject);
         }
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player1")) {
+            playerInGas = true;
+            playerObject = collision.gameObject;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") && objectType == ObjectType.Gas) {
             damageGasList.Remove(collision.gameObject);
+        }
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player1")) {
+            playerInGas = false;
         }
     }
 }

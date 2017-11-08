@@ -6,11 +6,11 @@ public class PlayerSpotter : MonoBehaviour {
 
     public GameObject enemy;
 
-    private GameManager gameManager;
     private bool isPlayerVisible = false;
+    private GameObject player;
 
     private void Awake() {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        player = GameObject.Find("Player");
     }
 
     private void OnTriggerStay2D(Collider2D collision) {
@@ -37,7 +37,7 @@ public class PlayerSpotter : MonoBehaviour {
             if (enemy.GetComponent<MovingEnemy>().whatEnemyIsDoing == MovingEnemy.CurrentStance.Shooting)
             {
                 enemy.GetComponent<MovingEnemy>().whatEnemyIsDoing = MovingEnemy.CurrentStance.SearchingPlayer;
-                enemy.GetComponent<MovingEnemy>().playerSearchPosition = gameManager.Player.transform.position;
+                enemy.GetComponent<MovingEnemy>().playerSearchPosition = player.transform.position;
             }        
         }
         
@@ -45,7 +45,7 @@ public class PlayerSpotter : MonoBehaviour {
 
     public bool IsPlayerVisible() {
 
-        RaycastHit2D[] hits = Physics2D.RaycastAll(enemy.transform.position, gameManager.Player.transform.position - enemy.transform.position, Vector3.Distance(gameManager.Player.transform.position, enemy.transform.position));
+        RaycastHit2D[] hits = Physics2D.RaycastAll(enemy.transform.position, player.transform.position - enemy.transform.position, Vector3.Distance(player.transform.position, enemy.transform.position));
         bool returnValue = true;
         if (hits != null) {
             for (int i = 0; i < hits.Length; i++) {

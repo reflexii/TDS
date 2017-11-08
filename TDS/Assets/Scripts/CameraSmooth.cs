@@ -16,8 +16,10 @@ public class CameraSmooth : MonoBehaviour {
     private Vector3 maxBounds;
     private float halfHeight;
     private float halfWidth;
+    private Camera mainCamera;
 
     private void Start() {
+        mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         boundsBox = GameObject.Find("Bounds");
 
         //keep camera inside the map only if possible
@@ -37,7 +39,7 @@ public class CameraSmooth : MonoBehaviour {
         if (smooth) {
             transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
         } else if (smoothAimZoom) {
-            Vector3 mouseScreenPosition = gameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 mouseScreenPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
             transform.position = Vector3.Lerp(objectToLookAt.position, mouseScreenPosition + offset, 0.25f);
         }

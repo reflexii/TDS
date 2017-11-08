@@ -61,12 +61,15 @@ public class MovingEnemy : MonoBehaviour {
     public GameObject redCorpse3;
     public GameObject redCorpse4;
 
+    private GameObject player;
+
     
 
 
     private void Awake()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        player = GameObject.Find("Player");
         wayPointParentObject = GameObject.Find("WayPoints").transform;
         gun = transform.Find("Gun").gameObject;
         ai = GetComponent<AIPath>();
@@ -157,7 +160,7 @@ public class MovingEnemy : MonoBehaviour {
     void DropGun() {
         gun.GetComponent<Collider2D>().enabled = true;
 
-        Vector3 dir = (gameManager.Player.transform.position - transform.position).normalized;
+        Vector3 dir = (player.transform.position - transform.position).normalized;
         gun.GetComponent<Gun>().throwDirection = -dir;
         gun.GetComponent<Gun>().throwWeapon = true;
         //gun.transform.position += -dir * 0.3f;
@@ -297,7 +300,7 @@ public class MovingEnemy : MonoBehaviour {
                 }
                 if (shootingTime >= (timeBeforeShooting / 1.3f))
                 {
-                    transform.up = gameManager.Player.transform.position - transform.position;
+                    transform.up = player.transform.position - transform.position;
 
                 }
                 if (shootingTime >= timeBeforeShooting)

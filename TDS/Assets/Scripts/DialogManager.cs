@@ -10,13 +10,15 @@ public class DialogManager : MonoBehaviour {
     public StreamReader reader;
     public List<string> dialogueList;
     public bool dialogueIsActive = false;
+    public GameObject dialogueText;
 
-    private GameObject dialogueParent;
+    public GameObject dialogueParent;
     private string text = "";
 
-    private void Awake() {
+    private void Start() {
         dialogueList = new List<string>();
         dialogueParent = GameObject.Find("Dialogue");
+        dialogueText = GameObject.Find("DialogueText");
         dialogueParent.SetActive(false);
         sourceFile = new FileInfo("Assets/Text/Dialogue.txt");
         reader = sourceFile.OpenText();

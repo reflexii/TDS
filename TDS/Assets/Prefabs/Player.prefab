@@ -106,7 +106,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1378027616033768}
   m_LocalRotation: {x: 0, y: -0, z: 0, w: -1}
-  m_LocalPosition: {x: 4, y: -14.58, z: 0}
+  m_LocalPosition: {x: 1.74, y: -9.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 10}
   m_Children:
   - {fileID: 4144042886259914}
@@ -381,7 +381,12 @@ MonoBehaviour:
     type: 2}
   startGrenadeAmount: 4
   knifeDamage: 5
-  playerHealth: 100
+  playerHealth: 25
+  playerCurrentHealth: 0
+  dieBloodSmallPrefab: {fileID: 1619409838994012, guid: 8d180fdf17f847b47a1fedf172299a2a,
+    type: 2}
+  dieBloodBigPrefab: {fileID: 1318361135977644, guid: edd9b174de5c187458a41130acde0158,
+    type: 2}
   gunInRange: 0
   hasGun: 1
   gunDeactivated: 0

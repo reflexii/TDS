@@ -33,6 +33,10 @@ public class PlayerMovement : MonoBehaviour {
 
     //Health
     public float playerHealth = 100f;
+    public float playerCurrentHealth;
+    private bool dead = false;
+    public GameObject dieBloodSmallPrefab;
+    public GameObject dieBloodBigPrefab;
 
     //Gunswitching
     public bool gunInRange = false;
@@ -67,14 +71,18 @@ public class PlayerMovement : MonoBehaviour {
     private bool dialogueTogglable = false;
     private GameObject togglableDialogueObject;
 
+    private Camera mainCamera;
+
     private void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager.GetComponent<GameManager>().player = gameObject;
         magazineText = GameObject.Find("MagazineText").GetComponent<Text>();
         grenadeText = GameObject.Find("GrenadeText").GetComponent<Text>();
         currentGunImage = GameObject.Find("GunImage").GetComponent<Image>();
         knife = transform.Find("KnifeSwingCollider").gameObject.GetComponent<Knife>();
         grenadeBar = GameObject.Find("grenadeBar").GetComponent<Image>();
         grenadeBar_bg = GameObject.Find("grenadeBar_bg").GetComponent<Image>();
+        mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         animator = GetComponent<Animator>();
 
         grenadeBar.fillAmount = 0f;
@@ -92,20 +100,25 @@ public class PlayerMovement : MonoBehaviour {
 
         currentGrenadeAmount = startGrenadeAmount;
         grenadeText.text = "" + currentGrenadeAmount;
+        playerCurrentHealth = playerHealth;
 
     }
 
     void Update () {
 
-        Movement();
-        MouseLook();
-        WallCheck();
-        Shooting();
-        Grenade();
-        GunSwitching();
-        KnifeSprite();
-        Use();
-        Animations();
+        if (!dead) {
+            Movement();
+            MouseLook();
+            WallCheck();
+            Shooting();
+            Grenade();
+            GunSwitching();
+            KnifeSprite();
+            Use();
+            Animations();
+        }
+        
+        
 	}
 
     void Animations() {
@@ -185,7 +198,7 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetKey(KeyCode.G) && currentGrenadeAmount > 0)
         {
 
-            Vector3 pos = gameManager.mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position) + new Vector3(0f, 45f, 0f);
+            Vector3 pos = mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position) + new Vector3(0f, 45f, 0f);
             grenadeBar.transform.position = pos;
             grenadeBar_bg.transform.position = pos;
 
@@ -208,7 +221,7 @@ public class PlayerMovement : MonoBehaviour {
         {
 
             // convert mouse position into world coordinates
-            Vector2 mouseScreenPosition = gameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mouseScreenPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
             // get direction you want to point at
             Vector2 direction = (mouseScreenPosition - (Vector2)transform.position).normalized;
@@ -251,17 +264,47 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
+    public void TakeDamage(float amount) {
+        //blood
+        Instantiate<GameObject>(dieBloodSmallPrefab, transform.position, Quaternion.identity);
+        //sound
+
+        playerCurrentHealth -= amount;
+
+        if (playerCurrentHealth <= 0f && !dead) {
+            Die();
+        }
+    }
+
+    public void Die() {
+        dead = true;
+        //Corpse
+        //Blood
+        Instantiate<GameObject>(dieBloodBigPrefab, transform.position, Quaternion.identity);
+        Instantiate<GameObject>(dieBloodSmallPrefab, transform.position, Quaternion.identity);
+        if (hasGun) {
+            DropGun();
+        }
+        
+
+        //Sound
+
+        //Death
+        gameManager.playerIsDead = true;
+        gameObject.SetActive(false);
+    }
+
     void DropGun()
     {
         gun.SetActive(true);
         gunDeactivated = false;
         gun.GetComponent<Collider2D>().enabled = true;
         // convert mouse position into world coordinates
-        Vector2 mouseScreenPosition = gameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mouseScreenPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
         // get direction you want to point at
 
-        Vector3 dir = (mouseScreenPosition - (Vector2)gameManager.Player.transform.position).normalized;
+        Vector3 dir = (mouseScreenPosition - (Vector2)transform.position).normalized;
         gun.GetComponent<Gun>().throwDirection = dir;
         gun.GetComponent<Gun>().throwWeapon = true;
         gun.transform.position += -dir * 0.3f;
@@ -336,7 +379,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void MouseLook() {
         // convert mouse position into world coordinates
-        Vector2 mouseScreenPosition = gameManager.mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mouseScreenPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
         // get direction you want to point at
         Vector2 direction = (mouseScreenPosition - (Vector2)transform.position).normalized;

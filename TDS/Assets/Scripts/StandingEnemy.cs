@@ -19,11 +19,13 @@ public class StandingEnemy : MonoBehaviour {
 
     private float currentZAxis;
     private bool idle = true;
+    private GameObject player;
     
 
 
     private void Awake() {
         currentZAxis = transform.eulerAngles.z;
+        player = GameObject.Find("Player");
     }
 
     void Update () {
@@ -41,7 +43,7 @@ public class StandingEnemy : MonoBehaviour {
                 //Rotate
                 idle = false;
                 Quaternion rotation = Quaternion.LookRotation
-                (gameManager.Player.transform.position - transform.position, transform.TransformDirection(Vector3.up));
+                (player.transform.position - transform.position, transform.TransformDirection(Vector3.up));
                 transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
                 currentWaitTime = 0f;
             }

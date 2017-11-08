@@ -61,7 +61,9 @@ public class Bullet : MonoBehaviour {
         }
         if (!playerBullet && collision.gameObject.layer == LayerMask.NameToLayer("Player1"))
         {
-            //Player loses hp + death
+            if (collision.gameObject.GetComponent<PlayerMovement>().playerCurrentHealth > 0) {
+                collision.gameObject.GetComponent<PlayerMovement>().TakeDamage(bulletDamage);
+            }
         }
     }
 }
