@@ -193,7 +193,7 @@ public class Gun : MonoBehaviour {
                         float angle = Mathf.Atan2(pistolBullet.GetComponent<Bullet>().direction.y, pistolBullet.GetComponent<Bullet>().direction.x) * Mathf.Rad2Deg;
                         pistolBullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-                        pistolBullet.GetComponent<Bullet>().bulletSpeed = 20f;
+                        pistolBullet.GetComponent<Bullet>().bulletSpeed = 28f;
                         pistolBullet.GetComponent<Bullet>().bulletDamage = pistolDamage;
                         runningCooldown = 0f;
                         currentMagazineSize--;
@@ -229,8 +229,8 @@ public class Gun : MonoBehaviour {
                             float angle = Mathf.Atan2(shotgunPellet.GetComponent<Bullet>().direction.y, shotgunPellet.GetComponent<Bullet>().direction.x) * Mathf.Rad2Deg;
                             shotgunPellet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-                            float randomizeSpeed = Random.Range(-5f, 10f);
-                            shotgunPellet.GetComponent<Bullet>().bulletSpeed = 18f + randomizeSpeed;
+                            float randomizeSpeed = Random.Range(2f, 10f);
+                            shotgunPellet.GetComponent<Bullet>().bulletSpeed = 22f + randomizeSpeed;
                             shotgunPellet.GetComponent<Bullet>().bulletDamage = shotgunDamage;
                             runningCooldown = 0f;
 
@@ -266,7 +266,7 @@ public class Gun : MonoBehaviour {
                         float angle = Mathf.Atan2(smgBullet.GetComponent<Bullet>().direction.y, smgBullet.GetComponent<Bullet>().direction.x) * Mathf.Rad2Deg;
                         smgBullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-                        smgBullet.GetComponent<Bullet>().bulletSpeed = 24f;
+                        smgBullet.GetComponent<Bullet>().bulletSpeed = 28f;
                         smgBullet.GetComponent<Bullet>().bulletDamage = smgDamage;
                         runningCooldown = 0f;
                         currentMagazineSize--;
@@ -300,7 +300,7 @@ public class Gun : MonoBehaviour {
                         float angle = Mathf.Atan2(rifleBullet.GetComponent<Bullet>().direction.y, rifleBullet.GetComponent<Bullet>().direction.x) * Mathf.Rad2Deg;
                         rifleBullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-                        rifleBullet.GetComponent<Bullet>().bulletSpeed = 30f;
+                        rifleBullet.GetComponent<Bullet>().bulletSpeed = 32f;
                         rifleBullet.GetComponent<Bullet>().bulletDamage = rifleDamage;
                         runningCooldown = 0f;
                         currentMagazineSize--;
