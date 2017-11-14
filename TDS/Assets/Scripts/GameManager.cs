@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour {
     public GameObject player;
 
     private void Awake() {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
     }
 
     public void Update() {

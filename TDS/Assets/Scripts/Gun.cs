@@ -56,6 +56,10 @@ public class Gun : MonoBehaviour {
     private Camera mainCamera;
     private GameObject player;
 
+    //line
+    private LineRenderer lineRenderer;
+
+
     void Awake () {
         mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         player = GameObject.Find("Player");
@@ -64,6 +68,9 @@ public class Gun : MonoBehaviour {
         magazineText = GameObject.Find("MagazineText").GetComponent<Text>();
         currentGunImage = GameObject.Find("GunImage").GetComponent<Image>();
         sr = GetComponent<SpriteRenderer>();
+        lineRenderer = transform.Find("ShootingLine").gameObject.GetComponent<LineRenderer>();
+        Vector3[] initLaserPositions = new Vector3[2] { transform.position, transform.position };
+        lineRenderer.SetPositions(initLaserPositions);
         originalThrowSpeed = throwSpeed;
         WeaponPreparation();
 
@@ -71,6 +78,17 @@ public class Gun : MonoBehaviour {
         {
             SetUIImage();
         }
+    }
+
+    void ShootLaser(Vector3 from, Vector3 dir, float distance) {
+        RaycastHit2D hit = Physics2D.Raycast(from, dir, distance, 1 << LayerMask.NameToLayer("Wall"));
+        Vector3 endPos = from + (distance * dir);
+
+        if (hit.collider != null) {
+            endPos = hit.point;
+        }
+        lineRenderer.SetPosition(0, from);
+        lineRenderer.SetPosition(1, endPos);
     }
 
     void WeaponThrow()
@@ -127,11 +145,24 @@ public class Gun : MonoBehaviour {
         if (playerOwned)
         {
             SetUIImage();
+            lineRenderer.enabled = true;
+            //Laser
+            // convert mouse position into world coordinates
+            Vector2 mouseScreenPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+
+            // get direction you want to point at
+            Vector2 direction = (mouseScreenPosition - (Vector2)transform.position).normalized;
+
+            float dist = Vector3.Distance(bulletSpawnPoint.transform.position, mouseScreenPosition);
+
+            ShootLaser(bulletSpawnPoint.transform.position, direction, dist);
+        } else {
+            lineRenderer.enabled = false;
         }
 
         UpdateSprite();
         WeaponThrow();
-        
+
     }
 
     void UpdateSprite()
@@ -183,11 +214,6 @@ public class Gun : MonoBehaviour {
                     if (runningCooldown > pistolShootCooldown && currentMagazineSize > 0)
                     {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
-                        if (playerOwned) {
-                            bulletSpawnPoint.localPosition = new Vector3(0.916f, -0.08f, bulletSpawnPoint.localPosition.z);
-                        } else {
-                            bulletSpawnPoint.localPosition = new Vector3(0.089f, 1.001f, bulletSpawnPoint.localPosition.z);
-                        }
 
                         //GameObject pistolBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
                         GameObject pistolBullet = pool.GetPooledBullet();
@@ -217,11 +243,7 @@ public class Gun : MonoBehaviour {
                     if (runningCooldown > shotgunShootCooldown && currentMagazineSize > 0)
                     {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
-                        if (playerOwned) {
-                            bulletSpawnPoint.localPosition = new Vector3(1.205f, -0.286f, bulletSpawnPoint.localPosition.z);
-                        } else {
-                            bulletSpawnPoint.localPosition = new Vector3(0.2502f, 1.001f, bulletSpawnPoint.localPosition.z);
-                        }
+                       
                         for (int i = 0; i < 8; i++)
                         {
                             //GameObject shotgunPellet = Instantiate<GameObject>(bulletPrefabBig, bulletSpawnPoint.position, Quaternion.identity);
@@ -256,11 +278,7 @@ public class Gun : MonoBehaviour {
                     if (runningCooldown > smgShootCooldown && currentMagazineSize > 0)
                     {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
-                        if (playerOwned) {
-                            bulletSpawnPoint.localPosition = new Vector3(0.875f, -0.297f, bulletSpawnPoint.localPosition.z);
-                        } else {
-                            bulletSpawnPoint.localPosition = new Vector3(0.253f, 0.904f, bulletSpawnPoint.localPosition.z);
-                        }
+                        
                         //GameObject smgBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
                         GameObject smgBullet = pool.GetPooledBullet();
                         smgBullet.SetActive(true);
@@ -290,11 +308,7 @@ public class Gun : MonoBehaviour {
                     if (runningCooldown > rifleShootCooldown && currentMagazineSize > 0)
                     {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
-                        if (playerOwned) {
-                            bulletSpawnPoint.localPosition = new Vector3(1.205f, -0.286f, bulletSpawnPoint.localPosition.z);
-                        } else {
-                            bulletSpawnPoint.localPosition = new Vector3(0.2503f, 1.3389f, bulletSpawnPoint.localPosition.z);
-                        }
+                       
                         //GameObject rifleBullet = Instantiate<GameObject>(bulletPrefabBig, bulletSpawnPoint.position, Quaternion.identity);
                         GameObject rifleBullet = pool.GetPooledBigBullet();
                         rifleBullet.SetActive(true);
@@ -332,21 +346,50 @@ public class Gun : MonoBehaviour {
                 currentMagazineSize = pistolMagazineSize;
                 GetComponent<BoxCollider2D>().offset = new Vector2(0.1f, -0.06f);
                 GetComponent<BoxCollider2D>().size = new Vector2(0.93f, 0.69f);
+
+                if (!gunOnTheFloor) {
+                    if (playerOwned) {
+                        bulletSpawnPoint.localPosition = new Vector3(0.916f, -0.08f, bulletSpawnPoint.localPosition.z);
+                    } else {
+                        bulletSpawnPoint.localPosition = new Vector3(0.089f, 1.001f, bulletSpawnPoint.localPosition.z);
+                    }
+                }
                 break;
             case Weapons.Shotgun:
                 currentMagazineSize = shotgunMagazineSize;
                 GetComponent<BoxCollider2D>().offset = new Vector2(-0.05f, -0.07f);
                 GetComponent<BoxCollider2D>().size = new Vector2(2f, 0.69f);
+                if (!gunOnTheFloor) {
+                    if (playerOwned) {
+                        bulletSpawnPoint.localPosition = new Vector3(1.205f, -0.286f, bulletSpawnPoint.localPosition.z);
+                    } else {
+                        bulletSpawnPoint.localPosition = new Vector3(0.2502f, 1.001f, bulletSpawnPoint.localPosition.z);
+                    }
+                }
                 break;
             case Weapons.SMG:
                 currentMagazineSize = smgMagazineSize;
                 GetComponent<BoxCollider2D>().offset = new Vector2(-0.01f, -0.03f);
                 GetComponent<BoxCollider2D>().size = new Vector2(1.62f, 0.81f);
+                if (!gunOnTheFloor) {
+                    if (playerOwned) {
+                        bulletSpawnPoint.localPosition = new Vector3(0.875f, -0.297f, bulletSpawnPoint.localPosition.z);
+                    } else {
+                        bulletSpawnPoint.localPosition = new Vector3(0.253f, 0.904f, bulletSpawnPoint.localPosition.z);
+                    }
+                }
                 break;
             case Weapons.Rifle:
                 currentMagazineSize = rifleMagazineSize;
                 GetComponent<BoxCollider2D>().offset = new Vector2(0.38f, -0.03f);
                 GetComponent<BoxCollider2D>().size = new Vector2(2.24f, 0.93f);
+                if (!gunOnTheFloor) {
+                    if (playerOwned) {
+                        bulletSpawnPoint.localPosition = new Vector3(1.205f, -0.286f, bulletSpawnPoint.localPosition.z);
+                    } else {
+                        bulletSpawnPoint.localPosition = new Vector3(0.2503f, 1.3389f, bulletSpawnPoint.localPosition.z);
+                    }
+                }
                 break;
         }
         maxMagazineSize = currentMagazineSize;
@@ -381,8 +424,8 @@ public class Gun : MonoBehaviour {
 
     private void RandomizeSMGDirection()
     {
-        float x = Random.Range(-0.2f, 0.2f);
-        float y = Random.Range(-0.2f, 0.2f);
+        float x = Random.Range(-0.12f, 0.12f);
+        float y = Random.Range(-0.12f, 0.12f);
         smgRandomSpread = new Vector3(x, y, 0f);
     }
 }

@@ -2864,6 +2864,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 1477308541463080, guid: 406c1be2b08157b4891ccffe6a757078, type: 2}
+      propertyPath: m_Name
+      value: Enemy (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 114525500088331856, guid: 406c1be2b08157b4891ccffe6a757078,
         type: 2}
       propertyPath: movementPositionList.Array.data[1]
@@ -2874,37 +2878,6 @@ Prefab:
       propertyPath: movementPositionList.Array.data[2]
       value: 
       objectReference: {fileID: 2008386904}
-    - target: {fileID: 4560283445993606, guid: 406c1be2b08157b4891ccffe6a757078, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0.277
-      objectReference: {fileID: 0}
-    - target: {fileID: 4560283445993606, guid: 406c1be2b08157b4891ccffe6a757078, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.886
-      objectReference: {fileID: 0}
-    - target: {fileID: 114167687990998206, guid: 406c1be2b08157b4891ccffe6a757078,
-        type: 2}
-      propertyPath: weaponInUse
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4195216580030010, guid: 406c1be2b08157b4891ccffe6a757078, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4195216580030010, guid: 406c1be2b08157b4891ccffe6a757078, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 212153805335505382, guid: 406c1be2b08157b4891ccffe6a757078,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 758439f8940a6e54ba1bae9649250bdf,
-        type: 3}
-    - target: {fileID: 1477308541463080, guid: 406c1be2b08157b4891ccffe6a757078, type: 2}
-      propertyPath: m_Name
-      value: Enemy (1)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 406c1be2b08157b4891ccffe6a757078, type: 2}
   m_IsPrefabParent: 0
@@ -6470,6 +6443,46 @@ Prefab:
     - target: {fileID: 4098949447902690, guid: ecb6d49fc021d5547baeefc98f8dec15, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 120040173853199826, guid: ecb6d49fc021d5547baeefc98f8dec15,
+        type: 2}
+      propertyPath: m_Parameters.colorGradient.key0.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 120040173853199826, guid: ecb6d49fc021d5547baeefc98f8dec15,
+        type: 2}
+      propertyPath: m_Parameters.colorGradient.key1.a
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 120040173853199826, guid: ecb6d49fc021d5547baeefc98f8dec15,
+        type: 2}
+      propertyPath: m_Parameters.colorGradient.key0.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 120040173853199826, guid: ecb6d49fc021d5547baeefc98f8dec15,
+        type: 2}
+      propertyPath: m_Parameters.colorGradient.key1.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 120040173853199826, guid: ecb6d49fc021d5547baeefc98f8dec15,
+        type: 2}
+      propertyPath: m_Parameters.colorGradient.key0.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 120040173853199826, guid: ecb6d49fc021d5547baeefc98f8dec15,
+        type: 2}
+      propertyPath: m_Parameters.colorGradient.key1.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 120040173853199826, guid: ecb6d49fc021d5547baeefc98f8dec15,
+        type: 2}
+      propertyPath: m_Parameters.colorGradient.key0.b
+      value: 0.78431374
+      objectReference: {fileID: 0}
+    - target: {fileID: 120040173853199826, guid: ecb6d49fc021d5547baeefc98f8dec15,
+        type: 2}
+      propertyPath: m_Parameters.colorGradient.key1.b
+      value: 0.78431374
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ecb6d49fc021d5547baeefc98f8dec15, type: 2}

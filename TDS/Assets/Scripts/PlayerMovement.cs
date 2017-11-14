@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour {
     private GameManager gameManager;
     public float movementSpeed;
     public bool drawPlayerGizmos = true;
+    private float rotateSpeed = 500f;
 
     //Raycasting and movement
     private bool disableTop = false;
@@ -75,6 +76,7 @@ public class PlayerMovement : MonoBehaviour {
 
     //UseHelper
     private Image useHelper;
+    private Image reticle;
 
     private void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -87,6 +89,7 @@ public class PlayerMovement : MonoBehaviour {
         grenadeBar_bg = GameObject.Find("grenadeBar_bg").GetComponent<Image>();
         mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         useHelper = GameObject.Find("UseHelper").GetComponent<Image>();
+        reticle = GameObject.Find("Reticle").GetComponent<Image>();
         animator = GetComponent<Animator>();
 
         grenadeBar.fillAmount = 0f;
@@ -122,6 +125,7 @@ public class PlayerMovement : MonoBehaviour {
             Use();
             Animations();
             UseHelper();
+            Reticle();
         }
         
         
@@ -151,6 +155,13 @@ public class PlayerMovement : MonoBehaviour {
                     break;
             }
         }
+    }
+
+    void Reticle() {
+        Vector2 mouseScreenPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 pos = mainCamera.WorldToScreenPoint(mouseScreenPosition);
+
+        reticle.transform.position = pos;
     }
 
     void UseHelper() {
@@ -401,15 +412,12 @@ public class PlayerMovement : MonoBehaviour {
         // get direction you want to point at
         Vector2 direction = (mouseScreenPosition - (Vector2)transform.position).normalized;
 
-        // set vector of transform directly
-        transform.right = direction;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotateSpeed * Time.deltaTime);
 
-        if (transform.eulerAngles.y != 0) {
-            //transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
-            GetComponent<SpriteRenderer>().flipY = true;
-        } else {
-            GetComponent<SpriteRenderer>().flipY = false;
-        }
+        // set vector of transform directly
+        //transform.right = direction;
     }
 
     void WallCheck() {
