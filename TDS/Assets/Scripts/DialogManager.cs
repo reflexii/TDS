@@ -6,29 +6,25 @@ using System.IO;
 
 public class DialogManager : MonoBehaviour {
 
-    public FileInfo sourceFile;
-    public StreamReader reader;
     public List<string> dialogueList;
     public bool dialogueIsActive = false;
     public GameObject dialogueText;
+    public TextAsset textAsset;
+    private int linesRead = 0;
 
     public GameObject dialogueParent;
-    private string text = "";
 
     private void Start() {
         dialogueList = new List<string>();
         dialogueParent = GameObject.Find("Dialogue");
         dialogueText = GameObject.Find("DialogueText");
         dialogueParent.SetActive(false);
-        sourceFile = new FileInfo("Assets/Text/Dialogue.txt");
-        reader = sourceFile.OpenText();
 
-        while (text != null) {
-            text = reader.ReadLine();
+        string[] linesInFile = textAsset.text.Split("\n"[0]);
 
-            if (text != null) {
-                dialogueList.Add(text);
-            }
+        foreach (string line2 in linesInFile) {
+            dialogueList.Add(line2);
+            linesRead++;
         }
     }
 

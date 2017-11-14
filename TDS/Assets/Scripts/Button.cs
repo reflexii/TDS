@@ -7,12 +7,20 @@ public class Button : MonoBehaviour {
     public float toggleDelay = 1f;
     public bool togglable = false;
     public List<GameObject> parentObjects;
+    public bool toggled = false;
 
     private List<GameObject> allTogglableObjects;
     private float runningDelayTime = 2f;
+    
+
+    //animation
+    private Animator animator;
+    private bool toggleButtonAnimation;
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
+        animator.SetBool("StartToggle", toggled);
         allTogglableObjects = new List<GameObject>();
         AddTogglableObjectsToList();
     }
@@ -41,7 +49,9 @@ public class Button : MonoBehaviour {
 
 	void Update () {
         runningDelayTime += Time.deltaTime;
-	}
+
+        animator.SetBool("Toggled", toggleButtonAnimation);
+    }
 
     public void Toggle()
     {
@@ -58,6 +68,7 @@ public class Button : MonoBehaviour {
                 }
             }
 
+            toggleButtonAnimation = !toggleButtonAnimation;
             runningDelayTime = 0f;
         }
     }
