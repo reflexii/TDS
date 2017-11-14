@@ -73,6 +73,9 @@ public class PlayerMovement : MonoBehaviour {
 
     private Camera mainCamera;
 
+    //UseHelper
+    private Image useHelper;
+
     private void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         gameManager.GetComponent<GameManager>().player = gameObject;
@@ -83,12 +86,14 @@ public class PlayerMovement : MonoBehaviour {
         grenadeBar = GameObject.Find("grenadeBar").GetComponent<Image>();
         grenadeBar_bg = GameObject.Find("grenadeBar_bg").GetComponent<Image>();
         mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        useHelper = GameObject.Find("UseHelper").GetComponent<Image>();
         animator = GetComponent<Animator>();
 
         grenadeBar.fillAmount = 0f;
         grenadeBar_bg.fillAmount = 0f;
         grenadeBar.enabled = false;
         grenadeBar_bg.enabled = false;
+        useHelper.enabled = false;
 
         if (hasGun)
         {
@@ -116,6 +121,7 @@ public class PlayerMovement : MonoBehaviour {
             KnifeSprite();
             Use();
             Animations();
+            UseHelper();
         }
         
         
@@ -144,6 +150,17 @@ public class PlayerMovement : MonoBehaviour {
                     weaponUsed = 4;
                     break;
             }
+        }
+    }
+
+    void UseHelper() {
+        Vector3 pos = mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position) + new Vector3(0f, 45f, 0f);
+        useHelper.transform.position = pos;
+
+        if (togglable) {
+            useHelper.enabled = true;
+        } else {
+            useHelper.enabled = false;
         }
     }
 
