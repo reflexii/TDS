@@ -1440,6 +1440,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 114175346583232710, guid: b9425912c74eaf24bb653339e79bd819,
+        type: 2}
+      propertyPath: toggled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b9425912c74eaf24bb653339e79bd819, type: 2}
   m_IsPrefabParent: 0
@@ -3531,7 +3536,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 4cc36ea97964a4c4fadef2a53ce344ed, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5588,7 +5593,12 @@ Prefab:
     - target: {fileID: 114025853102821788, guid: 47391e757f4259743a876ca4d9821afd,
         type: 2}
       propertyPath: toggled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114025853102821788, guid: 47391e757f4259743a876ca4d9821afd,
+        type: 2}
+      propertyPath: startToggled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 47391e757f4259743a876ca4d9821afd, type: 2}
