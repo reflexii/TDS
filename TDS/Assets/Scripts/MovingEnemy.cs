@@ -227,6 +227,26 @@ public class MovingEnemy : MonoBehaviour {
 
         enemyHealth -= damageValue;
 
+        if (enemyHealth > 0f) {
+            Collider2D[] shootingSoundWave = Physics2D.OverlapCircleAll(transform.position, 5f, 1 << LayerMask.NameToLayer("Enemy"));
+
+            if (shootingSoundWave != null) {
+                for (int i = 0; i < shootingSoundWave.Length; i++) {
+                    if (shootingSoundWave[i] != null) {
+
+                        if (shootingSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing == MovingEnemy.CurrentStance.Moving ||
+                            shootingSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing == MovingEnemy.CurrentStance.WaitingToMove ||
+                            shootingSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing == MovingEnemy.CurrentStance.SearchingPlayer &&
+                            shootingSoundWave[i].GetComponent<MovingEnemy>().GetRunningTime() >= 3f) {
+                            shootingSoundWave[i].GetComponent<MovingEnemy>().playerSearchPosition = player.transform.position;
+                            shootingSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing = MovingEnemy.CurrentStance.SearchingPlayer;
+                        }
+
+                    }
+                }
+            }
+        }
+
         if (enemyHealth <= 0f && !dead)
         {
             Die();

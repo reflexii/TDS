@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour {
     //Health
     public float playerHealth = 100f;
     public float playerCurrentHealth;
-    private bool dead = false;
+    public bool dead = false;
     public GameObject dieBloodSmallPrefab;
     public GameObject dieBloodBigPrefab;
 
@@ -73,10 +73,11 @@ public class PlayerMovement : MonoBehaviour {
     private GameObject togglableDialogueObject;
 
     private Camera mainCamera;
+    private GameObject bulletSpawnPoint;
+    private GameObject reticle;
 
     //UseHelper
     private Image useHelper;
-    private Image reticle;
 
     private void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -89,7 +90,8 @@ public class PlayerMovement : MonoBehaviour {
         grenadeBar_bg = GameObject.Find("grenadeBar_bg").GetComponent<Image>();
         mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         useHelper = GameObject.Find("UseHelper").GetComponent<Image>();
-        reticle = GameObject.Find("Reticle").GetComponent<Image>();
+        bulletSpawnPoint = transform.Find("BulletSpawnPoint").gameObject;
+        reticle = GameObject.Find("Reticle");
         animator = GetComponent<Animator>();
 
         grenadeBar.fillAmount = 0f;
@@ -125,9 +127,8 @@ public class PlayerMovement : MonoBehaviour {
             Use();
             Animations();
             UseHelper();
-            Reticle();
+            reticle.SetActive(true);
         }
-        
         
 	}
 
@@ -155,13 +156,6 @@ public class PlayerMovement : MonoBehaviour {
                     break;
             }
         }
-    }
-
-    void Reticle() {
-        Vector2 mouseScreenPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 pos = mainCamera.WorldToScreenPoint(mouseScreenPosition);
-
-        reticle.transform.position = pos;
     }
 
     void UseHelper() {
@@ -305,6 +299,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     public void Die() {
+        reticle.SetActive(false);
         dead = true;
         //Corpse
         //Blood
@@ -416,8 +411,9 @@ public class PlayerMovement : MonoBehaviour {
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotateSpeed * Time.deltaTime);
 
-        // set vector of transform directly
-        //transform.right = direction;
+        float dist = Vector3.Distance(bulletSpawnPoint.transform.position, mouseScreenPosition);
+
+        reticle.transform.position = bulletSpawnPoint.transform.position + (Vector3)direction * dist;
     }
 
     void WallCheck() {
@@ -461,7 +457,10 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         if (Input.GetKeyDown(KeyCode.E) && dialogueTogglable) {
-            togglableDialogueObject.gameObject.GetComponent<DialogueToggle>().TriggerDialogue();
+            if (togglableDialogueObject.GetComponent<DialogueToggle>().isDone) {
+                togglableDialogueObject.gameObject.GetComponent<DialogueToggle>().TriggerDialogue();
+            }
+            
         }
     }
 

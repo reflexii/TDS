@@ -20,9 +20,12 @@ public class Button : MonoBehaviour {
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        animator.SetBool("StartToggle", toggled);
         allTogglableObjects = new List<GameObject>();
         AddTogglableObjectsToList();
+    }
+
+    private void Start() {
+        animator.SetBool("StartToggle", toggled);
     }
 
     void AddTogglableObjectsToList()

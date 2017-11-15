@@ -6,6 +6,7 @@ public class PersistentObjectCreator : MonoBehaviour {
 
     public GameObject gameManagerPrefab;
     public GameObject canvasPrefab;
+    public GameObject reticlePrefab;
 
 	void Awake () {
         CreateGameManager();
@@ -23,6 +24,13 @@ public class PersistentObjectCreator : MonoBehaviour {
         if (GameObject.Find("CanvasGame") == null) {
             GameObject g = Instantiate<GameObject>(canvasPrefab);
             g.name = "CanvasGame";
+        }
+    }
+
+    void CreateTargetReticle() {
+        if (GameObject.Find("Reticle") == null) {
+            GameObject g = Instantiate<GameObject>(reticlePrefab);
+            g.name = "Reticle";
         }
     }
 }

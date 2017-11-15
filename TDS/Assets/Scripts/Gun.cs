@@ -417,8 +417,8 @@ public class Gun : MonoBehaviour {
         }
 
     private void RandomizeShotgunDirection() {
-        float x = Random.Range(-0.12f, 0.12f);
-        float y = Random.Range(-0.12f, 0.12f);
+        float x = Random.Range(-0.2f, 0.2f);
+        float y = Random.Range(-0.2f, 0.2f);
         shotgunRandomSpread = new Vector3(x, y, 0f);
     }
 

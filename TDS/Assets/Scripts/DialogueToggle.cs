@@ -14,6 +14,7 @@ public class DialogueToggle : MonoBehaviour {
     public bool useOneByOne = false;
     public bool useToTrigger = false;
     public float waitTimeInBetweenLetters = 0.02f;
+    public bool isDone = true;
 
     private void Start() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -40,7 +41,6 @@ public class DialogueToggle : MonoBehaviour {
                 dialogueText.text = gameManager.gameObject.GetComponent<DialogManager>().GetStringFromList(searchedCode);
             } else {
                 StartCoroutine("OneCharacterAtATime", searchedCode);
-                Debug.Log("started");
             }
             
         }
@@ -53,8 +53,11 @@ public class DialogueToggle : MonoBehaviour {
 
         for (int i = 0; i < textOneByOne.Length; i++) {
             dialogueText.text += textOneByOne[i];
+            isDone = false;
             yield return new WaitForSeconds(waitTimeInBetweenLetters);
         }
+
+        isDone = true;
 
     }
 }
