@@ -5,7 +5,7 @@ using UnityEngine;
 public class TogglableObject : MonoBehaviour {
 
     public bool toggled = true;
-    public enum ObjectType { Laser, Gas, Door};
+    public enum ObjectType { Laser, Gas, Door, Ammo};
     public ObjectType objectType;
     public Sprite offImage;
 
@@ -17,12 +17,13 @@ public class TogglableObject : MonoBehaviour {
     public int gasDamage = 2;
     private bool toggleDoorAnimation = false;
     private Animator animator;
+    private bool doneOnce = false;
 
 
 
 
     private void Awake() {
-        if (objectType == ObjectType.Door || objectType == ObjectType.Laser) {
+        if (objectType == ObjectType.Door || objectType == ObjectType.Laser || objectType == ObjectType.Ammo) {
             animator = GetComponent<Animator>();
         }
         damageGasList = new List<GameObject>();
@@ -108,6 +109,20 @@ public class TogglableObject : MonoBehaviour {
                     }  
                 }
                 break;
+            case ObjectType.Ammo:
+                animator.SetBool("Trigger", toggled);
+
+                if (toggled && !doneOnce) {
+                    if (playerObject.GetComponent<PlayerMovement>().hasGun) {
+                        Debug.Log("Fill Ammo");
+                        doneOnce = true;
+                        playerObject.GetComponent<PlayerMovement>().gun.GetComponent<Gun>().FillMagazine();
+                    } else {
+                        toggled = false;
+                    }
+                    
+                }
+                break;
         }
     }
 
@@ -118,6 +133,7 @@ public class TogglableObject : MonoBehaviour {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player1")) {
             playerInGas = true;
             playerObject = collision.gameObject;
+            Debug.Log("asd");
         }
     }
 

@@ -8,6 +8,7 @@ public class Button : MonoBehaviour {
     public bool togglable = false;
     public List<GameObject> parentObjects;
     public bool startToggled = false;
+    public bool animated = true;
 
     private List<GameObject> allTogglableObjects;
     private float runningDelayTime = 2f;
@@ -20,14 +21,20 @@ public class Button : MonoBehaviour {
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        if (animated) {
+            animator = GetComponent<Animator>();
+        }
+        
         allTogglableObjects = new List<GameObject>();
         AddTogglableObjectsToList();
         toggleButtonAnimation = !startToggled;
     }
 
     private void Start() {
-        animator.SetBool("StartToggle", startToggled);
+        if (animated) {
+            animator.SetBool("StartToggle", startToggled);
+        }
+        
     }
 
     void AddTogglableObjectsToList()
@@ -55,8 +62,11 @@ public class Button : MonoBehaviour {
 	void Update () {
         runningDelayTime += Time.deltaTime;
 
-        animator.SetBool("Toggled", toggleButtonAnimation);
-        animator.SetBool("PressedButton", pressedButton);
+        if (animated) {
+            animator.SetBool("Toggled", toggleButtonAnimation);
+            animator.SetBool("PressedButton", pressedButton);
+        }
+        
     }
 
     public void Toggle()
@@ -74,12 +84,14 @@ public class Button : MonoBehaviour {
                 }
             }
 
-            if (!pressedButton) {
-                pressedButton = true;
-            } else {
-                toggleButtonAnimation = !toggleButtonAnimation;
+            if (animated) {
+                if (!pressedButton) {
+                    pressedButton = true;
+                } else {
+                    toggleButtonAnimation = !toggleButtonAnimation;
+                }
             }
-
+            
             runningDelayTime = 0f;
         }
     }

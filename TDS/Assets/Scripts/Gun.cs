@@ -44,7 +44,7 @@ public class Gun : MonoBehaviour {
     private Vector3 shotgunRandomSpread;
     private Vector3 smgRandomSpread;
     private float runningCooldown = 0f;
-    private int maxMagazineSize;
+    public int maxMagazineSize;
     private SpriteRenderer sr;
 
     //throw weapon after switch
@@ -389,6 +389,10 @@ public class Gun : MonoBehaviour {
                 break;
         }
         maxMagazineSize = currentMagazineSize;
+    }
+
+    public void FillMagazine() {
+        currentMagazineSize = maxMagazineSize;
     }
 
     public void SetUIImage()
