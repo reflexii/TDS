@@ -215,7 +215,6 @@ public class Gun : MonoBehaviour {
                     {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
 
-                        //GameObject pistolBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
                         GameObject pistolBullet = pool.GetPooledBullet();
                         pistolBullet.SetActive(true);
                         pistolBullet.transform.position = bulletSpawnPoint.position;
@@ -244,9 +243,8 @@ public class Gun : MonoBehaviour {
                     {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
                        
-                        for (int i = 0; i < 8; i++)
+                        for (int i = 0; i < 6; i++)
                         {
-                            //GameObject shotgunPellet = Instantiate<GameObject>(bulletPrefabBig, bulletSpawnPoint.position, Quaternion.identity);
                             GameObject shotgunPellet = pool.GetPooledBigBullet();
                             shotgunPellet.SetActive(true);
                             shotgunPellet.transform.position = bulletSpawnPoint.position;
@@ -279,7 +277,6 @@ public class Gun : MonoBehaviour {
                     {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
                         
-                        //GameObject smgBullet = Instantiate<GameObject>(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
                         GameObject smgBullet = pool.GetPooledBullet();
                         smgBullet.SetActive(true);
                         smgBullet.transform.position = bulletSpawnPoint.position;
@@ -309,7 +306,6 @@ public class Gun : MonoBehaviour {
                     {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
                        
-                        //GameObject rifleBullet = Instantiate<GameObject>(bulletPrefabBig, bulletSpawnPoint.position, Quaternion.identity);
                         GameObject rifleBullet = pool.GetPooledBigBullet();
                         rifleBullet.SetActive(true);
                         rifleBullet.transform.position = bulletSpawnPoint.position;

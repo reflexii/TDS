@@ -79,6 +79,15 @@ public class PlayerMovement : MonoBehaviour {
     //UseHelper
     private Image useHelper;
 
+    //health
+    private Image healthImage;
+    private Text healthText;
+
+    //corpses
+    public GameObject playerCorpse1;
+    public GameObject playerCorpse2;
+    public GameObject playerCorpse3;
+
     private void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         gameManager.GetComponent<GameManager>().player = gameObject;
@@ -92,6 +101,8 @@ public class PlayerMovement : MonoBehaviour {
         useHelper = GameObject.Find("UseHelper").GetComponent<Image>();
         bulletSpawnPoint = transform.Find("BulletSpawnPoint").gameObject;
         reticle = GameObject.Find("Reticle");
+        healthImage = GameObject.Find("HealthImage").GetComponent<Image>();
+        healthText = GameObject.Find("HealthText").GetComponent<Text>();
         animator = GetComponent<Animator>();
 
         grenadeBar.fillAmount = 0f;
@@ -127,10 +138,19 @@ public class PlayerMovement : MonoBehaviour {
             Use();
             Animations();
             UseHelper();
+            HealthUpdate();
             reticle.SetActive(true);
         }
         
 	}
+
+    void HealthUpdate() {
+        healthText.text = "" + playerCurrentHealth;
+
+        if (playerCurrentHealth < 0f) {
+            playerCurrentHealth = 0f;
+        }
+    }
 
     void Animations() {
         animator.SetBool("Walking", walking);
@@ -301,6 +321,9 @@ public class PlayerMovement : MonoBehaviour {
     public void Die() {
         reticle.SetActive(false);
         dead = true;
+        GenerateCorpse();
+        playerCurrentHealth = 0f;
+        healthText.text = "" + playerCurrentHealth;
         //Corpse
         //Blood
         Instantiate<GameObject>(dieBloodBigPrefab, transform.position, Quaternion.identity);
@@ -315,6 +338,22 @@ public class PlayerMovement : MonoBehaviour {
         //Death
         gameManager.playerIsDead = true;
         gameObject.SetActive(false);
+    }
+
+    public void GenerateCorpse() {
+        int randomize = Random.Range(0, 3);
+        GameObject chosenCorpse = null;
+
+        if (randomize == 0) {
+            chosenCorpse = playerCorpse1;
+        } else if (randomize == 1) {
+            chosenCorpse = playerCorpse2;
+        } else {
+            chosenCorpse = playerCorpse3;
+        }
+
+        Instantiate<GameObject>(chosenCorpse, transform.position, Quaternion.identity);
+
     }
 
     void DropGun()

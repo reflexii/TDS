@@ -123,7 +123,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1378027616033768}
   m_LocalRotation: {x: 0, y: -0, z: 0, w: -1}
-  m_LocalPosition: {x: 1.74, y: -9.48, z: 0}
+  m_LocalPosition: {x: 7.92, y: -14.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 10}
   m_Children:
   - {fileID: 4144042886259914}
@@ -356,16 +356,16 @@ MonoBehaviour:
     type: 2}
   bulletSpawnPoint: {fileID: 4228970744101276}
   playerOwned: 1
-  pistolShootCooldown: 0.3
-  shotgunShootCooldown: 1
+  pistolShootCooldown: 0.2
+  shotgunShootCooldown: 0.8
   smgShootCooldown: 0.04
   rifleShootCooldown: 0.08
-  pistolDamage: 10
-  shotgunDamage: 3
-  smgDamage: 4
-  rifleDamage: 5
-  pistolMagazineSize: 7
-  shotgunMagazineSize: 2
+  pistolDamage: 50
+  shotgunDamage: 25
+  smgDamage: 25
+  rifleDamage: 35
+  pistolMagazineSize: 12
+  shotgunMagazineSize: 5
   smgMagazineSize: 30
   rifleMagazineSize: 20
   currentMagazineSize: 0
@@ -411,9 +411,10 @@ MonoBehaviour:
   grenadePrefab: {fileID: 1910373503713716, guid: 4a7a1d265271b3e488b8b6b422ba91d0,
     type: 2}
   startGrenadeAmount: 4
-  knifeDamage: 5
-  playerHealth: 25
+  knifeDamage: 30
+  playerHealth: 100
   playerCurrentHealth: 0
+  dead: 0
   dieBloodSmallPrefab: {fileID: 1619409838994012, guid: 8d180fdf17f847b47a1fedf172299a2a,
     type: 2}
   dieBloodBigPrefab: {fileID: 1318361135977644, guid: edd9b174de5c187458a41130acde0158,
@@ -426,6 +427,12 @@ MonoBehaviour:
   magazineText: {fileID: 0}
   togglable: 0
   dialogueTime: 0.5
+  playerCorpse1: {fileID: 1642774933394460, guid: 7ad1c8cd69d301741ba5c7d417a2d107,
+    type: 2}
+  playerCorpse2: {fileID: 1484741606092194, guid: 62f9cfd179c0dbc4593bcf0064d08643,
+    type: 2}
+  playerCorpse3: {fileID: 1753769905029644, guid: 5988ad6ddfb1c694e97063cf8151e98d,
+    type: 2}
 --- !u!120 &120040173853199826
 LineRenderer:
   m_ObjectHideFlags: 1

@@ -69,8 +69,8 @@ public class Grenade : MonoBehaviour {
         }
 
         //Explode enemies, in two different radiuses, when enemy is close he takes damage from all two
-        Collider2D[] firstExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 2f, 1 << LayerMask.NameToLayer("Enemy"));
-        Collider2D[] secondExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 4f, 1 << LayerMask.NameToLayer("Enemy"));
+        Collider2D[] firstExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 3f, 1 << LayerMask.NameToLayer("Enemy"));
+        Collider2D[] secondExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 5f, 1 << LayerMask.NameToLayer("Enemy"));
 
         if (firstExplosionRadius != null)
         {
@@ -108,16 +108,18 @@ public class Grenade : MonoBehaviour {
             {
                 if (explosionSoundWave[i] != null)
                 {
-                    
-                    if (explosionSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing == MovingEnemy.CurrentStance.Moving ||
+
+                    if (!Physics2D.Raycast(transform.position, explosionSoundWave[i].transform.position - transform.position, Vector3.Distance(transform.position, explosionSoundWave[i].transform.position), 1 << LayerMask.NameToLayer("Wall"))) {
+
+                        if (explosionSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing == MovingEnemy.CurrentStance.Moving ||
                         explosionSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing == MovingEnemy.CurrentStance.WaitingToMove ||
                         explosionSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing == MovingEnemy.CurrentStance.SearchingPlayer &&
-                        explosionSoundWave[i].GetComponent<MovingEnemy>().GetRunningTime() >= 3f)
-                    {
-                        explosionSoundWave[i].GetComponent<MovingEnemy>().playerSearchPosition = transform.position;
-                        explosionSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing = MovingEnemy.CurrentStance.SearchingPlayer;
-                    }
-                    
+                        explosionSoundWave[i].GetComponent<MovingEnemy>().GetRunningTime() >= 3f) {
+
+                            explosionSoundWave[i].GetComponent<MovingEnemy>().playerSearchPosition = transform.position;
+                            explosionSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing = MovingEnemy.CurrentStance.SearchingPlayer;
+                        }
+                    } 
                 }
             }
         }

@@ -223,7 +223,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1477308541463080}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.67, y: 4.96, z: 0}
+  m_LocalPosition: {x: -10.12, y: -3.6127892, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4202818126962918}
@@ -469,16 +469,16 @@ MonoBehaviour:
     type: 2}
   bulletSpawnPoint: {fileID: 4560283445993606}
   playerOwned: 0
-  pistolShootCooldown: 0.3
-  shotgunShootCooldown: 1
+  pistolShootCooldown: 0.2
+  shotgunShootCooldown: 0.8
   smgShootCooldown: 0.04
   rifleShootCooldown: 0.08
-  pistolDamage: 10
-  shotgunDamage: 3
-  smgDamage: 4
-  rifleDamage: 5
-  pistolMagazineSize: 7
-  shotgunMagazineSize: 2
+  pistolDamage: 50
+  shotgunDamage: 25
+  smgDamage: 25
+  rifleDamage: 35
+  pistolMagazineSize: 12
+  shotgunMagazineSize: 5
   smgMagazineSize: 30
   rifleMagazineSize: 20
   currentMagazineSize: 0
@@ -535,7 +535,7 @@ MonoBehaviour:
   startSearching: 0
   turnIndex: 0
   ai: {fileID: 0}
-  enemyHealth: 10
+  enemyHealth: 60
   questionMarkPrefab: {fileID: 1875294423808874, guid: eba7384a94495014c9714706f3c70494,
     type: 2}
   exclamationMarkPrefab: {fileID: 1103012698982044, guid: c9657c0c67f238d419d404752d22cad3,
