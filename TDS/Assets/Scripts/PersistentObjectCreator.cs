@@ -11,6 +11,7 @@ public class PersistentObjectCreator : MonoBehaviour {
 	void Awake () {
         CreateGameManager();
         CreateGameCanvas();
+        CreateTargetReticle();
 	}
 
     void CreateGameManager() {
