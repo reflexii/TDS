@@ -133,7 +133,6 @@ public class TogglableObject : MonoBehaviour {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player1")) {
             playerInGas = true;
             playerObject = collision.gameObject;
-            Debug.Log("asd");
         }
     }
 

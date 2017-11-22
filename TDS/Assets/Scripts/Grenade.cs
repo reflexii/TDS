@@ -80,7 +80,12 @@ public class Grenade : MonoBehaviour {
                 {
                     if (!Physics2D.Raycast(transform.position, firstExplosionRadius[i].transform.position - transform.position, Vector3.Distance(transform.position, firstExplosionRadius[i].transform.position), 1 << LayerMask.NameToLayer("Wall")))
                     {
-                        firstExplosionRadius[i].gameObject.GetComponent<MovingEnemy>().DamageEnemy(grenadeDamage);
+                        if (firstExplosionRadius[i].gameObject.GetComponent<MovingEnemy>() != null) {
+                            firstExplosionRadius[i].gameObject.GetComponent<MovingEnemy>().DamageEnemy(grenadeDamage);
+                        } else if (firstExplosionRadius[i].gameObject.GetComponent<Scientist>() != null) {
+                            firstExplosionRadius[i].gameObject.GetComponent<Scientist>().DamageEnemy(grenadeDamage);
+                        }
+                        
                     }
                 }
             }
@@ -94,7 +99,11 @@ public class Grenade : MonoBehaviour {
                 {
                     if (!Physics2D.Raycast(transform.position, secondExplosionRadius[i].transform.position - transform.position, Vector3.Distance(transform.position, secondExplosionRadius[i].transform.position), 1 << LayerMask.NameToLayer("Wall")))
                     {
-                        secondExplosionRadius[i].gameObject.GetComponent<MovingEnemy>().DamageEnemy(grenadeDamage);
+                        if (secondExplosionRadius[i].gameObject.GetComponent<MovingEnemy>() != null) {
+                            secondExplosionRadius[i].gameObject.GetComponent<MovingEnemy>().DamageEnemy(grenadeDamage);
+                        } else if (secondExplosionRadius[i].gameObject.GetComponent<Scientist>() != null) {
+                            secondExplosionRadius[i].gameObject.GetComponent<Scientist>().DamageEnemy(grenadeDamage);
+                        }
                     }
                 }
             }
@@ -110,14 +119,15 @@ public class Grenade : MonoBehaviour {
                 {
 
                     if (!Physics2D.Raycast(transform.position, explosionSoundWave[i].transform.position - transform.position, Vector3.Distance(transform.position, explosionSoundWave[i].transform.position), 1 << LayerMask.NameToLayer("Wall"))) {
-
-                        if (explosionSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing == MovingEnemy.CurrentStance.Moving ||
+                        if (explosionSoundWave[i].GetComponent<MovingEnemy>() != null) {
+                            if (explosionSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing == MovingEnemy.CurrentStance.Moving ||
                         explosionSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing == MovingEnemy.CurrentStance.WaitingToMove ||
                         explosionSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing == MovingEnemy.CurrentStance.SearchingPlayer &&
                         explosionSoundWave[i].GetComponent<MovingEnemy>().GetRunningTime() >= 3f) {
 
-                            explosionSoundWave[i].GetComponent<MovingEnemy>().playerSearchPosition = transform.position;
-                            explosionSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing = MovingEnemy.CurrentStance.SearchingPlayer;
+                                explosionSoundWave[i].GetComponent<MovingEnemy>().playerSearchPosition = transform.position;
+                                explosionSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing = MovingEnemy.CurrentStance.SearchingPlayer;
+                            }
                         }
                     } 
                 }

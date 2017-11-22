@@ -53,10 +53,18 @@ public class Bullet : MonoBehaviour {
 
         if (playerBullet && collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            if (collision.gameObject.GetComponent<MovingEnemy>().enemyHealth > 0) {
-                collision.gameObject.GetComponent<MovingEnemy>().DamageEnemy(bulletDamage);
-                gameObject.SetActive(false);
+            if (collision.gameObject.GetComponent<MovingEnemy>() != null) {
+                if (collision.gameObject.GetComponent<MovingEnemy>().enemyHealth > 0) {
+                    collision.gameObject.GetComponent<MovingEnemy>().DamageEnemy(bulletDamage);
+                    gameObject.SetActive(false);
+                }
+            } else if (collision.gameObject.GetComponent<Scientist>() != null) {
+                if (collision.gameObject.GetComponent<Scientist>().enemyHealth > 0) {
+                    collision.gameObject.GetComponent<Scientist>().DamageEnemy(bulletDamage);
+                    gameObject.SetActive(false);
+                }
             }
+            
 
         }
         if (!playerBullet && collision.gameObject.layer == LayerMask.NameToLayer("Player1"))

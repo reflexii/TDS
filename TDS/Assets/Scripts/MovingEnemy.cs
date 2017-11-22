@@ -20,7 +20,7 @@ public class MovingEnemy : MonoBehaviour {
     public bool startSearching = false;
     public int turnIndex = 0;
     public AIPath ai;
-    public float enemyHealth = 10f;
+    public float enemyHealth = 60f;
     public GameObject questionMarkPrefab;
     public GameObject exclamationMarkPrefab;
     public GameObject dieBloodBigPrefab;
@@ -233,15 +233,15 @@ public class MovingEnemy : MonoBehaviour {
             if (shootingSoundWave != null) {
                 for (int i = 0; i < shootingSoundWave.Length; i++) {
                     if (shootingSoundWave[i] != null) {
-
-                        if (shootingSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing == MovingEnemy.CurrentStance.Moving ||
+                        if (shootingSoundWave[i].GetComponent<MovingEnemy>() != null) {
+                            if (shootingSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing == MovingEnemy.CurrentStance.Moving ||
                             shootingSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing == MovingEnemy.CurrentStance.WaitingToMove ||
                             shootingSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing == MovingEnemy.CurrentStance.SearchingPlayer &&
                             shootingSoundWave[i].GetComponent<MovingEnemy>().GetRunningTime() >= 3f) {
-                            shootingSoundWave[i].GetComponent<MovingEnemy>().playerSearchPosition = player.transform.position;
-                            shootingSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing = MovingEnemy.CurrentStance.SearchingPlayer;
+                                shootingSoundWave[i].GetComponent<MovingEnemy>().playerSearchPosition = player.transform.position;
+                                shootingSoundWave[i].GetComponent<MovingEnemy>().whatEnemyIsDoing = MovingEnemy.CurrentStance.SearchingPlayer;
+                            }
                         }
-
                     }
                 }
             }

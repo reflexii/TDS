@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerSpotter : MonoBehaviour {
 
     public GameObject enemy;
+    public bool movingEnemy = true;
 
     private bool isPlayerVisible = false;
     private GameObject player;
@@ -30,16 +31,25 @@ public class PlayerSpotter : MonoBehaviour {
     }
 
     private void Update() {
-        if (isPlayerVisible) {
-            enemy.GetComponent<MovingEnemy>().whatEnemyIsDoing = MovingEnemy.CurrentStance.Shooting;
-            
+
+        if (movingEnemy) {
+            if (isPlayerVisible) {
+                enemy.GetComponent<MovingEnemy>().whatEnemyIsDoing = MovingEnemy.CurrentStance.Shooting;
+
+            } else {
+                if (enemy.GetComponent<MovingEnemy>().whatEnemyIsDoing == MovingEnemy.CurrentStance.Shooting) {
+                    enemy.GetComponent<MovingEnemy>().whatEnemyIsDoing = MovingEnemy.CurrentStance.SearchingPlayer;
+                    enemy.GetComponent<MovingEnemy>().playerSearchPosition = player.transform.position;
+                }
+            }
         } else {
-            if (enemy.GetComponent<MovingEnemy>().whatEnemyIsDoing == MovingEnemy.CurrentStance.Shooting)
-            {
-                enemy.GetComponent<MovingEnemy>().whatEnemyIsDoing = MovingEnemy.CurrentStance.SearchingPlayer;
-                enemy.GetComponent<MovingEnemy>().playerSearchPosition = player.transform.position;
-            }        
+            if (isPlayerVisible) {
+                enemy.GetComponent<Scientist>().whatEnemyIsDoing = Scientist.CurrentStance.Alerted;
+            } else {
+
+            }
         }
+        
         
     }
 

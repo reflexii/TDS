@@ -74,12 +74,15 @@ public class Knife : MonoBehaviour {
         {
             if (knifableEnemies[i] != null)
             {
-                if (!knifableEnemies[i].GetComponent<MovingEnemy>().backstabbable) {
-                    knifableEnemies[i].GetComponent<MovingEnemy>().DamageEnemy(damageValue);
-                } else {
-                    knifableEnemies[i].GetComponent<MovingEnemy>().DamageEnemy(damageValue*2f);
+                if (knifableEnemies[i].GetComponent<MovingEnemy>() != null) {
+                    if (!knifableEnemies[i].GetComponent<MovingEnemy>().backstabbable) {
+                        knifableEnemies[i].GetComponent<MovingEnemy>().DamageEnemy(damageValue);
+                    } else {
+                        knifableEnemies[i].GetComponent<MovingEnemy>().DamageEnemy(damageValue * 2f);
+                    }
+                } else if (knifableEnemies[i].GetComponent<Scientist>() != null) {
+                    knifableEnemies[i].GetComponent<Scientist>().DamageEnemy(damageValue);
                 }
-                
             }
             
         }
