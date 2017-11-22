@@ -88,6 +88,10 @@ public class PlayerMovement : MonoBehaviour {
     public GameObject playerCorpse2;
     public GameObject playerCorpse3;
 
+    //vip use
+    private bool vipTogglable = false;
+    private GameObject vipObject;
+
     private void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         gameManager.GetComponent<GameManager>().player = gameObject;
@@ -182,7 +186,7 @@ public class PlayerMovement : MonoBehaviour {
         Vector3 pos = mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position) + new Vector3(0f, 45f, 0f);
         useHelper.transform.position = pos;
 
-        if (togglable) {
+        if (togglable || vipTogglable || dialogueTogglable) {
             useHelper.enabled = true;
         } else {
             useHelper.enabled = false;
@@ -420,6 +424,11 @@ public class PlayerMovement : MonoBehaviour {
             dialogueTogglable = true;
             togglableDialogueObject = collision.gameObject;
         }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("VIP")) {
+            vipTogglable = true;
+            vipObject = collision.gameObject;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -436,6 +445,10 @@ public class PlayerMovement : MonoBehaviour {
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Dialogue")) {
             dialogueTogglable = false;
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("VIP")) {
+            vipTogglable = false;
         }
     }
 
@@ -491,7 +504,6 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.E) && togglable)
         {
-            Debug.Log("Use");
             togglableButton.GetComponent<Button>().Toggle();
         }
 
@@ -500,6 +512,11 @@ public class PlayerMovement : MonoBehaviour {
                 togglableDialogueObject.gameObject.GetComponent<DialogueToggle>().TriggerDialogue();
             }
             
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) && vipTogglable) {
+            Debug.Log("Helou");
+            vipObject.GetComponent<VIP>().following = !vipObject.GetComponent<VIP>().following;
         }
     }
 

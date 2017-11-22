@@ -77,7 +77,7 @@ public class Scientist : MonoBehaviour {
                 break;
             case CurrentStance.Alerted:
                 walking = true;
-                ai.speed = 5f;
+                ai.speed = 6f;
                 animator.speed = 2f;
                 targetObject.transform.position = alertButtonObjectToRunWhenAlerted.transform.position;
                 break;

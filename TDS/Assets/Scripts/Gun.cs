@@ -108,7 +108,7 @@ public class Gun : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall") && !playerOwned && gunOnTheFloor)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall") && collision.transform.tag != "SeeThroughItem" && !playerOwned && gunOnTheFloor)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, throwDirection, 1.5f, 1 << LayerMask.NameToLayer("Wall"));
             if (hit)
