@@ -132,7 +132,7 @@ public class Gun : MonoBehaviour {
                 }
 
             }
-        } else if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        } else if (collision.gameObject.layer == LayerMask.NameToLayer("Wall") && collision.transform.tag != "SeeThroughItem")
         {
             GetComponent<Collider2D>().enabled = false;
         }
