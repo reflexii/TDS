@@ -5,6 +5,7 @@ using UnityEngine;
 public class Scientist : MonoBehaviour {
 
     public enum CurrentStance { Moving, WaitingToMove, Alerted, Hiding};
+    public bool ToggleQuestOnKill = false;
     public CurrentStance whatEnemyIsDoing;
     public Transform[] movementPositionList;
     public GameObject wayPointPrefab;
@@ -28,6 +29,7 @@ public class Scientist : MonoBehaviour {
     private bool dead = false;
     private bool walking = false;
     private Animator animator;
+    private bool doneOnce = false;
 
     void Awake () {
         ai = GetComponent<AIPath>();
@@ -130,6 +132,11 @@ public class Scientist : MonoBehaviour {
             for (int i = 0; i < movementPositionList.Length; i++) {
                 Destroy(movementPositionList[i].gameObject, 0f);
             }
+        }
+
+        if (ToggleQuestOnKill && !doneOnce) {
+            GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().NextObjective();
+            doneOnce = true;
         }
 
         Destroy(targetObject, 0f);

@@ -9,6 +9,7 @@ public class Gun : MonoBehaviour {
     public Weapons weaponInUse;
     public GameObject bulletPrefab;
     public GameObject bulletPrefabBig;
+    public GameObject bulletPrefabMedium;
     public Transform bulletSpawnPoint;
     public bool playerOwned = true;
 

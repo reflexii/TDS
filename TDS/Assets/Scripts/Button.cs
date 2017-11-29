@@ -9,6 +9,7 @@ public class Button : MonoBehaviour {
     public List<GameObject> parentObjects;
     public bool startToggled = false;
     public bool animated = true;
+    public bool toggleObjectiveOnFirstUse = false;
 
     private List<GameObject> allTogglableObjects;
     private float runningDelayTime = 2f;
@@ -18,6 +19,7 @@ public class Button : MonoBehaviour {
     private Animator animator;
     private bool toggleButtonAnimation;
     private bool pressedButton = false;
+    private bool doneOnce = false;
 
     private void Awake()
     {
@@ -91,7 +93,12 @@ public class Button : MonoBehaviour {
                     toggleButtonAnimation = !toggleButtonAnimation;
                 }
             }
-            
+
+            if (toggleObjectiveOnFirstUse && !doneOnce) {
+                GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().NextObjective();
+                doneOnce = true;
+            }
+
             runningDelayTime = 0f;
         }
     }

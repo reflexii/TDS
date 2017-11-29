@@ -515,7 +515,6 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         if (Input.GetKeyDown(KeyCode.E) && vipTogglable) {
-            Debug.Log("Helou");
             vipObject.GetComponent<VIP>().following = !vipObject.GetComponent<VIP>().following;
         }
     }

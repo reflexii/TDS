@@ -91,6 +91,23 @@ public class ObjectPooler : MonoBehaviour {
         return g;
     }
 
+    /*
+    public GameObject GetPooledMediumBullet() {
+        for (int i = 0; i < bulletListBig.Count; i++) {
+            if (!bulletListBig[i].activeInHierarchy) {
+                return bulletListBig[i];
+            }
+        }
+
+
+        GameObject g = Instantiate<GameObject>(bulletPrefabBig);
+        g.transform.parent = bulletBigParent.transform;
+        bulletListBig.Add(g);
+        g.SetActive(false);
+        return g;
+    }
+    */
+
     public GameObject GetPooledExplosion() {
         for (int i = 0; i < explosionsList.Count; i++) {
             if (!explosionsList[i].activeInHierarchy) {
