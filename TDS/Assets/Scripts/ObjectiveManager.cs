@@ -8,6 +8,7 @@ public class ObjectiveManager : MonoBehaviour {
     public List<string> questList;
     public string questSearchedString;
     public TextAsset textAsset;
+    public bool objectivesComplete = false;
 
     private Text objectiveText;
     private int linesRead = 0;
@@ -39,7 +40,11 @@ public class ObjectiveManager : MonoBehaviour {
         if (currentObjective < objectiveCount) {
             currentObjective++;
             objectiveText.text = questList[currentObjective - 1];
+
+            if (currentObjective == objectiveCount) {
+                objectivesComplete = true;
+            }
         }
     }
-	
+
 }

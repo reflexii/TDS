@@ -30,6 +30,7 @@ public class Scientist : MonoBehaviour {
     private bool walking = false;
     private Animator animator;
     private bool doneOnce = false;
+    private bool scared = false;
 
     void Awake () {
         ai = GetComponent<AIPath>();
@@ -62,6 +63,7 @@ public class Scientist : MonoBehaviour {
 
     void Animations() {
         animator.SetBool("Walking", walking);
+        animator.SetBool("Scared", scared);
     }
 
 	void Update () {
@@ -84,9 +86,9 @@ public class Scientist : MonoBehaviour {
                 targetObject.transform.position = alertButtonObjectToRunWhenAlerted.transform.position;
                 break;
             case CurrentStance.Hiding:
-                animator.speed = 1f;
+                animator.speed = 3f;
                 walking = false;
-                //change to hide animation until DÖÖÖÖD
+                scared = true;
                 Debug.Log("Vidduuh:D Nyd Bidää Gyllä Bääsdä Jemmaan Ennengu Doi Baha Boiga Dabbaa Mud:D");
                 break;
         }

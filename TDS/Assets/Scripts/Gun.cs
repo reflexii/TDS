@@ -7,9 +7,6 @@ public class Gun : MonoBehaviour {
 
     public enum Weapons { Pistol, Shotgun, SMG, Rifle };
     public Weapons weaponInUse;
-    public GameObject bulletPrefab;
-    public GameObject bulletPrefabBig;
-    public GameObject bulletPrefabMedium;
     public Transform bulletSpawnPoint;
     public bool playerOwned = true;
 
@@ -278,7 +275,7 @@ public class Gun : MonoBehaviour {
                     {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
                         
-                        GameObject smgBullet = pool.GetPooledBullet();
+                        GameObject smgBullet = pool.GetPooledMediumBullet();
                         smgBullet.SetActive(true);
                         smgBullet.transform.position = bulletSpawnPoint.position;
                         RandomizeSMGDirection();
@@ -418,15 +415,15 @@ public class Gun : MonoBehaviour {
         }
 
     private void RandomizeShotgunDirection() {
-        float x = Random.Range(-0.2f, 0.2f);
-        float y = Random.Range(-0.2f, 0.2f);
+        float x = Random.Range(-0.22f, 0.22f);
+        float y = Random.Range(-0.22f, 0.22f);
         shotgunRandomSpread = new Vector3(x, y, 0f);
     }
 
     private void RandomizeSMGDirection()
     {
-        float x = Random.Range(-0.12f, 0.12f);
-        float y = Random.Range(-0.12f, 0.12f);
+        float x = Random.Range(-0.1f, 0.1f);
+        float y = Random.Range(-0.1f, 0.1f);
         smgRandomSpread = new Vector3(x, y, 0f);
     }
 }
