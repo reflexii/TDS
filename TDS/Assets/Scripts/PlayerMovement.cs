@@ -92,6 +92,10 @@ public class PlayerMovement : MonoBehaviour {
     private bool vipTogglable = false;
     private GameObject vipObject;
 
+    //objectives
+    private ObjectiveManager objectiveManager;
+    private bool fail = false;
+
     private void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         gameManager.GetComponent<GameManager>().player = gameObject;
@@ -107,7 +111,12 @@ public class PlayerMovement : MonoBehaviour {
         reticle = GameObject.Find("Reticle");
         healthImage = GameObject.Find("HealthImage").GetComponent<Image>();
         healthText = GameObject.Find("HealthText").GetComponent<Text>();
+        objectiveManager = GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>();
         animator = GetComponent<Animator>();
+
+        Color temp = GetComponent<SpriteRenderer>().color;
+        temp.a = 255f;
+        GetComponent<SpriteRenderer>().color = temp;
 
         grenadeBar.fillAmount = 0f;
         grenadeBar_bg.fillAmount = 0f;
@@ -131,7 +140,16 @@ public class PlayerMovement : MonoBehaviour {
 
     void Update () {
 
-        if (!dead) {
+        if (dead || objectiveManager.missionFailed) {
+            if (objectiveManager.missionFailed) {
+                fail = true;
+                animator.SetBool("MissionFailed", fail);
+                reticle.SetActive(false);
+                if (hasGun) {
+                    gun.GetComponent<Gun>().fail = true;
+                }
+            }
+        } else {
             Movement();
             MouseLook();
             WallCheck();
@@ -162,6 +180,7 @@ public class PlayerMovement : MonoBehaviour {
         animator.SetBool("HasGun", hasGun);
         animator.SetInteger("WeaponUsed", weaponUsed);
         animator.SetBool("SwingKnife", swingKnife);
+        animator.SetBool("MissionFailed", fail);
 
         //1=pistol 2=shotgun 3=smg 4=rifle
         if (hasGun) {
@@ -335,7 +354,8 @@ public class PlayerMovement : MonoBehaviour {
         if (hasGun) {
             DropGun();
         }
-        
+
+        GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().MissionFailed("You have died.");
 
         //Sound
 

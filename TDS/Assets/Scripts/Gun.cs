@@ -57,6 +57,10 @@ public class Gun : MonoBehaviour {
     //line
     private LineRenderer lineRenderer;
 
+    //objectives
+    private ObjectiveManager objectiveManager;
+    public bool fail = false;
+
 
     void Awake () {
         mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
@@ -66,6 +70,7 @@ public class Gun : MonoBehaviour {
         magazineText = GameObject.Find("MagazineText").GetComponent<Text>();
         currentGunImage = GameObject.Find("GunImage").GetComponent<Image>();
         sr = GetComponent<SpriteRenderer>();
+        objectiveManager = GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>();
         lineRenderer = transform.Find("ShootingLine").gameObject.GetComponent<LineRenderer>();
         Vector3[] initLaserPositions = new Vector3[2] { transform.position, transform.position };
         lineRenderer.SetPositions(initLaserPositions);
@@ -143,7 +148,14 @@ public class Gun : MonoBehaviour {
         if (playerOwned)
         {
             SetUIImage();
-            lineRenderer.enabled = true;
+
+            if (!fail) {
+                lineRenderer.enabled = true;
+                transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+            } else {
+                lineRenderer.enabled = false;
+            }
+            
             //Laser
             // convert mouse position into world coordinates
             Vector2 mouseScreenPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);

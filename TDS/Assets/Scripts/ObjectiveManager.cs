@@ -9,14 +9,23 @@ public class ObjectiveManager : MonoBehaviour {
     public string questSearchedString;
     public TextAsset textAsset;
     public bool objectivesComplete = false;
+    public bool missionFailed = false;
 
     private Text objectiveText;
     private int linesRead = 0;
     private int currentObjective = 1;
     private int objectiveCount;
+    private Text objectiveNumberText;
+    private GameObject deathScreenParent;
+    private GameManager gm;
+    private string failTextOnce = "";
 
 	void Start () {
         objectiveText = GameObject.Find("ObjectiveText").GetComponent<Text>();
+        objectiveNumberText = GameObject.Find("ObjectiveNumber").GetComponent<Text>();
+        deathScreenParent = GameObject.Find("DeathScreen_parent");
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        deathScreenParent.SetActive(false);
         questList = new List<string>();
 
         string[] linesInFile = textAsset.text.Split("\n"[0]);
@@ -45,6 +54,28 @@ public class ObjectiveManager : MonoBehaviour {
                 objectivesComplete = true;
             }
         }
+    }
+
+    private void Update() {
+        UpdateObjectiveNumberText();
+    }
+
+    public void MissionFailed(string failText) {
+        missionFailed = true;
+        deathScreenParent.SetActive(true);
+
+        if (failTextOnce.Equals("")) {
+            deathScreenParent.transform.Find("FailExplanation").GetComponent<Text>().text = failText;
+            failTextOnce = failText;
+        }
+        gm.missionFailed = true;
+    }
+
+    void UpdateObjectiveNumberText() {
+        if (objectiveNumberText != null) {
+            objectiveNumberText.text = currentObjective + "/" + objectiveCount;
+        }
+        
     }
 
 }

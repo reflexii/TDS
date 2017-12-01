@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
     public float loadSceneDelay;
     private float runningSceneTime;
     public bool playerIsDead = false;
+    public bool missionFailed = false;
     public GameObject player;
 
     private void Awake() {
@@ -16,10 +17,10 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Update() {
-        if (playerIsDead) {
+        if (playerIsDead || missionFailed) {
             runningSceneTime += Time.deltaTime;
 
-            if (runningSceneTime >= loadSceneDelay) {
+            if (runningSceneTime >= loadSceneDelay || runningSceneTime >= 2f && Input.GetKeyDown(KeyCode.Mouse0)) {
                 LoadSameScene();
             }
         }
@@ -27,9 +28,13 @@ public class GameManager : MonoBehaviour {
 
     public void LoadSameScene() {
         runningSceneTime = 0f;
+        missionFailed = false;
         //GetComponent<DialogManager>().reader.Close();
-        player.GetComponent<PlayerMovement>().gameObject.SetActive(true);
-        playerIsDead = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        player.GetComponent<PlayerMovement>().gameObject.SetActive(true);
+        Color temp = player.GetComponent<SpriteRenderer>().color;
+        temp.a = 0f;
+        player.GetComponent<SpriteRenderer>().color = temp;
+        playerIsDead = false;
     }
 }

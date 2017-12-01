@@ -89,7 +89,6 @@ public class Scientist : MonoBehaviour {
                 animator.speed = 3f;
                 walking = false;
                 scared = true;
-                Debug.Log("Vidduuh:D Nyd Bidää Gyllä Bääsdä Jemmaan Ennengu Doi Baha Boiga Dabbaa Mud:D");
                 break;
         }
 	}

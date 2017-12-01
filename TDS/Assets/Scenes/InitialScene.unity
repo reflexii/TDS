@@ -1501,7 +1501,7 @@ GameObject:
   m_Component:
   - component: {fileID: 403600617}
   - component: {fileID: 403600618}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: damageCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7119,11 +7119,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114883188310839740, guid: ecb6d49fc021d5547baeefc98f8dec15,
-        type: 2}
-      propertyPath: playerHealth
-      value: 100000
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ecb6d49fc021d5547baeefc98f8dec15, type: 2}
   m_IsPrefabParent: 0
@@ -7755,6 +7750,10 @@ MonoBehaviour:
   dieBloodSmallPrefab: {fileID: 1619409838994012, guid: 8d180fdf17f847b47a1fedf172299a2a,
     type: 2}
   following: 1
+  vipHealth: 200
+  vipCurrentHealth: 0
+  corpse1: {fileID: 1965983269794836, guid: 173838f8581c4bf499c9fade0ee567cb, type: 2}
+  corpse2: {fileID: 1300007775183162, guid: 581b4e42a3b173240ade2a86560ff01c, type: 2}
   doneOnce: 0
 --- !u!95 &2139850849
 Animator:

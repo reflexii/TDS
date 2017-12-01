@@ -71,6 +71,14 @@ public class Bullet : MonoBehaviour {
         {
             if (collision.gameObject.GetComponent<PlayerMovement>().playerCurrentHealth > 0) {
                 collision.gameObject.GetComponent<PlayerMovement>().TakeDamage(bulletDamage);
+                gameObject.SetActive(false);
+            }
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("VIPDamage")) {
+            if (collision.gameObject.transform.parent.GetComponent<VIP>().vipCurrentHealth > 0) {
+                collision.gameObject.transform.parent.GetComponent<VIP>().TakeDamage(bulletDamage);
+                gameObject.SetActive(false);
             }
         }
     }

@@ -12,6 +12,10 @@ public class VIP : MonoBehaviour {
     public GameObject dieBloodBigPrefab;
     public GameObject dieBloodSmallPrefab;
     public bool following = false;
+    public float vipHealth = 200f;
+    public float vipCurrentHealth;
+    public GameObject corpse1;
+    public GameObject corpse2;
 
     private GameObject targetObject;
     private Animator animator;
@@ -19,6 +23,7 @@ public class VIP : MonoBehaviour {
     private bool walking = false;
     private GameObject damageCollider;
     public bool doneOnce = false;
+    private bool dead = false;
 
     void Awake () {
         ai = GetComponent<AIPath>();
@@ -26,6 +31,7 @@ public class VIP : MonoBehaviour {
         animator = GetComponent<Animator>();
         targetParentObject = GameObject.Find("EnemyTargets").transform;
         damageCollider = transform.Find("damageCollider").gameObject;
+        vipCurrentHealth = vipHealth;
 
         if (!following) {
             whatVIPIsDoing = CurrentStance.Stand;
@@ -71,4 +77,43 @@ public class VIP : MonoBehaviour {
                 break;
         }
 	}
+
+    public void TakeDamage(float damageAmount) {
+        //blood
+        Instantiate<GameObject>(dieBloodSmallPrefab, transform.position, Quaternion.identity);
+        //sound
+
+        vipCurrentHealth -= damageAmount;
+
+        if (vipCurrentHealth <= 0f && !dead) {
+            Die();
+        }
+    }
+
+    public void Die() {
+        dead = true;
+
+        RandomizeAndSpawnCorpse();
+
+        Instantiate<GameObject>(dieBloodBigPrefab, transform.position, Quaternion.identity);
+        Instantiate<GameObject>(dieBloodSmallPrefab, transform.position, Quaternion.identity);
+
+        GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().MissionFailed("VIP has died.");
+
+        Destroy(targetObject, 0f);
+        Destroy(gameObject, 0f);
+    }
+
+    public void RandomizeAndSpawnCorpse() {
+        int randomize = Random.Range(0, 2);
+        GameObject chosenCorpse;
+
+        if (randomize == 0) {
+            chosenCorpse = corpse1;
+        } else {
+            chosenCorpse = corpse2;
+        }
+
+        Instantiate<GameObject>(chosenCorpse, transform.position, Quaternion.identity);
+    }
 }
