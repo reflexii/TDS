@@ -9,7 +9,9 @@ public class DialogManager : MonoBehaviour {
     public List<string> dialogueList;
     public bool dialogueIsActive = false;
     public GameObject dialogueText;
+    public GameObject dialogueImage;
     public TextAsset textAsset;
+    public Animator animator;
     private int linesRead = 0;
 
     public GameObject dialogueParent;
@@ -18,6 +20,8 @@ public class DialogManager : MonoBehaviour {
         dialogueList = new List<string>();
         dialogueParent = GameObject.Find("Dialogue");
         dialogueText = GameObject.Find("DialogueText");
+        dialogueImage = GameObject.Find("Speaker");
+        animator = dialogueImage.GetComponent<Animator>();
         dialogueParent.SetActive(false);
 
         string[] linesInFile = textAsset.text.Split("\n"[0]);
