@@ -20,6 +20,7 @@ public class Scientist : MonoBehaviour {
     public GameObject corpse1;
     public GameObject corpse2;
     public bool standingEnemy = false;
+    public float hideEulerAngles = 0f;
 
     private int listLength;
     private Transform wayPointParentObject;
@@ -115,11 +116,7 @@ public class Scientist : MonoBehaviour {
                 targetObject.transform.position = alertButtonObjectToRunWhenAlerted.transform.position;
                 break;
             case CurrentStance.Hiding:
-
-                Vector3 lookPos = alertButtonObjectToRunWhenAlerted.transform.position - transform.position;
-                float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
-                angle -= 90f;
-                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                transform.eulerAngles = new Vector3(0f, 0f, hideEulerAngles);
                 animator.speed = 3f;
                 walking = false;
                 scared = true;
