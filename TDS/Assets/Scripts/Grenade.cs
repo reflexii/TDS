@@ -55,7 +55,7 @@ public class Grenade : MonoBehaviour {
     public void ExplodeGrenade()
     {
         //Explode destroyable walls
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 1.5f, 1 << LayerMask.NameToLayer("Wall"));
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 3f, 1 << LayerMask.NameToLayer("Wall"));
         if (colliders != null)
         {
             for (int i = 0; i < colliders.Length; i++)
@@ -63,7 +63,7 @@ public class Grenade : MonoBehaviour {
                 if (colliders[i] != null)
                 {
                     if (colliders[i].gameObject.tag == "Destructable" || colliders[i].gameObject.tag == "SeeThroughDestructable")
-                    colliders[i].gameObject.GetComponent<DestroyableObject>().DestroyWall();
+                    colliders[i].gameObject.GetComponent<DestroyableObject>().TakeDamage(5f);
                 }
             }
         }

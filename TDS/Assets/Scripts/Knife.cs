@@ -62,7 +62,7 @@ public class Knife : MonoBehaviour {
             }
 
             for (int j = 0; j < destroyObjects.Length; j++) {
-                destroyObjects[j].GetComponent<DestroyableObject>().DestroyWall();
+                destroyObjects[j].GetComponent<DestroyableObject>().TakeDamage(5f);
             }
         }
 
@@ -86,7 +86,6 @@ public class Knife : MonoBehaviour {
                     knifableEnemies[i].GetComponent<Scientist>().DamageEnemy(damageValue);
                 } else if (knifableEnemies[i].transform.parent.GetComponent<VIP>() != null) {
                     knifableEnemies[i].transform.parent.GetComponent<VIP>().TakeDamage(damageValue);
-                    Debug.Log("Knifed VIP!");
                 }
             }
             

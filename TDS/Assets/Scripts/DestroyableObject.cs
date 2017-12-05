@@ -6,6 +6,13 @@ public class DestroyableObject : MonoBehaviour {
 
     public GameObject ps;
     public bool breakableWithBullets = false;
+    public float health = 1f;
+
+    private float currentHealth;
+
+    public void Awake() {
+        currentHealth = health;
+    }
 
     public void DestroyWall()
     {
@@ -13,5 +20,13 @@ public class DestroyableObject : MonoBehaviour {
         Destroy(gameObject, 0f);
         //play animation
         //play sound
+    }
+
+    public void TakeDamage(float value) {
+        currentHealth -= value;
+
+        if (currentHealth <= 0) {
+            DestroyWall();
+        }
     }
 }

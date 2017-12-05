@@ -47,7 +47,7 @@ public class Bullet : MonoBehaviour {
             collision.gameObject.layer == LayerMask.NameToLayer("Wall") && collision.gameObject.tag == "SeeThroughDestructable" && collision.gameObject.GetComponent<DestroyableObject>() != null) {
             if (collision.gameObject.GetComponent<DestroyableObject>().breakableWithBullets) {
                 gameObject.SetActive(false);
-                collision.gameObject.GetComponent<DestroyableObject>().DestroyWall();
+                collision.gameObject.GetComponent<DestroyableObject>().TakeDamage(5f);
             }
         }
 
