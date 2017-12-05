@@ -21,6 +21,7 @@ public class Scientist : MonoBehaviour {
     public GameObject corpse2;
     public bool standingEnemy = false;
     public float hideEulerAngles = 0f;
+    public GameObject exclamationMarkPrefab;
 
     private int listLength;
     private Transform wayPointParentObject;
@@ -33,6 +34,10 @@ public class Scientist : MonoBehaviour {
     private Animator animator;
     private bool doneOnce = false;
     private bool scared = false;
+
+    //alerts
+    private GameObject em;
+    private GameObject symbolObject;
 
     void Awake () {
         ai = GetComponent<AIPath>();
@@ -55,6 +60,8 @@ public class Scientist : MonoBehaviour {
         if (movementPositionList.Length == 1) {
             standingEnemy = true;
         }
+
+        CreateAlerts();
     }
 	
     void Start() {
@@ -89,6 +96,22 @@ public class Scientist : MonoBehaviour {
         }
     }
 
+    void CreateAlerts() {
+        if (GameObject.Find("Symbols") == null) {
+            symbolObject = new GameObject();
+            symbolObject.name = "Symbols";
+        } else {
+            symbolObject = GameObject.Find("Symbols");
+        }
+        em = Instantiate<GameObject>(exclamationMarkPrefab, transform.position + new Vector3(0f, 0.9f, 0f), Quaternion.identity);
+        em.transform.parent = symbolObject.transform;
+        em.GetComponent<SpriteRenderer>().enabled = false;
+    }
+
+    void UpdateAlerts() {
+        em.transform.position = transform.position + new Vector3(0f, 0.9f, 0f);
+    }
+
     void Animations() {
         animator.SetBool("Walking", walking);
         animator.SetBool("Scared", scared);
@@ -96,10 +119,12 @@ public class Scientist : MonoBehaviour {
 
 	void Update () {
 
+        UpdateAlerts();
         Animations();
 
 		switch (whatEnemyIsDoing) {
             case CurrentStance.Moving:
+                em.GetComponent<SpriteRenderer>().enabled = false;
                 walking = true;
                 break;
             case CurrentStance.WaitingToMove:
@@ -108,12 +133,14 @@ public class Scientist : MonoBehaviour {
                     walking = false;
                     MoveTarget();
                 }
+                em.GetComponent<SpriteRenderer>().enabled = false;
                 break;
             case CurrentStance.Alerted:
                 walking = true;
                 ai.speed = 6f;
                 animator.speed = 2f;
                 targetObject.transform.position = alertButtonObjectToRunWhenAlerted.transform.position;
+                em.GetComponent<SpriteRenderer>().enabled = true;
                 break;
             case CurrentStance.Hiding:
                 transform.eulerAngles = new Vector3(0f, 0f, hideEulerAngles);
@@ -121,6 +148,7 @@ public class Scientist : MonoBehaviour {
                 walking = false;
                 scared = true;
                 ai.canMove = false;
+                em.GetComponent<SpriteRenderer>().enabled = true;
                 break;
         }
 	}
@@ -172,6 +200,7 @@ public class Scientist : MonoBehaviour {
             doneOnce = true;
         }
 
+        Destroy(em);
         Destroy(targetObject, 0f);
         Destroy(gameObject, 0f);
     }
