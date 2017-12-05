@@ -69,8 +69,8 @@ public class Grenade : MonoBehaviour {
         }
 
         //Explode enemies, in two different radiuses, when enemy is close he takes damage from all two
-        Collider2D[] firstExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 3f, 1 << LayerMask.NameToLayer("Enemy"));
-        Collider2D[] secondExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 5f, 1 << LayerMask.NameToLayer("Enemy"));
+        Collider2D[] firstExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 3f, 1 << LayerMask.NameToLayer("Enemy") | 1 << LayerMask.NameToLayer("VIPDamage") | 1 << LayerMask.NameToLayer("Player1"));
+        Collider2D[] secondExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 5f, 1 << LayerMask.NameToLayer("Enemy") | 1 << LayerMask.NameToLayer("VIPDamage") | 1 << LayerMask.NameToLayer("Player1"));
 
         if (firstExplosionRadius != null)
         {
@@ -84,6 +84,12 @@ public class Grenade : MonoBehaviour {
                             firstExplosionRadius[i].gameObject.GetComponent<MovingEnemy>().DamageEnemy(grenadeDamage);
                         } else if (firstExplosionRadius[i].gameObject.GetComponent<Scientist>() != null) {
                             firstExplosionRadius[i].gameObject.GetComponent<Scientist>().DamageEnemy(grenadeDamage);
+                        } else if (firstExplosionRadius[i].gameObject.transform.parent != null) {
+                            if (firstExplosionRadius[i].gameObject.transform.parent.GetComponent<VIP>() != null) {
+                                firstExplosionRadius[i].gameObject.transform.parent.GetComponent<VIP>().TakeDamage(grenadeDamage);
+                            }
+                        } else if (firstExplosionRadius[i].gameObject.GetComponent<PlayerMovement>() != null) {
+                            firstExplosionRadius[i].gameObject.GetComponent<PlayerMovement>().TakeDamage(grenadeDamage);
                         }
                         
                     }
@@ -103,6 +109,12 @@ public class Grenade : MonoBehaviour {
                             secondExplosionRadius[i].gameObject.GetComponent<MovingEnemy>().DamageEnemy(grenadeDamage);
                         } else if (secondExplosionRadius[i].gameObject.GetComponent<Scientist>() != null) {
                             secondExplosionRadius[i].gameObject.GetComponent<Scientist>().DamageEnemy(grenadeDamage);
+                        } else if (secondExplosionRadius[i].gameObject.transform.parent != null) {
+                            if (secondExplosionRadius[i].gameObject.transform.parent.GetComponent<VIP>() != null) {
+                                secondExplosionRadius[i].gameObject.transform.parent.GetComponent<VIP>().TakeDamage(grenadeDamage);
+                            }
+                        } else if (secondExplosionRadius[i].gameObject.GetComponent<PlayerMovement>() != null) {
+                            secondExplosionRadius[i].gameObject.GetComponent<PlayerMovement>().TakeDamage(grenadeDamage);
                         }
                     }
                 }

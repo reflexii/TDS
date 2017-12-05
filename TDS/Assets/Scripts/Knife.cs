@@ -16,7 +16,8 @@ public class Knife : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") ||
+            collision.gameObject.layer == LayerMask.NameToLayer("VIPDamage"))
         {
             knifableEnemies.Add(collision.gameObject);
         }
@@ -35,7 +36,8 @@ public class Knife : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") ||
+            collision.gameObject.layer == LayerMask.NameToLayer("VIPDamage"))
         {
             knifableEnemies.Remove(collision.gameObject);
         }
@@ -82,6 +84,9 @@ public class Knife : MonoBehaviour {
                     }
                 } else if (knifableEnemies[i].GetComponent<Scientist>() != null) {
                     knifableEnemies[i].GetComponent<Scientist>().DamageEnemy(damageValue);
+                } else if (knifableEnemies[i].transform.parent.GetComponent<VIP>() != null) {
+                    knifableEnemies[i].transform.parent.GetComponent<VIP>().TakeDamage(damageValue);
+                    Debug.Log("Knifed VIP!");
                 }
             }
             

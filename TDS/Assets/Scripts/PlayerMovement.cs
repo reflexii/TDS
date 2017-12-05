@@ -78,6 +78,7 @@ public class PlayerMovement : MonoBehaviour {
 
     //UseHelper
     private Image useHelper;
+    private Image rightClickIndicator;
 
     //health
     private Image healthImage;
@@ -107,6 +108,7 @@ public class PlayerMovement : MonoBehaviour {
         grenadeBar_bg = GameObject.Find("grenadeBar_bg").GetComponent<Image>();
         mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         useHelper = GameObject.Find("UseHelper").GetComponent<Image>();
+        rightClickIndicator = GameObject.Find("RightClickIndicator").GetComponent<Image>();
         bulletSpawnPoint = transform.Find("BulletSpawnPoint").gameObject;
         reticle = GameObject.Find("Reticle");
         healthImage = GameObject.Find("HealthImage").GetComponent<Image>();
@@ -142,6 +144,8 @@ public class PlayerMovement : MonoBehaviour {
 
         if (dead || objectiveManager.missionFailed) {
             if (objectiveManager.missionFailed) {
+                useHelper.enabled = false;
+                rightClickIndicator.enabled = false;
                 fail = true;
                 animator.SetBool("MissionFailed", fail);
                 reticle.SetActive(false);
@@ -160,6 +164,7 @@ public class PlayerMovement : MonoBehaviour {
             Use();
             Animations();
             UseHelper();
+            RightClickIndicator();
             HealthUpdate();
             reticle.SetActive(true);
         }
@@ -202,13 +207,24 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void UseHelper() {
-        Vector3 pos = mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position) + new Vector3(0f, 45f, 0f);
+        Vector3 pos = mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position) + new Vector3(0f, 55f, 0f);
         useHelper.transform.position = pos;
 
         if (togglable || vipTogglable || dialogueTogglable) {
             useHelper.enabled = true;
         } else {
             useHelper.enabled = false;
+        }
+    }
+
+    void RightClickIndicator() {
+        Vector3 pos = mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position) + new Vector3(0f, 55f, 0f);
+        rightClickIndicator.transform.position = pos;
+
+        if (gunInRange) {
+            rightClickIndicator.enabled = true;
+        } else {
+            rightClickIndicator.enabled = false;
         }
     }
 
@@ -343,6 +359,8 @@ public class PlayerMovement : MonoBehaviour {
 
     public void Die() {
         reticle.SetActive(false);
+        useHelper.enabled = false;
+        rightClickIndicator.enabled = false;
         dead = true;
         GenerateCorpse();
         playerCurrentHealth = 0f;
