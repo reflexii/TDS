@@ -43,7 +43,8 @@ public class PlayerSpotter : MonoBehaviour {
                 }
             }
         } else {
-            if (isPlayerVisible) {
+            if (isPlayerVisible && enemy.GetComponent<Scientist>().whatEnemyIsDoing == Scientist.CurrentStance.Moving ||
+                isPlayerVisible && enemy.GetComponent<Scientist>().whatEnemyIsDoing == Scientist.CurrentStance.WaitingToMove) {
                 enemy.GetComponent<Scientist>().whatEnemyIsDoing = Scientist.CurrentStance.Alerted;
             } else {
 

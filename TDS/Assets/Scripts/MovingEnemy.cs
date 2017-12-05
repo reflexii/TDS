@@ -70,10 +70,21 @@ public class MovingEnemy : MonoBehaviour {
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         player = GameObject.Find("Player");
+
+        if (GameObject.Find("WayPoints") == null) {
+            GameObject g = new GameObject();
+            g.name = "WayPoints";
+        }
         wayPointParentObject = GameObject.Find("WayPoints").transform;
         gun = transform.Find("Gun").gameObject;
         ai = GetComponent<AIPath>();
         gun.GetComponent<Gun>().playerOwned = false;
+
+        if (GameObject.Find("EnemyTargets") == null) {
+            GameObject g = new GameObject();
+            g.name = "EnemyTargets";
+        }
+
         targetParentObject = GameObject.Find("EnemyTargets").transform;
         animator = GetComponent<Animator>();
         CreateAlerts();

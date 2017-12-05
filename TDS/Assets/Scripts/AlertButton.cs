@@ -12,7 +12,6 @@ public class AlertButton : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") && collision.transform.tag == "Scientist") {
-
             if (collision.gameObject.GetComponent<Scientist>().whatEnemyIsDoing == Scientist.CurrentStance.Alerted) {
                 alert.AlertOn = true;
                 collision.gameObject.GetComponent<Scientist>().whatEnemyIsDoing = Scientist.CurrentStance.Hiding;

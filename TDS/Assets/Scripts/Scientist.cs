@@ -19,6 +19,7 @@ public class Scientist : MonoBehaviour {
     public GameObject dieBloodSmallPrefab;
     public GameObject corpse1;
     public GameObject corpse2;
+    public bool standingEnemy = false;
 
     private int listLength;
     private Transform wayPointParentObject;
@@ -36,8 +37,23 @@ public class Scientist : MonoBehaviour {
         ai = GetComponent<AIPath>();
         player = GameObject.Find("Player");
         animator = GetComponent<Animator>();
+
+        if (GameObject.Find("WayPoints") == null) {
+            GameObject g = new GameObject();
+            g.name = "WayPoints";
+        }
+
         wayPointParentObject = GameObject.Find("WayPoints").transform;
+
+        if (GameObject.Find("EnemyTargets") == null) {
+            GameObject g = new GameObject();
+            g.name = "EnemyTargets";
+        }
         targetParentObject = GameObject.Find("EnemyTargets").transform;
+
+        if (movementPositionList.Length == 1) {
+            standingEnemy = true;
+        }
     }
 	
     void Start() {
@@ -48,7 +64,13 @@ public class Scientist : MonoBehaviour {
             GameObject wp = Instantiate<GameObject>(wayPointPrefab, transform.position, Quaternion.identity, wayPointParentObject);
             wp.name = "Waypoint";
             movementPositionList[0] = wp.transform;
-            target = Instantiate<GameObject>(targetPrefab, movementPositionList[1].transform.position, Quaternion.identity, targetParentObject);
+
+            if (!standingEnemy) {
+                target = Instantiate<GameObject>(targetPrefab, movementPositionList[1].transform.position, Quaternion.identity, targetParentObject);
+            } else {
+                target = Instantiate<GameObject>(targetPrefab, movementPositionList[0].transform.position, Quaternion.identity, targetParentObject);
+            }
+            
         } else {
             target = Instantiate<GameObject>(targetPrefab, movementPositionList[0].transform.position, Quaternion.identity, targetParentObject);
         }
@@ -59,6 +81,11 @@ public class Scientist : MonoBehaviour {
         target.name = "Scientist Target";
         ai.target = target.transform;
         targetObject = target;
+
+        if (standingEnemy) {
+            targetObject.transform.position = transform.position;
+            whatEnemyIsDoing = CurrentStance.WaitingToMove;
+        }
     }
 
     void Animations() {
@@ -75,9 +102,11 @@ public class Scientist : MonoBehaviour {
                 walking = true;
                 break;
             case CurrentStance.WaitingToMove:
-                runningWaitTime += Time.deltaTime;
-                walking = false;
-                MoveTarget();
+                if (!standingEnemy) {
+                    runningWaitTime += Time.deltaTime;
+                    walking = false;
+                    MoveTarget();
+                }
                 break;
             case CurrentStance.Alerted:
                 walking = true;
@@ -86,9 +115,15 @@ public class Scientist : MonoBehaviour {
                 targetObject.transform.position = alertButtonObjectToRunWhenAlerted.transform.position;
                 break;
             case CurrentStance.Hiding:
+
+                Vector3 lookPos = alertButtonObjectToRunWhenAlerted.transform.position - transform.position;
+                float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
+                angle -= 90f;
+                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
                 animator.speed = 3f;
                 walking = false;
                 scared = true;
+                ai.canMove = false;
                 break;
         }
 	}
