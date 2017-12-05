@@ -73,7 +73,7 @@ public class ObjectiveManager : MonoBehaviour {
 
     void UpdateObjectiveNumberText() {
         if (objectiveNumberText != null) {
-            objectiveNumberText.text = currentObjective + "/" + objectiveCount;
+            objectiveNumberText.text = (currentObjective-1) + "/" + (objectiveCount-1);
         }
         
     }
