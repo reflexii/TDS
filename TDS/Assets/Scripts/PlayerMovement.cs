@@ -422,6 +422,7 @@ public class PlayerMovement : MonoBehaviour {
         gun = null;
         gunInRange = false;
         hasGun = false;
+        transform.Find("BulletSpawnPoint/Muzzle").GetComponent<SpriteRenderer>().enabled = false;
     }
 
     void PickUpGun()
@@ -440,7 +441,9 @@ public class PlayerMovement : MonoBehaviour {
         gun.GetComponent<Gun>().playerOwned = true;
         gun.GetComponent<Gun>().gunOnTheFloor = false;
         gun.GetComponent<Gun>().bulletSpawnPoint = transform.Find("BulletSpawnPoint");
+        gun.GetComponent<Gun>().FixBulletSpawnPoints();
         gun.GetComponent<Collider2D>().enabled = false;
+        transform.Find("BulletSpawnPoint/Muzzle").GetComponent<SpriteRenderer>().enabled = false;
     }
 
     private void OnTriggerStay2D(Collider2D collision)

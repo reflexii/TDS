@@ -301,6 +301,7 @@ MonoBehaviour:
   toggled: 1
   objectType: 1
   offImage: {fileID: 0}
+  grenadesGivenOnUse: 2
   gasInterval: 0.2
   gasDamage: 10
 --- !u!61 &142901787
@@ -806,15 +807,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4170234808620998, guid: 43c06689b51d1064088f783017ecdb24, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4170234808620998, guid: 43c06689b51d1064088f783017ecdb24, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4170234808620998, guid: 43c06689b51d1064088f783017ecdb24, type: 2}
       propertyPath: m_RootOrder
       value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170234808620998, guid: 43c06689b51d1064088f783017ecdb24, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 4640392401292198, guid: 43c06689b51d1064088f783017ecdb24, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 43c06689b51d1064088f783017ecdb24, type: 2}
@@ -3987,6 +3996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ca9217d3de099e4dab70b1ed7a2a85e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vipTrigger: 1
 --- !u!61 &1077793255
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -8,31 +8,37 @@ public class ObjectPooler : MonoBehaviour {
     public GameObject bulletPrefabBig;
     public GameObject bulletPrefabMedium;
     public GameObject explosionPrefab;
+    public GameObject audioSourcePrefab;
     public int bulletsInstantiated;
     public int bulletsBigInstantiated;
     public int bulletsMediumInstantiated;
     public int explosionsInstantiated;
+    public int audioSourcesInstantiated;
     public List<GameObject> bulletList;
     public List<GameObject> bulletListBig;
     public List<GameObject> bulletListMedium;
     public List<GameObject> explosionsList;
+    public List<GameObject> audioList;
 
     private GameObject parent;
     private GameObject bulletParent;
     private GameObject bulletBigParent;
     private GameObject bulletMediumParent;
     private GameObject explosionParent;
+    private GameObject audioParent;
 
 	void Awake () {
         bulletList = new List<GameObject>();
         bulletListBig = new List<GameObject>();
         bulletListMedium = new List<GameObject>();
         explosionsList = new List<GameObject>();
+        audioList = new List<GameObject>();
         parent = new GameObject();
         bulletParent = new GameObject();
         bulletBigParent = new GameObject();
         explosionParent = new GameObject();
         bulletMediumParent = new GameObject();
+        audioParent = new GameObject();
         SpawnObjects();
 	}
 
@@ -47,6 +53,8 @@ public class ObjectPooler : MonoBehaviour {
         bulletMediumParent.transform.parent = parent.transform;
         explosionParent.name = "Explosions";
         explosionParent.transform.parent = parent.transform;
+        audioParent.name = "Audio";
+        audioParent.transform.parent = parent.transform;
 
         for (int i = 0; i < bulletsInstantiated; i++) {
             GameObject g = Instantiate<GameObject>(bulletPrefab);
@@ -74,6 +82,13 @@ public class ObjectPooler : MonoBehaviour {
             g.transform.parent = bulletMediumParent.transform;
             g.SetActive(false);
             bulletListMedium.Add(g);
+        }
+
+        for (int i = 0; i < audioSourcesInstantiated; i++) {
+            GameObject g = Instantiate<GameObject>(audioSourcePrefab);
+            g.transform.parent = audioParent.transform;
+            g.SetActive(false);
+            audioList.Add(g);
         }
 
     }
@@ -133,6 +148,20 @@ public class ObjectPooler : MonoBehaviour {
         GameObject g = Instantiate<GameObject>(explosionPrefab);
         g.transform.parent = explosionParent.transform;
         explosionsList.Add(g);
+        g.SetActive(false);
+        return g;
+    }
+
+    public GameObject GetPooledAudio() {
+        for (int i = 0; i < audioList.Count; i++) {
+            if (!audioList[i].activeInHierarchy) {
+                return audioList[i];
+            }
+        }
+
+        GameObject g = Instantiate<GameObject>(audioSourcePrefab);
+        g.transform.parent = audioParent.transform;
+        audioList.Add(g);
         g.SetActive(false);
         return g;
     }

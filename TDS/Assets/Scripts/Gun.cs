@@ -151,9 +151,9 @@ public class Gun : MonoBehaviour {
 
             if (!fail) {
                 lineRenderer.enabled = true;
-                transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
             } else {
                 lineRenderer.enabled = false;
+                transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
             }
             
             //Laser
@@ -224,6 +224,7 @@ public class Gun : MonoBehaviour {
                     if (runningCooldown > pistolShootCooldown && currentMagazineSize > 0)
                     {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
+                        gameManager.GetComponent<SoundManager>().PlaySound("Gunshot_temp", true);
 
                         GameObject pistolBullet = pool.GetPooledBullet();
                         pistolBullet.SetActive(true);
@@ -233,7 +234,7 @@ public class Gun : MonoBehaviour {
                         float angle = Mathf.Atan2(pistolBullet.GetComponent<Bullet>().direction.y, pistolBullet.GetComponent<Bullet>().direction.x) * Mathf.Rad2Deg;
                         pistolBullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-                        pistolBullet.GetComponent<Bullet>().bulletSpeed = 28f;
+                        pistolBullet.GetComponent<Bullet>().bulletSpeed = 33f;
                         pistolBullet.GetComponent<Bullet>().bulletDamage = pistolDamage;
                         runningCooldown = 0f;
                         currentMagazineSize--;
@@ -265,7 +266,7 @@ public class Gun : MonoBehaviour {
                             shotgunPellet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
                             float randomizeSpeed = Random.Range(2f, 10f);
-                            shotgunPellet.GetComponent<Bullet>().bulletSpeed = 22f + randomizeSpeed;
+                            shotgunPellet.GetComponent<Bullet>().bulletSpeed = 27f + randomizeSpeed;
                             shotgunPellet.GetComponent<Bullet>().bulletDamage = shotgunDamage;
                             runningCooldown = 0f;
 
@@ -286,7 +287,9 @@ public class Gun : MonoBehaviour {
                     if (runningCooldown > smgShootCooldown && currentMagazineSize > 0)
                     {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
-                        
+
+                        gameManager.GetComponent<SoundManager>().PlaySound("Gunshot_temp2", true);
+
                         GameObject smgBullet = pool.GetPooledMediumBullet();
                         smgBullet.SetActive(true);
                         smgBullet.transform.position = bulletSpawnPoint.position;
@@ -296,7 +299,7 @@ public class Gun : MonoBehaviour {
                         float angle = Mathf.Atan2(smgBullet.GetComponent<Bullet>().direction.y, smgBullet.GetComponent<Bullet>().direction.x) * Mathf.Rad2Deg;
                         smgBullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-                        smgBullet.GetComponent<Bullet>().bulletSpeed = 28f;
+                        smgBullet.GetComponent<Bullet>().bulletSpeed = 33f;
                         smgBullet.GetComponent<Bullet>().bulletDamage = smgDamage;
                         runningCooldown = 0f;
                         currentMagazineSize--;
@@ -308,14 +311,16 @@ public class Gun : MonoBehaviour {
                             smgBullet.GetComponent<Bullet>().playerBullet = true;
                         }
                     } else {
-                        transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+                        //transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
                     }
                     break;
                 case Weapons.Rifle:
                     if (runningCooldown > rifleShootCooldown && currentMagazineSize > 0)
                     {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
-                       
+
+                        gameManager.GetComponent<SoundManager>().PlaySound("Gunshot_temp", true);
+
                         GameObject rifleBullet = pool.GetPooledBigBullet();
                         rifleBullet.SetActive(true);
                         rifleBullet.transform.position = bulletSpawnPoint.position;
@@ -325,7 +330,7 @@ public class Gun : MonoBehaviour {
                         float angle = Mathf.Atan2(rifleBullet.GetComponent<Bullet>().direction.y, rifleBullet.GetComponent<Bullet>().direction.x) * Mathf.Rad2Deg;
                         rifleBullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-                        rifleBullet.GetComponent<Bullet>().bulletSpeed = 32f;
+                        rifleBullet.GetComponent<Bullet>().bulletSpeed = 37f;
                         rifleBullet.GetComponent<Bullet>().bulletDamage = rifleDamage;
                         runningCooldown = 0f;
                         currentMagazineSize--;
@@ -337,7 +342,7 @@ public class Gun : MonoBehaviour {
                             rifleBullet.GetComponent<Bullet>().playerBullet = true;
                         }
                     } else {
-                        transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+                        //transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
                     }
                     break;
             }
@@ -399,6 +404,23 @@ public class Gun : MonoBehaviour {
                 break;
         }
         maxMagazineSize = currentMagazineSize;
+    }
+
+    public void FixBulletSpawnPoints() {
+        switch (weaponInUse) {
+            case Weapons.Pistol:
+                bulletSpawnPoint.localPosition = new Vector3(0.916f, -0.08f, bulletSpawnPoint.localPosition.z);
+                break;
+            case Weapons.Shotgun:
+                bulletSpawnPoint.localPosition = new Vector3(1.205f, -0.286f, bulletSpawnPoint.localPosition.z);
+                break;
+            case Weapons.SMG:
+                bulletSpawnPoint.localPosition = new Vector3(0.875f, -0.297f, bulletSpawnPoint.localPosition.z);
+                break;
+            case Weapons.Rifle:
+                bulletSpawnPoint.localPosition = new Vector3(1.205f, -0.286f, bulletSpawnPoint.localPosition.z);
+                break;
+        }
     }
 
     public void FillMagazine() {
