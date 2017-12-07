@@ -24,8 +24,10 @@ public class PlayerMovement : MonoBehaviour {
     private float increasedGrenadeSpeed = 0f;
     public GameObject grenadePrefab;
     public int startGrenadeAmount;
-    private int currentGrenadeAmount;
-    private Text grenadeText;
+    [HideInInspector]
+    public int currentGrenadeAmount;
+    [HideInInspector]
+    public Text grenadeText;
 
     //Knife
     private Knife knife;

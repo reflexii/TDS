@@ -8,6 +8,7 @@ public class TogglableObject : MonoBehaviour {
     public enum ObjectType { Laser, Gas, Door, Ammo};
     public ObjectType objectType;
     public Sprite offImage;
+    public int grenadesGivenOnUse = 2;
 
     private List<GameObject> damageGasList;
     private bool playerInGas = false;
@@ -116,9 +117,11 @@ public class TogglableObject : MonoBehaviour {
 
                 if (toggled && !doneOnce) {
                     if (playerObject.GetComponent<PlayerMovement>().hasGun) {
-                        Debug.Log("Fill Ammo");
+                        Debug.Log("Fill Ammo and grenades");
                         doneOnce = true;
                         playerObject.GetComponent<PlayerMovement>().gun.GetComponent<Gun>().FillMagazine();
+                        playerObject.GetComponent<PlayerMovement>().currentGrenadeAmount += grenadesGivenOnUse;
+                        playerObject.GetComponent<PlayerMovement>().grenadeText.text = "" + playerObject.GetComponent<PlayerMovement>().currentGrenadeAmount;
                     } else {
                         toggled = false;
                     }
