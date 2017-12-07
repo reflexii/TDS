@@ -133,7 +133,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -163,6 +163,7 @@ MonoBehaviour:
   toggled: 1
   objectType: 1
   offImage: {fileID: 0}
+  grenadesGivenOnUse: 2
   gasInterval: 0.2
   gasDamage: 10
 --- !u!198 &198378710168736800
