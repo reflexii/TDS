@@ -14,6 +14,8 @@ public class ObjectiveManager : MonoBehaviour {
     public int enemiesLeft;
     public bool timer = false;
     public float timerTime = 60f;
+    public bool toggleObjectsAfterTimer = false;
+    public List<GameObject> togglableObjects;
     public bool killTargetedEnemyMission = false;
     public bool pressTargetedButtonMission = false;
 
@@ -29,6 +31,7 @@ public class ObjectiveManager : MonoBehaviour {
     private bool doneOnce = false;
     private bool doneOnce2 = false;
     private bool doneOnce3 = false;
+    private Text timerText;
 
 	void Start () {
         objectiveText = GameObject.Find("ObjectiveText").GetComponent<Text>();
@@ -36,6 +39,8 @@ public class ObjectiveManager : MonoBehaviour {
         objectiveNumberText = GameObject.Find("ObjectiveNumber").GetComponent<Text>();
         deathScreenParent = GameObject.Find("DeathScreen_parent");
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        timerText = GameObject.Find("TimerText").GetComponent<Text>();
+        timerText.enabled = false;
         deathScreenParent.SetActive(false);
         questList = new List<string>();
 
@@ -85,12 +90,36 @@ public class ObjectiveManager : MonoBehaviour {
 
     public void Timer() {
         if (timer) {
-            timerTime -= Time.deltaTime;
+            if (timerTime > 0f) {
+                timerTime -= Time.deltaTime;
+            } else {
+                timerTime = 0f;
+            }
+            
 
-            //add ui.text modification
+            if (!missionFailed) {
+                timerText.enabled = true;
+            } else {
+                timerText.enabled = false;
+            }
+            string temp = "" + timerTime;
+            if (temp.Length >= 3) {
+                temp = temp.Substring(0, 3);
+            }
+            
+            timerText.text = temp;
 
         if (timerTime <= 0f && !doneOnce3) {
-                MissionFailed("You ran out of time.");
+                if (!toggleObjectsAfterTimer) {
+                    MissionFailed("You ran out of time.");
+                } else {
+                    if (togglableObjects != null) {
+                        for (int i = 0; i < togglableObjects.Count; i++) {
+                            togglableObjects[i].GetComponent<TogglableObject>().toggled = true;
+                        }
+                    }
+                }
+                
                 doneOnce3 = true;
             }
         }
@@ -112,7 +141,6 @@ public class ObjectiveManager : MonoBehaviour {
         AnimatorStateInfo info = objectiveTextBig.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
         int stateHash = info.fullPathHash;
         objectiveTextBig.gameObject.GetComponent<Animator>().Play(stateHash, 0, 0.0f);
-        Debug.Log("flash");
     }
 
     private void Update() {
