@@ -553,7 +553,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void Use()
     {
-        if (Input.GetKeyDown(KeyCode.E) && togglable)
+        if (Input.GetKeyDown(KeyCode.E) && togglable && !togglableButton.GetComponent<Button>().walkTrigger)
         {
             togglableButton.GetComponent<Button>().Toggle();
         }

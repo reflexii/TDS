@@ -11,21 +11,27 @@ public class Button : MonoBehaviour {
     public bool animated = true;
     public bool toggleObjectiveOnFirstUse = false;
     public bool toggleTimer = false;
+    public bool alertOnToggle = false;
+    public bool walkTrigger = false;
 
     private List<GameObject> allTogglableObjects;
     private float runningDelayTime = 2f;
-    
+    private Alert alert;
 
     //animation
     private Animator animator;
     private bool toggleButtonAnimation;
     private bool pressedButton = false;
     private bool doneOnce = false;
+    private bool doneOnce2 = false;
 
     private void Awake()
     {
         if (animated) {
             animator = GetComponent<Animator>();
+        }
+        if (alertOnToggle) {
+            alert = GameObject.Find("Alert").GetComponent<Alert>();
         }
         
         allTogglableObjects = new List<GameObject>();
@@ -94,6 +100,10 @@ public class Button : MonoBehaviour {
                 }
             }
 
+            if (alertOnToggle) {
+                alert.AlertOn = true;
+            }
+
             if (toggleObjectiveOnFirstUse && !doneOnce) {
                 GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().NextObjective();
 
@@ -105,6 +115,23 @@ public class Button : MonoBehaviour {
             }
 
             runningDelayTime = 0f;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") && collision.transform.tag == "Scientist") {
+            if (collision.gameObject.GetComponent<Scientist>().whatEnemyIsDoing == Scientist.CurrentStance.Alerted) {
+                Toggle();
+                collision.gameObject.GetComponent<Scientist>().whatEnemyIsDoing = Scientist.CurrentStance.Hiding;
+            }
+
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player1")) {
+            if (walkTrigger && !doneOnce2) {
+                Toggle();
+                doneOnce2 = true;
+            }
         }
     }
 

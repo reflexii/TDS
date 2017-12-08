@@ -65,14 +65,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1519836527771612}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.87, y: -14.03, z: 3.1445312}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -13.13, y: 2.97, z: 3.1445312}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4115686953126072}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!61 &61691680592347006
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -82,7 +82,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.5}
@@ -96,7 +96,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 3}
+  m_Size: {x: 3, y: 4}
   m_EdgeRadius: 0
 --- !u!61 &61771655232679920
 BoxCollider2D:
@@ -155,10 +155,11 @@ MonoBehaviour:
   togglable: 0
   parentObjects:
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  startToggled: 1
+  startToggled: 0
   animated: 1
+  toggleObjectiveOnFirstUse: 0
+  toggleTimer: 0
+  alertOnToggle: 1
 --- !u!212 &212659632303521352
 SpriteRenderer:
   m_ObjectHideFlags: 1
