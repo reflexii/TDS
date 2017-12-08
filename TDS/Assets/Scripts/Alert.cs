@@ -15,6 +15,7 @@ public class Alert : MonoBehaviour {
     private bool sameWaypoint = true;
     private int randomSecondaryOne;
     private int randomSecondaryTwo;
+    private ObjectiveManager om;
 
     public GameObject[] enemySpawnPositions;
     public int numberOfEnemiesSpawned;
@@ -24,6 +25,7 @@ public class Alert : MonoBehaviour {
     public Gun.Weapons[] weaponsAllowed;
 
 	void Awake () {
+        om = GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>();
         primaryAlertWaypoints = transform.Find("AlertWayPoints").Find("Primary").gameObject;
         secondaryAlertWaypoints = transform.Find("AlertWayPoints").Find("Secondary").gameObject;
         primaryWpList = new List<GameObject>();
@@ -65,6 +67,7 @@ public class Alert : MonoBehaviour {
 
     void SpawnEnemy() {
         GameObject enemy = Instantiate<GameObject>(enemyPrefab, RandomizeSpawnLocation(), Quaternion.identity);
+        om.enemiesLeft++;
         enemy.transform.Find("Gun").GetComponent<Gun>().weaponInUse = RandomizeWeapon();
         enemy.transform.Find("Gun").GetComponent<Gun>().WeaponPreparation();
         enemy.GetComponent<MovingEnemy>().destroyWaypoints = false;

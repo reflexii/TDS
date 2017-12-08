@@ -71,7 +71,7 @@ public class Grenade : MonoBehaviour {
         //Explode enemies, in two different radiuses, when enemy is close he takes damage from all two
         Collider2D[] firstExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 3f, 1 << LayerMask.NameToLayer("Enemy") | 1 << LayerMask.NameToLayer("VIPDamage") | 1 << LayerMask.NameToLayer("Player1"));
         Collider2D[] secondExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 5f, 1 << LayerMask.NameToLayer("Enemy") | 1 << LayerMask.NameToLayer("VIPDamage") | 1 << LayerMask.NameToLayer("Player1"));
-
+        Collider2D[] tntExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 3f, 1 << LayerMask.NameToLayer("Wall"));
         if (firstExplosionRadius != null)
         {
             for (int i = 0; i < firstExplosionRadius.Length; i++)
@@ -91,7 +91,16 @@ public class Grenade : MonoBehaviour {
                         } else if (firstExplosionRadius[i].gameObject.GetComponent<PlayerMovement>() != null) {
                             firstExplosionRadius[i].gameObject.GetComponent<PlayerMovement>().TakeDamage(grenadeDamage);
                         }
-                        
+                    }
+                }
+            }
+        }
+
+        if (tntExplosionRadius != null) {
+            for (int i = 0; i < tntExplosionRadius.Length; i++) {
+                if (tntExplosionRadius[i] != null) {
+                    if (tntExplosionRadius[i].gameObject.tag == "TNT") {
+                        tntExplosionRadius[i].gameObject.GetComponent<TogglableObject>().toggled = true;
                     }
                 }
             }

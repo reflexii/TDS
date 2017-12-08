@@ -10,6 +10,7 @@ public class Button : MonoBehaviour {
     public bool startToggled = false;
     public bool animated = true;
     public bool toggleObjectiveOnFirstUse = false;
+    public bool toggleTimer = false;
 
     private List<GameObject> allTogglableObjects;
     private float runningDelayTime = 2f;
@@ -75,13 +76,12 @@ public class Button : MonoBehaviour {
     {
         if (runningDelayTime >= toggleDelay)
         {
-            for (int i = 0; i < allTogglableObjects.Count; i++)
-            {
-                if (allTogglableObjects != null)
-                {
-                    if (allTogglableObjects[i] != null)
-                    {
-                        allTogglableObjects[i].GetComponent<TogglableObject>().toggled = !allTogglableObjects[i].GetComponent<TogglableObject>().toggled;
+            if (allTogglableObjects.Count >= 1) {
+                for (int i = 0; i < allTogglableObjects.Count; i++) {
+                    if (allTogglableObjects != null) {
+                        if (allTogglableObjects[i] != null) {
+                            allTogglableObjects[i].GetComponent<TogglableObject>().toggled = !allTogglableObjects[i].GetComponent<TogglableObject>().toggled;
+                        }
                     }
                 }
             }
@@ -96,6 +96,11 @@ public class Button : MonoBehaviour {
 
             if (toggleObjectiveOnFirstUse && !doneOnce) {
                 GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().NextObjective();
+
+                if (toggleTimer) {
+                    GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().timer = true;
+                }
+
                 doneOnce = true;
             }
 

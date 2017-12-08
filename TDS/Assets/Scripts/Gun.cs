@@ -313,6 +313,10 @@ public class Gun : MonoBehaviour {
                     } else {
                         //transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
                     }
+
+                    if (currentMagazineSize <= 0) {
+                        transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+                    }
                     break;
                 case Weapons.Rifle:
                     if (runningCooldown > rifleShootCooldown && currentMagazineSize > 0)
@@ -343,6 +347,9 @@ public class Gun : MonoBehaviour {
                         }
                     } else {
                         //transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+                    }
+                    if (currentMagazineSize <= 0) {
+                        transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
                     }
                     break;
             }

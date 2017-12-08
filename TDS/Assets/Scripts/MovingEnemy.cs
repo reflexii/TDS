@@ -218,7 +218,10 @@ public class MovingEnemy : MonoBehaviour {
                 Destroy(movementPositionList[i].gameObject, 0f);
             }
         }
+
+        GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().enemiesLeft--;
         
+
         //Destroy targets and alerts(! and ?)
         Destroy(targetObject, 0f);
         Destroy(em);

@@ -85,6 +85,7 @@ public class PlayerMovement : MonoBehaviour {
     //health
     private Image healthImage;
     private Text healthText;
+    private bool lowHealth = false;
 
     //corpses
     public GameObject playerCorpse1;
@@ -167,17 +168,23 @@ public class PlayerMovement : MonoBehaviour {
             Animations();
             UseHelper();
             RightClickIndicator();
-            HealthUpdate();
             reticle.SetActive(true);
         }
-        
-	}
+
+        HealthUpdate();
+
+    }
 
     void HealthUpdate() {
         healthText.text = "" + playerCurrentHealth;
 
         if (playerCurrentHealth < 0f) {
             playerCurrentHealth = 0f;
+        }
+
+        if (playerCurrentHealth <= 50f) {
+            lowHealth = true;
+            healthText.gameObject.GetComponent<Animator>().SetBool("LowHealth", lowHealth);
         }
     }
 
@@ -188,6 +195,7 @@ public class PlayerMovement : MonoBehaviour {
         animator.SetInteger("WeaponUsed", weaponUsed);
         animator.SetBool("SwingKnife", swingKnife);
         animator.SetBool("MissionFailed", fail);
+        healthText.gameObject.GetComponent<Animator>().SetBool("LowHealth", lowHealth);
 
         //1=pistol 2=shotgun 3=smg 4=rifle
         if (hasGun) {
@@ -584,7 +592,6 @@ public class PlayerMovement : MonoBehaviour {
             knife.DestroyObjectsInRange();
             knifeTimer = 0f;
             swingKnife = true;
-            Debug.Log("Knife!");
         }
         if (Input.GetKeyUp(KeyCode.Mouse0) && hasGun && !gunDeactivated && !gameManager.GetComponent<DialogManager>().DialogueActive()) {
             transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
