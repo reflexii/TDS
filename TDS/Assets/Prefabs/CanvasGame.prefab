@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 224709908727408938}
   - component: {fileID: 222710789236227480}
   - component: {fileID: 114685908415253664}
+  - component: {fileID: 95169409341008854}
   m_Layer: 5
   m_Name: HealthText
   m_TagString: Untagged
@@ -421,6 +422,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &95169409341008854
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1345460026094006}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9c44139456f84e94b8ccfcbfce1cfea4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95681006688109418
 Animator:
   serializedVersion: 3
