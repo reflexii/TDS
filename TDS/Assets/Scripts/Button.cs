@@ -24,6 +24,7 @@ public class Button : MonoBehaviour {
     private bool pressedButton = false;
     private bool doneOnce = false;
     private bool doneOnce2 = false;
+    private ObjectiveManager om;
 
     private void Awake()
     {
@@ -43,7 +44,8 @@ public class Button : MonoBehaviour {
         if (animated) {
             animator.SetBool("StartToggle", startToggled);
         }
-        
+
+        om = GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>();
     }
 
     void AddTogglableObjectsToList()
@@ -105,10 +107,10 @@ public class Button : MonoBehaviour {
             }
 
             if (toggleObjectiveOnFirstUse && !doneOnce) {
-                GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().NextObjective();
+                om.NextObjective();
 
                 if (toggleTimer) {
-                    GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().timer = true;
+                    om.timer = !om.timer;
                 }
 
                 doneOnce = true;

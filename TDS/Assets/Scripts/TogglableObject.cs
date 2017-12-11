@@ -12,6 +12,7 @@ public class TogglableObject : MonoBehaviour {
     public List<GameObject> tntList;
     public float tntExplodeTime = 1f;
     public GameObject explosionPrefab;
+    public float tntDamage = 1000f;
 
     private List<GameObject> damageGasList;
     private bool playerInGas = false;
@@ -157,7 +158,7 @@ public class TogglableObject : MonoBehaviour {
     }
 
     private void ExplodeTNT() {
-        ExplodeAllTNTInTheArea(4.0f);
+        ExplodeAllTNTInTheArea(4f);
         SpawnTNTExplosions();
     }
 
@@ -169,6 +170,7 @@ public class TogglableObject : MonoBehaviour {
         Instantiate<GameObject>(explosionPrefab, transform.position + new Vector3(-1f, 1f, 0f), Quaternion.identity);
 
         KillPlayerIfTooClose();
+        KillEnemiesAndVipIfTooClose();
 
         for (int i = 0; i < tntList.Count; i++) {
             if (tntList[i] != null) {
@@ -179,13 +181,15 @@ public class TogglableObject : MonoBehaviour {
     }
 
     private void ExplodeAllTNTInTheArea(float radius) {
-        Collider2D[] col = Physics2D.OverlapCircleAll(transform.position, 4f, 1 << LayerMask.NameToLayer("Wall"));
+        Collider2D[] col = Physics2D.OverlapCircleAll(transform.position, radius, 1 << LayerMask.NameToLayer("Wall"));
 
         if (col != null) {
             for (int i = 0; i < col.Length; i++) {
                 if (col[i] != null && col[i].gameObject != tntObject) {
                     if (col[i].gameObject.tag == "TNT") {
                         tntList.Add(col[i].gameObject);
+                    } else if (col[i].gameObject.tag == "Destructable" || col[i].gameObject.tag == "SeeThroughDestructable") {
+                        col[i].gameObject.GetComponent<DestroyableObject>().TakeDamage(tntDamage);
                     }
                 }
             }
@@ -193,8 +197,51 @@ public class TogglableObject : MonoBehaviour {
     }
 
     private void KillPlayerIfTooClose() {
-        if (Vector3.Distance(gameObject.transform.position, playerObject.transform.position) <= 3.7f) {
-            playerObject.GetComponent<PlayerMovement>().TakeDamage(500f);
+        RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, playerObject.transform.position - transform.position, Vector3.Distance(transform.position, playerObject.transform.position), 1 << LayerMask.NameToLayer("Wall"));
+        bool hitPlayer = true;
+
+        if (hit != null) {
+            for (int i = 0; i < hit.Length; i++) {
+                if (hit[i].transform.gameObject != tntObject) {
+                    hitPlayer = false;
+                }
+            }
+        }
+
+        if (hitPlayer && Vector3.Distance(gameObject.transform.position, playerObject.transform.position) <= 3.7f) {
+            playerObject.GetComponent<PlayerMovement>().TakeDamage(tntDamage);
+        }
+    }
+
+    private void KillEnemiesAndVipIfTooClose() {
+        Collider2D[] col = Physics2D.OverlapCircleAll(transform.position, 3f, 1 << LayerMask.NameToLayer("Enemy") | 1 << LayerMask.NameToLayer("VIPDamage"));
+
+        if (col != null) {
+            for (int i = 0; i < col.Length; i++) {
+                if (col[i] != null) {
+
+                    RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, col[i].transform.position - transform.position, Vector3.Distance(transform.position, col[i].transform.position), 1 << LayerMask.NameToLayer("Wall"));
+                    bool hitTarget = true;
+
+                    if (hit != null) {
+                        for (int j = 0; j < hit.Length; j++) {
+                            if (hit[j].transform.gameObject != tntObject) {
+                                hitTarget = false;
+                            }
+                        }
+                    }
+
+                    if (col[i].gameObject.tag == "Enemy" && hitTarget) {
+                        col[i].GetComponent<MovingEnemy>().DamageEnemy(tntDamage);
+                    } else if (col[i].gameObject.tag == "Scientist" && hitTarget) {
+                        col[i].GetComponent<Scientist>().DamageEnemy(tntDamage);
+                    } else if (col[i].gameObject.transform.parent != null) {
+                        if (col[i].gameObject.transform.parent.gameObject.layer == LayerMask.NameToLayer("VIP") && hitTarget) {
+                            col[i].transform.parent.GetComponent<VIP>().TakeDamage(tntDamage);
+                        }
+                    }
+                }
+            }
         }
     }
 

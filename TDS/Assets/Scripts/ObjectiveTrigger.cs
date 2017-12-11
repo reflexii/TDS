@@ -6,6 +6,7 @@ public class ObjectiveTrigger : MonoBehaviour {
 
     private bool doneOnce = false;
     public bool vipTrigger = false;
+    public bool vipStopTrigger = false;
     public bool activateTimer = false;
 
     private void OnTriggerEnter2D(Collider2D collision) {
@@ -25,13 +26,22 @@ public class ObjectiveTrigger : MonoBehaviour {
                     GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().NextObjective();
 
                     if (activateTimer) {
-                        GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().timer = true;
+                        GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().timer = !GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().timer;
                     }
 
                     doneOnce = true;
                 }
             }
             
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision) {
+        if (vipStopTrigger) {
+            if (collision.gameObject.layer == LayerMask.NameToLayer("VIPDamage")) {
+                collision.transform.parent.GetComponent<VIP>().following = false;
+                collision.transform.parent.GetComponent<VIP>().whatVIPIsDoing = VIP.CurrentStance.Stand;
+            }
         }
     }
 }
