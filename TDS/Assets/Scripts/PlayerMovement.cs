@@ -537,29 +537,32 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void WallCheck() {
+
+        int mask = 1 << LayerMask.NameToLayer("Wall") | 1 << LayerMask.NameToLayer("PlayerBlocker");
+
         if (Input.GetKey(KeyCode.W)) {
-            if (Physics2D.Raycast(transform.position + new Vector3(0.3f, 0f, 0f), Vector3.up, 0.5f, 1 << LayerMask.NameToLayer("Wall")) || Physics2D.Raycast(transform.position - new Vector3(0.3f, 0f, 0f), Vector3.up, 0.5f, 1 << LayerMask.NameToLayer("Wall"))) {
+            if (Physics2D.Raycast(transform.position + new Vector3(0.3f, 0f, 0f), Vector3.up, 0.5f, mask) || Physics2D.Raycast(transform.position - new Vector3(0.3f, 0f, 0f), Vector3.up, 0.5f, mask)) {
                 disableTop = true;
             } else {
                 disableTop = false;
             }
         }
         if (Input.GetKey(KeyCode.S)) {
-            if (Physics2D.Raycast(transform.position + new Vector3(0.3f, 0f, 0f), Vector3.down, 0.5f, 1 << LayerMask.NameToLayer("Wall")) || Physics2D.Raycast(transform.position - new Vector3(0.3f, 0f, 0f), Vector3.down, 0.5f, 1 << LayerMask.NameToLayer("Wall"))) {
+            if (Physics2D.Raycast(transform.position + new Vector3(0.3f, 0f, 0f), Vector3.down, 0.5f, mask) || Physics2D.Raycast(transform.position - new Vector3(0.3f, 0f, 0f), Vector3.down, 0.5f, mask)) {
                 disableBottom = true;
             } else {
                 disableBottom = false;
             }
         }
         if (Input.GetKey(KeyCode.A)) {
-            if (Physics2D.Raycast(transform.position + new Vector3(0f, 0.3f, 0f), Vector3.left, 0.5f, 1 << LayerMask.NameToLayer("Wall")) || Physics2D.Raycast(transform.position - new Vector3(0f, 0.3f, 0f), Vector3.left, 0.5f, 1 << LayerMask.NameToLayer("Wall"))) {
+            if (Physics2D.Raycast(transform.position + new Vector3(0f, 0.3f, 0f), Vector3.left, 0.5f, mask) || Physics2D.Raycast(transform.position - new Vector3(0f, 0.3f, 0f), Vector3.left, 0.5f, mask)) {
                 disableLeft = true;
             } else {
                 disableLeft = false;
             }
         }    
         if (Input.GetKey(KeyCode.D)) {
-            if (Physics2D.Raycast(transform.position + new Vector3(0f, 0.3f, 0f), Vector3.right, 0.5f, 1 << LayerMask.NameToLayer("Wall")) || Physics2D.Raycast(transform.position - new Vector3(0f, 0.3f, 0f), Vector3.right, 0.5f, 1 << LayerMask.NameToLayer("Wall"))) {
+            if (Physics2D.Raycast(transform.position + new Vector3(0f, 0.3f, 0f), Vector3.right, 0.5f, mask) || Physics2D.Raycast(transform.position - new Vector3(0f, 0.3f, 0f), Vector3.right, 0.5f, mask)) {
                 disableRight = true;
             } else {
                 disableRight = false;
