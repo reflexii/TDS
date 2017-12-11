@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 23756744430609500}
   - component: {fileID: 114867869122530692}
   - component: {fileID: 114892272351238530}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: tileset_final[1050-1200][1200]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 23661496201283666}
   - component: {fileID: 114592067188276198}
   - component: {fileID: 114272710504097922}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: tileset_final[0-150][1200]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 114614655791237744}
   - component: {fileID: 61357639481117260}
   m_Layer: 0
-  m_Name: RectangleObject
+  m_Name: Bounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 23295833471305966}
   - component: {fileID: 114033863601174960}
   - component: {fileID: 114669559506366770}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: tileset_final[600-750][1200]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4236915042329944}
   - component: {fileID: 60257928789908870}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 23912291483950086}
   - component: {fileID: 114721192696517342}
   - component: {fileID: 114175546542551682}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: tileset_final[450-600][1200]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4705638500226022}
   - component: {fileID: 114207852140917494}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,7 +203,7 @@ GameObject:
   - component: {fileID: 23771504301804366}
   - component: {fileID: 114360630354847090}
   - component: {fileID: 114940033085751352}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: tileset_final[150-300][1200]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,9 +306,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4050009379908736}
   - component: {fileID: 114343903445966220}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Tables
-  m_TagString: Untagged
+  m_TagString: SeeThroughItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -325,7 +325,7 @@ GameObject:
   - component: {fileID: 23367224278122664}
   - component: {fileID: 114969537802386928}
   - component: {fileID: 114925848219754392}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: tileset_final[300-450][1200]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -414,7 +414,7 @@ GameObject:
   - component: {fileID: 23271894347240334}
   - component: {fileID: 114662430718839564}
   - component: {fileID: 114984463232876406}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: tileset_final[900-1050][1200]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -433,7 +433,7 @@ GameObject:
   - component: {fileID: 23183062752642286}
   - component: {fileID: 114329991837374764}
   - component: {fileID: 114335124074453994}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: tileset_final[750-900][1200]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -449,9 +449,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4063480121898368}
   - component: {fileID: 60248855366506032}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision
-  m_TagString: Untagged
+  m_TagString: SeeThroughItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -548,7 +548,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1810620709931410}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4070685111865990}
