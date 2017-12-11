@@ -787,14 +787,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 23
       objectReference: {fileID: 0}
-    - target: {fileID: 4170234808620998, guid: 43c06689b51d1064088f783017ecdb24, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 4640392401292198, guid: 43c06689b51d1064088f783017ecdb24, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 43c06689b51d1064088f783017ecdb24, type: 2}
   m_IsPrefabParent: 0
@@ -1839,7 +1831,7 @@ Prefab:
     - target: {fileID: 114124828908043252, guid: 688f0ea4fb6f46d4b883b3af3d9818b5,
         type: 2}
       propertyPath: timerTime
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 114124828908043252, guid: 688f0ea4fb6f46d4b883b3af3d9818b5,
         type: 2}
@@ -3245,6 +3237,11 @@ Prefab:
         type: 2}
       propertyPath: walkTrigger
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114948756840253144, guid: f5b03a3e932fdde42b3adf5a91001061,
+        type: 2}
+      propertyPath: togglableOnlyOnce
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f5b03a3e932fdde42b3adf5a91001061, type: 2}
@@ -5677,6 +5674,7 @@ MonoBehaviour:
   useToTrigger: 1
   waitTimeInBetweenLetters: 0.01
   isDone: 1
+  showE: 0
 --- !u!212 &1429359765
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7574,6 +7572,7 @@ MonoBehaviour:
   useToTrigger: 0
   waitTimeInBetweenLetters: 0.01
   isDone: 1
+  showE: 0
 --- !u!212 &2011583505
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -13,6 +13,9 @@ public class Button : MonoBehaviour {
     public bool toggleTimer = false;
     public bool alertOnToggle = false;
     public bool walkTrigger = false;
+    [HideInInspector]
+    public bool showE = true;
+    public bool togglableOnlyOnce = false;
 
     private List<GameObject> allTogglableObjects;
     private float runningDelayTime = 2f;
@@ -33,6 +36,10 @@ public class Button : MonoBehaviour {
         }
         if (alertOnToggle) {
             alert = GameObject.Find("Alert").GetComponent<Alert>();
+        }
+
+        if (walkTrigger) {
+            showE = false;
         }
         
         allTogglableObjects = new List<GameObject>();
@@ -100,6 +107,10 @@ public class Button : MonoBehaviour {
                 } else {
                     toggleButtonAnimation = !toggleButtonAnimation;
                 }
+            }
+
+            if (togglableOnlyOnce) {
+                GetComponent<BoxCollider2D>().enabled = false;
             }
 
             if (alertOnToggle) {

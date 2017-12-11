@@ -19,12 +19,18 @@ public class DialogueToggle : MonoBehaviour {
     public bool useToTrigger = false;
     public float waitTimeInBetweenLetters = 0.02f;
     public bool isDone = true;
+    [HideInInspector]
+    public bool showE = false;
 
     private void Start() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         dialogueText = gameManager.gameObject.GetComponent<DialogManager>().dialogueText.GetComponent<Text>();
         dialogueFace = gameManager.gameObject.GetComponent<DialogManager>().dialogueImage;
         animator = gameManager.gameObject.GetComponent<DialogManager>().animator;
+
+        if (useToTrigger) {
+            showE = true;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {

@@ -90,7 +90,7 @@ public class ObjectiveManager : MonoBehaviour {
 
     public void Timer() {
         if (timer) {
-            if (timerTime > 0f) {
+            if (timerTime > 0.1f) {
                 timerTime -= Time.deltaTime;
             } else {
                 timerTime = 0f;
@@ -102,9 +102,14 @@ public class ObjectiveManager : MonoBehaviour {
             } else {
                 timerText.enabled = false;
             }
+
             string temp = "" + timerTime;
-            if (temp.Length >= 3) {
+            if (temp.Length >= 3 && timerTime < 10f) {
                 temp = temp.Substring(0, 3);
+            } else if (temp.Length >= 3 && timerTime >= 10f && timerTime < 100f) {
+                temp = temp.Substring(0, 4);
+            } else if (temp.Length >= 3 && timerTime >= 100f) {
+                temp = temp.Substring(0, 5);
             }
             
             timerText.text = temp;

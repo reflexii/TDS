@@ -54,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1693338952718808}
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 7.68, y: -31.29, z: 0}
+  m_LocalPosition: {x: 11.02, y: -18.05, z: -0.048828125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4640392401292198}
@@ -68,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1515744783175204}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4170234808620998}
@@ -155,6 +155,11 @@ MonoBehaviour:
   toggled: 0
   objectType: 3
   offImage: {fileID: 0}
+  grenadesGivenOnUse: 2
+  tntList: []
+  tntExplodeTime: 1
+  explosionPrefab: {fileID: 0}
+  tntDamage: 500
   gasInterval: 0.2
   gasDamage: 2
 --- !u!114 &114916170520086588
@@ -175,6 +180,11 @@ MonoBehaviour:
   startToggled: 0
   animated: 0
   toggleObjectiveOnFirstUse: 0
+  toggleTimer: 0
+  alertOnToggle: 0
+  walkTrigger: 0
+  showE: 1
+  togglableOnlyOnce: 1
 --- !u!212 &212625490573096396
 SpriteRenderer:
   m_ObjectHideFlags: 1

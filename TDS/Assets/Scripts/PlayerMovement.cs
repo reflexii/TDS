@@ -81,6 +81,7 @@ public class PlayerMovement : MonoBehaviour {
     //UseHelper
     private Image useHelper;
     private Image rightClickIndicator;
+    private bool showE = false;
 
     //health
     private Image healthImage;
@@ -220,7 +221,7 @@ public class PlayerMovement : MonoBehaviour {
         Vector3 pos = mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position) + new Vector3(0f, 55f, 0f);
         useHelper.transform.position = pos;
 
-        if (togglable || vipTogglable || dialogueTogglable) {
+        if (showE || vipTogglable) {
             useHelper.enabled = true;
         } else {
             useHelper.enabled = false;
@@ -461,6 +462,18 @@ public class PlayerMovement : MonoBehaviour {
             gunInRange = true;
             floorGun = collision.gameObject;
         }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Button")) {
+            togglable = true;
+            togglableButton = collision.gameObject;
+            showE = togglableButton.GetComponent<Button>().showE;
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Dialogue")) {
+            dialogueTogglable = true;
+            togglableDialogueObject = collision.gameObject;
+            showE = togglableDialogueObject.GetComponent<DialogueToggle>().showE;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -469,11 +482,13 @@ public class PlayerMovement : MonoBehaviour {
         {
             togglable = true;
             togglableButton = collision.gameObject;
+            showE = togglableButton.GetComponent<Button>().showE;
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Dialogue")) {
             dialogueTogglable = true;
             togglableDialogueObject = collision.gameObject;
+            showE = togglableDialogueObject.GetComponent<DialogueToggle>().showE;
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("VIP")) {
@@ -492,10 +507,12 @@ public class PlayerMovement : MonoBehaviour {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Button"))
         {
             togglable = false;
+            showE = false;
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Dialogue")) {
             dialogueTogglable = false;
+            showE = false;
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("VIP")) {
