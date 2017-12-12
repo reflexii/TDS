@@ -25,11 +25,13 @@ public class TogglableObject : MonoBehaviour {
     private bool doneOnce = false;
     private GameObject tntObject;
     private float runningTNTTime = 0.0f;
+    private GameManager gm;
 
 
 
 
     private void Awake() {
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         if (objectType == ObjectType.Door || objectType == ObjectType.Laser || objectType == ObjectType.Ammo) {
             animator = GetComponent<Animator>();
         }
@@ -171,6 +173,8 @@ public class TogglableObject : MonoBehaviour {
         Instantiate<GameObject>(explosionPrefab, transform.position + new Vector3(0f, -1f, 0f), Quaternion.identity);
         Instantiate<GameObject>(explosionPrefab, transform.position + new Vector3(1f, 1f, 0f), Quaternion.identity);
         Instantiate<GameObject>(explosionPrefab, transform.position + new Vector3(-1f, 1f, 0f), Quaternion.identity);
+
+        gm.GetComponent<SoundManager>().PlaySound("TNT", true);
 
         KillPlayerIfTooClose();
         KillEnemiesAndVipIfTooClose();

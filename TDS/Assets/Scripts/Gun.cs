@@ -247,13 +247,18 @@ public class Gun : MonoBehaviour {
                         }
                     } else {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+
+                        if (currentMagazineSize <= 0 && runningCooldown > pistolShootCooldown) {
+                            gameManager.GetComponent<SoundManager>().PlaySound("EmptyGun", false);
+                            runningCooldown = 0f;
+                        }
                     }
                     break;
                 case Weapons.Shotgun:
                     if (runningCooldown > shotgunShootCooldown && currentMagazineSize > 0)
                     {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
-                       
+                        gameManager.GetComponent<SoundManager>().PlaySound("ShotGun2", true);
                         for (int i = 0; i < 6; i++)
                         {
                             GameObject shotgunPellet = pool.GetPooledBigBullet();
@@ -281,6 +286,11 @@ public class Gun : MonoBehaviour {
                         currentMagazineSize--;
                     } else {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+
+                        if (currentMagazineSize <= 0 && runningCooldown > 0.5f) {
+                            gameManager.GetComponent<SoundManager>().PlaySound("EmptyGun", false);
+                            runningCooldown = 0f;
+                        }
                     }
                     break;
                 case Weapons.SMG:
@@ -312,6 +322,11 @@ public class Gun : MonoBehaviour {
                         }
                     } else {
                         //transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+
+                        if (currentMagazineSize <= 0 && runningCooldown > smgShootCooldown) {
+                            gameManager.GetComponent<SoundManager>().PlaySound("EmptyGun", false);
+                            runningCooldown = 0f;
+                        }
                     }
 
                     if (currentMagazineSize <= 0) {
@@ -347,6 +362,11 @@ public class Gun : MonoBehaviour {
                         }
                     } else {
                         //transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+
+                        if (currentMagazineSize <= 0 && runningCooldown > rifleShootCooldown) {
+                            gameManager.GetComponent<SoundManager>().PlaySound("EmptyGun", false);
+                            runningCooldown = 0f;
+                        }
                     }
                     if (currentMagazineSize <= 0) {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
