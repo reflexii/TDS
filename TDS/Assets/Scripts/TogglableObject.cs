@@ -89,10 +89,13 @@ public class TogglableObject : MonoBehaviour {
                             for (int i = 0; i < damageGasList.Count; i++) {
                                 if (damageGasList[i].GetComponent<MovingEnemy>() != null) {
                                     damageGasList[i].GetComponent<MovingEnemy>().DamageEnemy(gasDamage);
+                                } else if (damageGasList[i].GetComponent<Scientist>() != null) {
+                                    damageGasList[i].GetComponent<Scientist>().DamageEnemy(gasDamage);
                                 } else if (damageGasList[i].transform.parent.GetComponent<VIP>() != null) {
                                     damageGasList[i].transform.parent.GetComponent<VIP>().TakeDamage(gasDamage);
                                 }
-                                
+
+
                             }
                         }
 
