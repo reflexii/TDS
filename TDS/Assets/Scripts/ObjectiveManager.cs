@@ -173,6 +173,7 @@ public class ObjectiveManager : MonoBehaviour {
         UpdateObjectiveNumberText();
         KillAllMission();
         Timer();
+        timerImage.gameObject.GetComponent<Animator>().SetBool("TimerFlashing", timerFlashing);
     }
 
     public void MissionFailed(string failText) {

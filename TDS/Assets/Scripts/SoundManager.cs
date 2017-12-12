@@ -52,7 +52,7 @@ public class SoundManager : MonoBehaviour {
     }
     
     private void RandomizePitch(AudioSource a) {
-        float randomized = Random.Range(0.95f, 1.05f);
+        float randomized = Random.Range(0.92f, 1.08f);
 
         a.pitch = randomized;
     }

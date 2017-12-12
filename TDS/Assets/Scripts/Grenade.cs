@@ -12,11 +12,13 @@ public class Grenade : MonoBehaviour {
     public GameObject explosionPrefab;
 
     private Vector3 rotationVector;
+    private GameManager gm;
 
     private float runningGrenadeTime = 0f;
 
 
     private void Awake() {
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         int randomized = Random.Range(0, 2);
 
         if (randomized == 0) {
@@ -54,6 +56,7 @@ public class Grenade : MonoBehaviour {
 
     public void ExplodeGrenade()
     {
+        gm.GetComponent<SoundManager>().PlaySound("Grenade_free", true);
         //Explode destroyable walls
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 3f, 1 << LayerMask.NameToLayer("Wall"));
         if (colliders != null)
@@ -155,7 +158,6 @@ public class Grenade : MonoBehaviour {
             }
         }
 
-        //play sound
         Instantiate<GameObject>(explosionPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject, 0f);
     }

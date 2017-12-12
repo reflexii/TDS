@@ -59,6 +59,9 @@ MonoBehaviour:
   playerIsDead: 0
   missionFailed: 0
   player: {fileID: 0}
+  currentLevel: 1
+  sfxVolume: 100
+  musicVolume: 100
 --- !u!114 &114233170241577230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -133,5 +136,9 @@ MonoBehaviour:
   audioList:
   - {fileID: 8300000, guid: 0da568a7d1cedb14b9c4c5893377e0ba, type: 3}
   - {fileID: 8300000, guid: bae40e88308861d42a5786ed407a8e18, type: 3}
+  - {fileID: 8300000, guid: a24d94f477070cd479736a4aff6f2cab, type: 3}
+  - {fileID: 8300000, guid: a5355f1f479211e43a2dece8139490ef, type: 3}
+  - {fileID: 8300000, guid: 4f9dcc465746cf249849dc4fa3b7bd7b, type: 3}
+  - {fileID: 8300000, guid: 993cdad6dd2429149a165fb506f40b52, type: 3}
   audioListString: []
   disableAudioList: []
