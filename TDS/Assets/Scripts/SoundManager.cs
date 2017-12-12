@@ -8,7 +8,9 @@ public class SoundManager : MonoBehaviour {
     public List<string> audioListString;
     public List<GameObject> disableAudioList;
     private ObjectPooler op;
+    private GameManager gm;
 	void Awake () {
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         op = GetComponent<ObjectPooler>();
         audioListString = new List<string>();
         disableAudioList = new List<GameObject>();
@@ -18,14 +20,14 @@ public class SoundManager : MonoBehaviour {
         }
 	}
 
-    public void PlaySound(string soundFileName, bool randomizePitch = false, float volumeAmount = 1.0f) {
+    public void PlaySound(string soundFileName, bool randomizePitch = false) {
         if (audioListString.Contains(soundFileName)) {
             
             GameObject audio = op.GetPooledAudio();
             audio.SetActive(true);
             AudioSource source = audio.GetComponent<AudioSource>();
             source.clip = audioList[audioListString.IndexOf(soundFileName)];
-            source.volume = volumeAmount;
+            source.volume = (gm.sfxVolume/100f);
 
             if (randomizePitch) {
                 RandomizePitch(source);

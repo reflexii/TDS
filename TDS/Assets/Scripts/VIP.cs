@@ -32,6 +32,10 @@ public class VIP : MonoBehaviour {
         ai = GetComponent<AIPath>();
         player = GameObject.Find("Player");
         animator = GetComponent<Animator>();
+        if (GameObject.Find("EnemyTargets") == null) {
+            GameObject g = new GameObject();
+            g.name = "EnemyTargets";
+        }
         targetParentObject = GameObject.Find("EnemyTargets").transform;
         damageCollider = transform.Find("damageCollider").gameObject;
         vipCurrentHealth = vipHealth;

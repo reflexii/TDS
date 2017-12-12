@@ -11,11 +11,18 @@ public class GameManager : MonoBehaviour {
     public bool missionFailed = false;
     public GameObject player;
     private float value = 1f;
+    public int currentLevel = 1;
+    public int sfxVolume = 100;
+    public int musicVolume = 100;
 
     private UnityEngine.PostProcessing.PostProcessingBehaviour pp;
     private UnityEngine.PostProcessing.ColorGradingModel.Settings profile;
 
     private void Awake() {
+
+        FirstTimeLaunch();
+        LoadPlayerPreferences();
+
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = false;
         pp = GameObject.Find("Main Camera").GetComponent<UnityEngine.PostProcessing.PostProcessingBehaviour>();
@@ -45,6 +52,13 @@ public class GameManager : MonoBehaviour {
                 LoadSameScene();
             }
         }
+
+        //REMOVE
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            PlayerPrefs.SetInt("currentLevel", (PlayerPrefs.GetInt("currentLevel") + 1));
+        }
+
+        Debug.Log(currentLevel);
     }
 
     public void LoadSameScene() {
@@ -62,4 +76,37 @@ public class GameManager : MonoBehaviour {
         player.GetComponent<SpriteRenderer>().color = temp;
         playerIsDead = false;
     }
+
+    //make code to options for number next to volume slider + saving volume to playerprefs after pressing back
+    public void LoadPlayerPreferences() {
+        if (PlayerPrefs.HasKey("currentLevel")) {
+            currentLevel = PlayerPrefs.GetInt("currentLevel");
+        }
+        if (PlayerPrefs.HasKey("soundVolume")) {
+            sfxVolume = PlayerPrefs.GetInt("soundVolume");
+        }
+        if (PlayerPrefs.HasKey("musicVolume")) {
+            musicVolume = PlayerPrefs.GetInt("musicVolume");
+        }
+    }
+
+    public void FirstTimeLaunch() {
+        if (!PlayerPrefs.HasKey("currentLevel")) {
+            PlayerPrefs.SetInt("currentLevel", 1);
+        }
+        if (!PlayerPrefs.HasKey("soundVolume")) {
+            PlayerPrefs.SetInt("soundVolume", 100);
+        }
+        if (!PlayerPrefs.HasKey("musicVolume")) {
+            PlayerPrefs.SetInt("musicVolume", 100);
+        }
+    }
+
+    public void NextLevelPreferences() {
+        if (PlayerPrefs.HasKey("currentLevel")) {
+            currentLevel++;
+            PlayerPrefs.SetInt("currentLevel", currentLevel);
+        }
+    }
+
 }

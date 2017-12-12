@@ -120,7 +120,7 @@ public class ObjectiveManager : MonoBehaviour {
                 } else {
                     if (togglableObjects != null) {
                         for (int i = 0; i < togglableObjects.Count; i++) {
-                            togglableObjects[i].GetComponent<TogglableObject>().toggled = true;
+                            togglableObjects[i].GetComponent<Button>().Toggle();
                         }
                     }
                 }

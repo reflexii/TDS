@@ -9,11 +9,13 @@ public class SceneChanger : MonoBehaviour {
     public float timeBeforeSwitching;
 
     private ObjectiveManager om;
+    private GameManager gm;
     private bool scenesChanging = false;
     private float runningSwitchTime = 0.0f;
 
     private void Start() {
         om = GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>();
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     private void Update() {
@@ -32,6 +34,7 @@ public class SceneChanger : MonoBehaviour {
         runningSwitchTime += Time.deltaTime;
 
         if (runningSwitchTime >= timeBeforeSwitching) {
+            gm.NextLevelPreferences();
             SceneManager.LoadScene(sceneName);
         }
     }
