@@ -32,6 +32,9 @@ public class ObjectiveManager : MonoBehaviour {
     private bool doneOnce2 = false;
     private bool doneOnce3 = false;
     private Text timerText;
+    private Image timerBG;
+    private Image timerImage;
+    private bool timerFlashing = false;
 
 	void Start () {
         objectiveText = GameObject.Find("ObjectiveText").GetComponent<Text>();
@@ -40,6 +43,8 @@ public class ObjectiveManager : MonoBehaviour {
         deathScreenParent = GameObject.Find("DeathScreen_parent");
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         timerText = GameObject.Find("TimerText").GetComponent<Text>();
+        timerBG = GameObject.Find("TimerBG").GetComponent<Image>();
+        timerImage = GameObject.Find("TimerImage").GetComponent<Image>();
         timerText.enabled = false;
         deathScreenParent.SetActive(false);
         questList = new List<string>();
@@ -58,6 +63,12 @@ public class ObjectiveManager : MonoBehaviour {
             objectiveText.text = questList[0];
         } else {
             objectiveText.text = "Quests not found.";
+        }
+
+        if (!timer) {
+            timerText.enabled = false;
+            timerBG.enabled = false;
+            timerImage.enabled = false;
         }
 	}
 
@@ -99,8 +110,18 @@ public class ObjectiveManager : MonoBehaviour {
 
             if (!missionFailed) {
                 timerText.enabled = true;
+                timerImage.enabled = true;
+                timerBG.enabled = true;
             } else {
                 timerText.enabled = false;
+                timerImage.enabled = false;
+                timerBG.enabled = false;
+            }
+
+            if (timerTime <= 10.1f && timerTime > 0.1f) {
+                timerFlashing = true;
+            } else if (timerTime <= 0.1f) {
+                timerFlashing = false;
             }
 
             string temp = "" + timerTime;

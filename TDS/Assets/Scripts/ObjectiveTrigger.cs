@@ -17,7 +17,7 @@ public class ObjectiveTrigger : MonoBehaviour {
                     GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().NextObjective();
 
                     if (activateTimer) {
-                        GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().timer = true;
+                        GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().timer = !GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().timer;
                     }
                     doneOnce = true;
                 }

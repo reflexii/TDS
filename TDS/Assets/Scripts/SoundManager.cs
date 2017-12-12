@@ -10,7 +10,7 @@ public class SoundManager : MonoBehaviour {
     private ObjectPooler op;
     private GameManager gm;
 	void Awake () {
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gm = gameObject.GetComponent<GameManager>();
         op = GetComponent<ObjectPooler>();
         audioListString = new List<string>();
         disableAudioList = new List<GameObject>();
