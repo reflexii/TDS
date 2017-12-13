@@ -253,6 +253,9 @@ public class Gun : MonoBehaviour {
                             runningCooldown = 0f;
                         }
                     }
+                    if (currentMagazineSize <= 0) {
+                        transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+                    }
                     break;
                 case Weapons.Shotgun:
                     if (runningCooldown > shotgunShootCooldown && currentMagazineSize > 0)
@@ -291,6 +294,9 @@ public class Gun : MonoBehaviour {
                             gameManager.GetComponent<SoundManager>().PlaySound("EmptyGun", false);
                             runningCooldown = 0f;
                         }
+                    }
+                    if (currentMagazineSize <= 0) {
+                        transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
                     }
                     break;
                 case Weapons.SMG:

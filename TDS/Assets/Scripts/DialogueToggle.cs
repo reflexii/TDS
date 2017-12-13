@@ -21,6 +21,7 @@ public class DialogueToggle : MonoBehaviour {
     public bool isDone = true;
     [HideInInspector]
     public bool showE = false;
+    public bool triggerObjective = false;
 
     private void Start() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -78,6 +79,8 @@ public class DialogueToggle : MonoBehaviour {
             }
 
             animator.SetInteger("TalkerInt", talkerInt);
+
+            gameManager.GetComponent<DialogManager>().currentDialogueTrigger = gameObject;
 
             if (!useOneByOne) {
                 dialogueText.text = gameManager.gameObject.GetComponent<DialogManager>().GetStringFromList(searchedCode);

@@ -14,6 +14,7 @@ public class DialogManager : MonoBehaviour {
     public Animator animator;
     private int linesRead = 0;
 
+    public GameObject currentDialogueTrigger;
     public GameObject dialogueParent;
 
     private void Start() {
@@ -50,6 +51,12 @@ public class DialogManager : MonoBehaviour {
     public void ToggleDialogueUIOff() {
         dialogueIsActive = false;
         dialogueParent.SetActive(false);
+
+        if (currentDialogueTrigger != null) {
+            if (currentDialogueTrigger.GetComponent<DialogueToggle>().triggerObjective) {
+                GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().NextObjective();
+            }
+        }
     }
 
     public bool DialogueActive() {

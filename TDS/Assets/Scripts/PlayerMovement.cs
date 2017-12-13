@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour {
 
     //Gun
     public GameObject gun;
+    private bool doneOnce = false;
 
     //Grenade
     public float howFastGrenadeSpeedIncreases = 3f;
@@ -387,7 +388,7 @@ public class PlayerMovement : MonoBehaviour {
         GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().MissionFailed("You have died.");
 
         //Sound
-
+        gameManager.GetComponent<SoundManager>().PlaySound("BloodSplatter", true);
         //Death
         gameManager.playerIsDead = true;
         gameObject.SetActive(false);
@@ -604,7 +605,14 @@ public class PlayerMovement : MonoBehaviour {
             }
         }
         else if (Input.GetKey(KeyCode.Mouse0) && hasGun && !gunDeactivated && !gameManager.GetComponent<DialogManager>().DialogueActive()) {
-            gun.GetComponent<Gun>().Shoot();
+            if (gun.GetComponent<Gun>().currentMagazineSize > 0f) {
+                gun.GetComponent<Gun>().Shoot();
+            }
+            if (gun.GetComponent<Gun>().currentMagazineSize <= 0f && !doneOnce) {
+                gameManager.GetComponent<SoundManager>().PlaySound("EmptyGun", false);
+                doneOnce = true;
+            }
+
         } else if (Input.GetKeyDown(KeyCode.Mouse0) && !hasGun && knifeTimer >= 0.5f && !gameManager.GetComponent<DialogManager>().DialogueActive() || 
             Input.GetKeyDown(KeyCode.Mouse0) && hasGun && knifeTimer >= 0.5f && gunDeactivated && !gameManager.GetComponent<DialogManager>().DialogueActive())
         {
@@ -615,6 +623,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         if (Input.GetKeyUp(KeyCode.Mouse0) && hasGun && !gunDeactivated && !gameManager.GetComponent<DialogManager>().DialogueActive()) {
             transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+            doneOnce = false;
         }
     }
 

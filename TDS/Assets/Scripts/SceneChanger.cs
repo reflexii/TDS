@@ -24,7 +24,7 @@ public class SceneChanger : MonoBehaviour {
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) {
+    private void OnTriggerStay2D(Collider2D collision) {
         if (om.objectivesComplete && collision.gameObject.layer == LayerMask.NameToLayer("Player1")) {
             scenesChanging = true;
         }

@@ -20,7 +20,7 @@ public class SoundManager : MonoBehaviour {
         }
 	}
 
-    public void PlaySound(string soundFileName, bool randomizePitch = false) {
+    public void PlaySound(string soundFileName, bool randomizePitch = false, float pitchMin = 0.92f, float pitchMax = 1.08f) {
         if (audioListString.Contains(soundFileName)) {
             
             GameObject audio = op.GetPooledAudio();
@@ -30,7 +30,7 @@ public class SoundManager : MonoBehaviour {
             source.volume = (gm.sfxVolume/100f);
 
             if (randomizePitch) {
-                RandomizePitch(source);
+                RandomizePitch(source, pitchMin, pitchMax);
             }
 
             source.Play();
@@ -51,8 +51,8 @@ public class SoundManager : MonoBehaviour {
         }
     }
     
-    private void RandomizePitch(AudioSource a) {
-        float randomized = Random.Range(0.92f, 1.08f);
+    private void RandomizePitch(AudioSource a, float pitchMin, float pitchMax) {
+        float randomized = Random.Range(pitchMin, pitchMax);
 
         a.pitch = randomized;
     }

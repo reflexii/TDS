@@ -34,12 +34,14 @@ public class Scientist : MonoBehaviour {
     private Animator animator;
     private bool doneOnce = false;
     private bool scared = false;
+    private GameManager gm;
 
     //alerts
     private GameObject em;
     private GameObject symbolObject;
 
     void Awake () {
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         ai = GetComponent<AIPath>();
         player = GameObject.Find("Player");
         animator = GetComponent<Animator>();
@@ -199,6 +201,8 @@ public class Scientist : MonoBehaviour {
             GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().NextObjective();
             doneOnce = true;
         }
+
+        gm.GetComponent<SoundManager>().PlaySound("BloodSplatter", true);
 
         Destroy(em);
         Destroy(targetObject, 0f);

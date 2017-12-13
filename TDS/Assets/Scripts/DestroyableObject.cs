@@ -7,19 +7,29 @@ public class DestroyableObject : MonoBehaviour {
     public GameObject ps;
     public bool breakableWithBullets = false;
     public float health = 1f;
+    public enum MaterialType { Glass, Wood };
+    public MaterialType material;
 
     private float currentHealth;
+    private GameManager gm;
 
     public void Awake() {
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         currentHealth = health;
     }
 
     public void DestroyWall()
     {
+        if (material == MaterialType.Glass) {
+            //Play glass sound
+            gm.GetComponent<SoundManager>().PlaySound("GlassBreak", true, 0.7f, 1.3f);
+        } else if (material == MaterialType.Wood) {
+            //Play wood sound
+            gm.GetComponent<SoundManager>().PlaySound("BoxBreak", true, 0.7f, 1.3f);
+        }
+
         Instantiate<GameObject>(ps, transform.position, Quaternion.identity);
         Destroy(gameObject, 0f);
-        //play animation
-        //play sound
     }
 
     public void TakeDamage(float value) {

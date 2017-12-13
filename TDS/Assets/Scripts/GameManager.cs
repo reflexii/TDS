@@ -57,8 +57,6 @@ public class GameManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Space)) {
             PlayerPrefs.SetInt("currentLevel", (PlayerPrefs.GetInt("currentLevel") + 1));
         }
-
-        Debug.Log(currentLevel);
     }
 
     public void LoadSameScene() {

@@ -27,8 +27,10 @@ public class VIP : MonoBehaviour {
     private bool dead = false;
     private GameObject em;
     private GameObject symbolObject;
+    private GameManager gm;
 
     void Awake () {
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         ai = GetComponent<AIPath>();
         player = GameObject.Find("Player");
         animator = GetComponent<Animator>();
@@ -126,6 +128,8 @@ public class VIP : MonoBehaviour {
         Instantiate<GameObject>(dieBloodSmallPrefab, transform.position, Quaternion.identity);
 
         GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().MissionFailed("VIP has died.");
+
+        gm.GetComponent<SoundManager>().PlaySound("BloodSplatter", true);
 
         Destroy(em);
         Destroy(targetObject, 0f);

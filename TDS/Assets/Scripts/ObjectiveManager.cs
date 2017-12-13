@@ -25,7 +25,7 @@ public class ObjectiveManager : MonoBehaviour {
     private int currentObjective = 1;
     private int objectiveCount;
     private Text objectiveNumberText;
-    private GameObject deathScreenParent;
+    public GameObject deathScreenParent;
     private GameManager gm;
     private string failTextOnce = "";
     private bool doneOnce = false;
@@ -46,8 +46,16 @@ public class ObjectiveManager : MonoBehaviour {
         timerBG = GameObject.Find("TimerBG").GetComponent<Image>();
         timerImage = GameObject.Find("TimerImage").GetComponent<Image>();
         timerText.enabled = false;
-        deathScreenParent.SetActive(false);
         questList = new List<string>();
+
+        for (int i = 0; i < deathScreenParent.transform.childCount; i++) {
+            if (deathScreenParent.transform.GetChild(i).GetComponent<Image>() != null) {
+                deathScreenParent.transform.GetChild(i).GetComponent<Image>().enabled = false;
+            }
+            if (deathScreenParent.transform.GetChild(i).GetComponent<Text>() != null) {
+                deathScreenParent.transform.GetChild(i).GetComponent<Text>().enabled = false;
+            }
+        }
 
         string[] linesInFile = textAsset.text.Split("\n"[0]);
 
@@ -178,7 +186,14 @@ public class ObjectiveManager : MonoBehaviour {
 
     public void MissionFailed(string failText) {
         missionFailed = true;
-        deathScreenParent.SetActive(true);
+        for (int i = 0; i < deathScreenParent.transform.childCount; i++) {
+            if (deathScreenParent.transform.GetChild(i).GetComponent<Image>() != null) {
+                deathScreenParent.transform.GetChild(i).GetComponent<Image>().enabled = true;
+            }
+            if (deathScreenParent.transform.GetChild(i).GetComponent<Text>() != null) {
+                deathScreenParent.transform.GetChild(i).GetComponent<Text>().enabled = true;
+            }
+        }
 
         if (failTextOnce.Equals("")) {
             deathScreenParent.transform.Find("FailExplanation").GetComponent<Text>().text = failText;

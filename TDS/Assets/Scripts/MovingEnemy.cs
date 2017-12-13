@@ -50,6 +50,7 @@ public class MovingEnemy : MonoBehaviour {
     private GameObject em;
     private GameObject symbolObject;
     private bool dead = false;
+    private bool doneOnce = false;
 
     //corpses
     public GameObject greenCorpse1;
@@ -230,6 +231,7 @@ public class MovingEnemy : MonoBehaviour {
 
 
         //Sound
+        gameManager.GetComponent<SoundManager>().PlaySound("BloodSplatter", true);
         Destroy(gameObject, 0f);
     }
 
@@ -278,6 +280,7 @@ public class MovingEnemy : MonoBehaviour {
         {
             case CurrentStance.Moving:
                 walking = true;
+                doneOnce = false;
                 em.GetComponent<SpriteRenderer>().enabled = false;
                 qm.GetComponent<SpriteRenderer>().enabled = false;
                 turnIndex = 0;
@@ -286,6 +289,7 @@ public class MovingEnemy : MonoBehaviour {
                 startSearching = false;
                 break;
             case CurrentStance.SearchingPlayer:
+                doneOnce = false;
                 transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
                 searchingTime += Time.deltaTime;
                 runningWaitTime += Time.deltaTime;
@@ -337,13 +341,23 @@ public class MovingEnemy : MonoBehaviour {
                     transform.up = player.transform.position - transform.position;
 
                 }
-                if (shootingTime >= timeBeforeShooting)
+                if (shootingTime >= timeBeforeShooting && gun.GetComponent<Gun>().currentMagazineSize > 0f)
                 {
                     gun.GetComponent<Gun>().Shoot();
+                }
+
+                if (gun.GetComponent<Gun>().currentMagazineSize <= 0f) {
+                    transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+                }
+
+                if (shootingTime >= timeBeforeShooting && gun.GetComponent<Gun>().currentMagazineSize <= 0f && !doneOnce) {
+                    gameManager.GetComponent<SoundManager>().PlaySound("EmptyGun", true);
+                    doneOnce = true;
                 }
                 break;
             case CurrentStance.WaitingToMove:
                 transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+                doneOnce = false;
                 walking = false;
                 startSearching = false;
                 em.GetComponent<SpriteRenderer>().enabled = false;

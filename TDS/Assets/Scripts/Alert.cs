@@ -16,6 +16,8 @@ public class Alert : MonoBehaviour {
     private int randomSecondaryOne;
     private int randomSecondaryTwo;
     private ObjectiveManager om;
+    private bool doneOnce = false;
+    private GameManager gm;
 
     public GameObject[] enemySpawnPositions;
     public int numberOfEnemiesSpawned;
@@ -25,6 +27,7 @@ public class Alert : MonoBehaviour {
     public Gun.Weapons[] weaponsAllowed;
 
 	void Awake () {
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         om = GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>();
         primaryAlertWaypoints = transform.Find("AlertWayPoints").Find("Primary").gameObject;
         secondaryAlertWaypoints = transform.Find("AlertWayPoints").Find("Secondary").gameObject;
@@ -111,6 +114,11 @@ public class Alert : MonoBehaviour {
 	void Update () {
         if (AlertOn) {
             runningEnemySpawnTime += Time.deltaTime;
+
+            if (!doneOnce) {
+                gm.GetComponent<SoundManager>().PlaySound("AlertFree", false);
+                doneOnce = true;
+            }
 
             if (currentEnemiesSpawned < numberOfEnemiesSpawned) {
                 if (runningEnemySpawnTime >= timeBetweenEnemySpawns) {
