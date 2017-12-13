@@ -287,6 +287,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114948756840253144, guid: f5b03a3e932fdde42b3adf5a91001061,
+        type: 2}
+      propertyPath: parentObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4389315028006712, guid: f5b03a3e932fdde42b3adf5a91001061, type: 2}
       propertyPath: m_LocalPosition.x
       value: 15.5
@@ -9159,7 +9164,7 @@ Prefab:
     - target: {fileID: 20094271417364746, guid: 32ae2d2f563a90e458c93db491353299,
         type: 2}
       propertyPath: orthographic size
-      value: 8.828125
+      value: 7.9375
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 32ae2d2f563a90e458c93db491353299, type: 2}
@@ -12389,11 +12394,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4639566795816734, guid: 928a3b9430837324192821c6a44e6cc3, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.03
+      value: 21.5
       objectReference: {fileID: 0}
     - target: {fileID: 4639566795816734, guid: 928a3b9430837324192821c6a44e6cc3, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 14.03
+      value: -49
       objectReference: {fileID: 0}
     - target: {fileID: 4639566795816734, guid: 928a3b9430837324192821c6a44e6cc3, type: 2}
       propertyPath: m_LocalPosition.z
@@ -12418,6 +12423,21 @@ Prefab:
     - target: {fileID: 4639566795816734, guid: 928a3b9430837324192821c6a44e6cc3, type: 2}
       propertyPath: m_RootOrder
       value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 61128284658171804, guid: 928a3b9430837324192821c6a44e6cc3,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 61128284658171804, guid: 928a3b9430837324192821c6a44e6cc3,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114625925749314186, guid: 928a3b9430837324192821c6a44e6cc3,
+        type: 2}
+      propertyPath: sceneName
+      value: prison2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 928a3b9430837324192821c6a44e6cc3, type: 2}

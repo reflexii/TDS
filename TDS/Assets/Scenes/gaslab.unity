@@ -26037,7 +26037,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6, y: 6}
+  m_Size: {x: 2, y: 6}
   m_EdgeRadius: 0
 --- !u!4 &835624288
 Transform:
@@ -26046,7 +26046,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 835624285}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.5, y: -5.5, z: 0}
+  m_LocalPosition: {x: 23.5, y: -5.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -72747,11 +72747,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4639566795816734, guid: 928a3b9430837324192821c6a44e6cc3, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.03
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 4639566795816734, guid: 928a3b9430837324192821c6a44e6cc3, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 14.03
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 4639566795816734, guid: 928a3b9430837324192821c6a44e6cc3, type: 2}
       propertyPath: m_LocalPosition.z
@@ -72776,6 +72776,21 @@ Prefab:
     - target: {fileID: 4639566795816734, guid: 928a3b9430837324192821c6a44e6cc3, type: 2}
       propertyPath: m_RootOrder
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 61128284658171804, guid: 928a3b9430837324192821c6a44e6cc3,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 61128284658171804, guid: 928a3b9430837324192821c6a44e6cc3,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114625925749314186, guid: 928a3b9430837324192821c6a44e6cc3,
+        type: 2}
+      propertyPath: sceneName
+      value: glassfloor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 928a3b9430837324192821c6a44e6cc3, type: 2}
