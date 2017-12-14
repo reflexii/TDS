@@ -59,7 +59,8 @@ public class PlayerMovement : MonoBehaviour {
 
     //animations
     private Animator animator;
-    private bool walking;
+    [HideInInspector]
+    public bool walking;
     //1=pistol 2=shotgun 3=smg 4=rifle
     private int weaponUsed;
     private bool swingKnife = false;
@@ -101,6 +102,10 @@ public class PlayerMovement : MonoBehaviour {
     //objectives
     private ObjectiveManager objectiveManager;
     private bool fail = false;
+
+    //player stop
+    [HideInInspector]
+    public bool stopPlayer = false;
 
     private void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -158,6 +163,11 @@ public class PlayerMovement : MonoBehaviour {
                     gun.GetComponent<Gun>().fail = true;
                 }
             }
+        } else if (stopPlayer) {
+            MouseLook();
+            Animations();
+            reticle.SetActive(true);
+            Shooting();
         } else {
             Movement();
             MouseLook();
@@ -592,10 +602,6 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void Shooting() {
-        if (swingKnife) {
-            swingKnife = false;
-        }
-        knifeTimer += Time.deltaTime;
 
         if (gameManager.GetComponent<DialogManager>().DialogueActive()) {
             runningDialogueTimer += Time.deltaTime;
@@ -604,26 +610,33 @@ public class PlayerMovement : MonoBehaviour {
                 runningDialogueTimer = 0f;
             }
         }
-        else if (Input.GetKey(KeyCode.Mouse0) && hasGun && !gunDeactivated && !gameManager.GetComponent<DialogManager>().DialogueActive()) {
-            if (gun.GetComponent<Gun>().currentMagazineSize > 0f) {
-                gun.GetComponent<Gun>().Shoot();
+        if (!stopPlayer) {
+            if (swingKnife) {
+                swingKnife = false;
             }
-            if (gun.GetComponent<Gun>().currentMagazineSize <= 0f && !doneOnce) {
-                gameManager.GetComponent<SoundManager>().PlaySound("EmptyGun", false);
-                doneOnce = true;
-            }
+            knifeTimer += Time.deltaTime;
 
-        } else if (Input.GetKeyDown(KeyCode.Mouse0) && !hasGun && knifeTimer >= 0.5f && !gameManager.GetComponent<DialogManager>().DialogueActive() || 
-            Input.GetKeyDown(KeyCode.Mouse0) && hasGun && knifeTimer >= 0.5f && gunDeactivated && !gameManager.GetComponent<DialogManager>().DialogueActive())
-        {
-            knife.KnifeEnemiesInRange(knifeDamage);
-            knife.DestroyObjectsInRange();
-            knifeTimer = 0f;
-            swingKnife = true;
-        }
-        if (Input.GetKeyUp(KeyCode.Mouse0) && hasGun && !gunDeactivated && !gameManager.GetComponent<DialogManager>().DialogueActive()) {
-            transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
-            doneOnce = false;
+
+            if (Input.GetKey(KeyCode.Mouse0) && hasGun && !gunDeactivated && !gameManager.GetComponent<DialogManager>().DialogueActive()) {
+                if (gun.GetComponent<Gun>().currentMagazineSize > 0f) {
+                    gun.GetComponent<Gun>().Shoot();
+                }
+                if (gun.GetComponent<Gun>().currentMagazineSize <= 0f && !doneOnce) {
+                    gameManager.GetComponent<SoundManager>().PlaySound("EmptyGun", false);
+                    doneOnce = true;
+                }
+
+            } else if (Input.GetKeyDown(KeyCode.Mouse0) && !hasGun && knifeTimer >= 0.5f && !gameManager.GetComponent<DialogManager>().DialogueActive() ||
+                Input.GetKeyDown(KeyCode.Mouse0) && hasGun && knifeTimer >= 0.5f && gunDeactivated && !gameManager.GetComponent<DialogManager>().DialogueActive()) {
+                knife.KnifeEnemiesInRange(knifeDamage);
+                knife.DestroyObjectsInRange();
+                knifeTimer = 0f;
+                swingKnife = true;
+            }
+            if (Input.GetKeyUp(KeyCode.Mouse0) && hasGun && !gunDeactivated && !gameManager.GetComponent<DialogManager>().DialogueActive()) {
+                transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+                doneOnce = false;
+            }
         }
     }
 

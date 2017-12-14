@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Update() {
+
         if (playerIsDead || missionFailed) {
             runningSceneTime += Time.deltaTime;
 

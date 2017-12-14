@@ -7,6 +7,7 @@ public class SceneChanger : MonoBehaviour {
 
     public string sceneName = "";
     public float timeBeforeSwitching;
+    public bool mainMenu = false;
 
     private ObjectiveManager om;
     private GameManager gm;
@@ -14,8 +15,10 @@ public class SceneChanger : MonoBehaviour {
     private float runningSwitchTime = 0.0f;
 
     private void Start() {
-        om = GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>();
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        if (!mainMenu) {
+            om = GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>();
+            gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        } 
     }
 
     private void Update() {
@@ -37,5 +40,9 @@ public class SceneChanger : MonoBehaviour {
             gm.NextLevelPreferences();
             SceneManager.LoadScene(sceneName);
         }
+    }
+
+    public void ChangeToFirstMap() {
+        SceneManager.LoadScene("1stmap");
     }
 }

@@ -37,7 +37,7 @@ public class DialogueToggle : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (!didOnce && collision.gameObject.layer == LayerMask.NameToLayer("Player1") && !useToTrigger) {
             gameManager.gameObject.GetComponent<DialogManager>().ToggleDialogueUIOn();
-
+            gameManager.GetComponent<DialogManager>().currentDialogueTrigger = gameObject;
             switch (talker) {
                 case Talker.Moustache:
                     talkerInt = 1;
