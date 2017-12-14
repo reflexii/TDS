@@ -849,6 +849,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 114883188310839740, guid: ecb6d49fc021d5547baeefc98f8dec15,
+        type: 2}
+      propertyPath: startGrenadeAmount
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ecb6d49fc021d5547baeefc98f8dec15, type: 2}
   m_IsPrefabParent: 0
@@ -2684,6 +2689,7 @@ MonoBehaviour:
   waitTimeInBetweenLetters: 0.02
   isDone: 1
   showE: 0
+  triggerObjective: 0
 --- !u!4 &918498878
 Transform:
   m_ObjectHideFlags: 0

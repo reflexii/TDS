@@ -11093,6 +11093,7 @@ MonoBehaviour:
   waitTimeInBetweenLetters: 0.02
   isDone: 1
   showE: 0
+  triggerObjective: 0
 --- !u!1001 &1618294287
 Prefab:
   m_ObjectHideFlags: 0
@@ -11182,6 +11183,11 @@ Prefab:
     - target: {fileID: 4098949447902690, guid: ecb6d49fc021d5547baeefc98f8dec15, type: 2}
       propertyPath: m_RootOrder
       value: 29
+      objectReference: {fileID: 0}
+    - target: {fileID: 114883188310839740, guid: ecb6d49fc021d5547baeefc98f8dec15,
+        type: 2}
+      propertyPath: startGrenadeAmount
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ecb6d49fc021d5547baeefc98f8dec15, type: 2}
@@ -12385,6 +12391,7 @@ MonoBehaviour:
   waitTimeInBetweenLetters: 0.02
   isDone: 1
   showE: 0
+  triggerObjective: 0
 --- !u!1001 &1914688430
 Prefab:
   m_ObjectHideFlags: 0

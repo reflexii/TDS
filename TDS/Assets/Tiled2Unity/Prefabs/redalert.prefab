@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4146271223276876}
   - component: {fileID: 60922880501401646}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,9 +86,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4951658126405508}
   - component: {fileID: 60445256099939636}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision
-  m_TagString: Untagged
+  m_TagString: SeeThroughItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -333,7 +333,7 @@ GameObject:
   - component: {fileID: 114341478282810884}
   - component: {fileID: 61016092079390822}
   m_Layer: 0
-  m_Name: RectangleObject
+  m_Name: Bounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -701,7 +701,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1275721703958620}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4360539955112624}
