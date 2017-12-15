@@ -16,6 +16,7 @@ public class DialogManager : MonoBehaviour {
 
     public GameObject currentDialogueTrigger;
     public GameObject dialogueParent;
+    public bool dialogueOnTheWay = false;
 
     private void Start() {
         dialogueList = new List<string>();

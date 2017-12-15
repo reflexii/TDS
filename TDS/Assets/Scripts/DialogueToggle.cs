@@ -22,6 +22,7 @@ public class DialogueToggle : MonoBehaviour {
     [HideInInspector]
     public bool showE = false;
     public bool triggerObjective = false;
+    public bool stopText = false;
 
     private void Start() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -37,6 +38,11 @@ public class DialogueToggle : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (!didOnce && collision.gameObject.layer == LayerMask.NameToLayer("Player1") && !useToTrigger) {
             gameManager.gameObject.GetComponent<DialogManager>().ToggleDialogueUIOn();
+
+            if (gameManager.GetComponent<DialogManager>().dialogueOnTheWay && gameManager.GetComponent<DialogManager>().currentDialogueTrigger != null) {
+                gameManager.GetComponent<DialogManager>().currentDialogueTrigger.GetComponent<DialogueToggle>().StopCoroutine("OneCharacterAtATime");
+            }
+
             gameManager.GetComponent<DialogManager>().currentDialogueTrigger = gameObject;
             switch (talker) {
                 case Talker.Moustache:
@@ -66,6 +72,11 @@ public class DialogueToggle : MonoBehaviour {
         if (useToTrigger) {
             gameManager.gameObject.GetComponent<DialogManager>().ToggleDialogueUIOn();
 
+            if (gameManager.GetComponent<DialogManager>().dialogueOnTheWay && gameManager.GetComponent<DialogManager>().currentDialogueTrigger != null) {
+                gameManager.GetComponent<DialogManager>().currentDialogueTrigger.GetComponent<DialogueToggle>().StopCoroutine("OneCharacterAtATime");
+            }
+
+            gameManager.GetComponent<DialogManager>().currentDialogueTrigger = gameObject;
             switch (talker) {
                 case Talker.Moustache:
                     talkerInt = 1;
@@ -90,6 +101,16 @@ public class DialogueToggle : MonoBehaviour {
             
         }
     }
+    public void Update() {
+        Test();
+    }
+
+    public void Test() {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            Debug.Log("Test");
+            StopCoroutine("OneCharacterAtATime");
+        }
+    }
 
     IEnumerator OneCharacterAtATime(string keyCode) {
         string text = gameManager.gameObject.GetComponent<DialogManager>().GetStringFromList(keyCode);
@@ -99,9 +120,11 @@ public class DialogueToggle : MonoBehaviour {
         for (int i = 0; i < textOneByOne.Length; i++) {
             dialogueText.text += textOneByOne[i];
             isDone = false;
+            gameManager.gameObject.GetComponent<DialogManager>().dialogueOnTheWay = true;
+
             yield return new WaitForSeconds(waitTimeInBetweenLetters);
         }
-
+        gameManager.gameObject.GetComponent<DialogManager>().dialogueOnTheWay = false;
         isDone = true;
 
     }

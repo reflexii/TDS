@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour {
         if (playerIsDead || missionFailed) {
             runningSceneTime += Time.deltaTime;
 
+            GetComponent<DialogManager>().ToggleDialogueUIOff();
+
             if (value >= 0) {
                 value -= Time.deltaTime;
             }

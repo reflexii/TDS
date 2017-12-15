@@ -356,9 +356,9 @@ MonoBehaviour:
   shotgunShootCooldown: 0.8
   smgShootCooldown: 0.04
   rifleShootCooldown: 0.08
-  pistolDamage: 50
+  pistolDamage: 20
   shotgunDamage: 25
-  smgDamage: 25
+  smgDamage: 20
   rifleDamage: 35
   pistolMagazineSize: 12
   shotgunMagazineSize: 5
@@ -426,6 +426,7 @@ MonoBehaviour:
   currentGunImage: {fileID: 0}
   magazineText: {fileID: 0}
   togglable: 0
+  walking: 0
   dialogueTime: 0.5
   playerCorpse1: {fileID: 1642774933394460, guid: 7ad1c8cd69d301741ba5c7d417a2d107,
     type: 2}
@@ -433,6 +434,7 @@ MonoBehaviour:
     type: 2}
   playerCorpse3: {fileID: 1753769905029644, guid: 5988ad6ddfb1c694e97063cf8151e98d,
     type: 2}
+  stopPlayer: 0
 --- !u!120 &120040173853199826
 LineRenderer:
   m_ObjectHideFlags: 1

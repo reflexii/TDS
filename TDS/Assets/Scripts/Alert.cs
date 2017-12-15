@@ -116,7 +116,7 @@ public class Alert : MonoBehaviour {
             runningEnemySpawnTime += Time.deltaTime;
 
             if (!doneOnce) {
-                gm.GetComponent<SoundManager>().PlaySound("AlertFree", false);
+                gm.GetComponent<SoundManager>().PlaySound("Alert", false);
                 doneOnce = true;
             }
 

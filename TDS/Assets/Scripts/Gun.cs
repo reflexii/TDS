@@ -41,6 +41,7 @@ public class Gun : MonoBehaviour {
     private Vector3 shootingDirection = Vector3.zero;
     private Vector3 shotgunRandomSpread;
     private Vector3 smgRandomSpread;
+    private Vector3 pistolRandomSpread;
     private float runningCooldown = 0f;
     public int maxMagazineSize;
     private SpriteRenderer sr;
@@ -84,12 +85,18 @@ public class Gun : MonoBehaviour {
     }
 
     void ShootLaser(Vector3 from, Vector3 dir, float distance) {
-        RaycastHit2D hit = Physics2D.Raycast(from, dir, distance, 1 << LayerMask.NameToLayer("Wall"));
+        RaycastHit2D[] hit = Physics2D.RaycastAll(from, dir, distance, 1 << LayerMask.NameToLayer("Wall"));
         Vector3 endPos = from + (distance * dir);
-
-        if (hit.collider != null) {
-            endPos = hit.point;
+        if (hit != null) {
+            for (int i = 0; i < hit.Length; i++) {
+                if (hit[i].collider.gameObject.transform.tag == "SeeThroughItem" || hit[i].collider.gameObject.transform.tag == "SeeThroughDestructable") {
+                    
+                } else {
+                    endPos = hit[i].point;
+                }
+            }
         }
+       
         lineRenderer.SetPosition(0, from);
         lineRenderer.SetPosition(1, endPos);
     }
@@ -229,7 +236,8 @@ public class Gun : MonoBehaviour {
                         GameObject pistolBullet = pool.GetPooledBullet();
                         pistolBullet.SetActive(true);
                         pistolBullet.transform.position = bulletSpawnPoint.position;
-                        pistolBullet.GetComponent<Bullet>().direction = shootingDirection;
+                        RandomizePistolDirection();
+                        pistolBullet.GetComponent<Bullet>().direction = shootingDirection + pistolRandomSpread;
                         //rotate
                         float angle = Mathf.Atan2(pistolBullet.GetComponent<Bullet>().direction.y, pistolBullet.GetComponent<Bullet>().direction.x) * Mathf.Rad2Deg;
                         pistolBullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -492,5 +500,12 @@ public class Gun : MonoBehaviour {
         float x = Random.Range(-0.1f, 0.1f);
         float y = Random.Range(-0.1f, 0.1f);
         smgRandomSpread = new Vector3(x, y, 0f);
+    }
+
+    private void RandomizePistolDirection() {
+        float x = Random.Range(-0.05f, 0.05f);
+        float y = Random.Range(-0.05f, 0.05f);
+        pistolRandomSpread = new Vector3(x, y, 0f);
+
     }
 }

@@ -130,21 +130,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponInUse: 3
-  bulletPrefab: {fileID: 1200370628825164, guid: 5d99435761518094699af7e861c711e4,
-    type: 2}
-  bulletPrefabBig: {fileID: 1675964472977096, guid: d75aa223b2274a0468ecb4dbacc23d23,
-    type: 2}
-  bulletPrefabMedium: {fileID: 1058975265466922, guid: 5553ea7244a2ed149ae6cc593523ee04,
-    type: 2}
   bulletSpawnPoint: {fileID: 0}
   playerOwned: 0
   pistolShootCooldown: 0.2
   shotgunShootCooldown: 0.8
   smgShootCooldown: 0.04
   rifleShootCooldown: 0.08
-  pistolDamage: 50
+  pistolDamage: 20
   shotgunDamage: 25
-  smgDamage: 25
+  smgDamage: 20
   rifleDamage: 35
   pistolMagazineSize: 12
   shotgunMagazineSize: 5
@@ -162,6 +156,7 @@ MonoBehaviour:
   throwWeapon: 0
   throwDirection: {x: 0, y: 0, z: 0}
   throwSpeed: 10
+  fail: 0
 --- !u!120 &120711999123279444
 LineRenderer:
   m_ObjectHideFlags: 1
