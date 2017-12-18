@@ -477,7 +477,7 @@ public class PlayerMovement : MonoBehaviour {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Button")) {
             togglable = true;
             togglableButton = collision.gameObject;
-            showE = togglableButton.GetComponent<Button>().showE;
+            showE = togglableButton.GetComponent<Button2>().showE;
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Dialogue")) {
@@ -493,7 +493,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             togglable = true;
             togglableButton = collision.gameObject;
-            showE = togglableButton.GetComponent<Button>().showE;
+            showE = togglableButton.GetComponent<Button2>().showE;
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Dialogue")) {
@@ -584,9 +584,9 @@ public class PlayerMovement : MonoBehaviour {
 
     void Use()
     {
-        if (Input.GetKeyDown(KeyCode.E) && togglable && !togglableButton.GetComponent<Button>().walkTrigger)
+        if (Input.GetKeyDown(KeyCode.E) && togglable && !togglableButton.GetComponent<Button2>().walkTrigger)
         {
-            togglableButton.GetComponent<Button>().Toggle();
+            togglableButton.GetComponent<Button2>().Toggle();
         }
 
         if (Input.GetKeyDown(KeyCode.E) && dialogueTogglable) {

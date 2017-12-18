@@ -59,9 +59,8 @@ MonoBehaviour:
   playerIsDead: 0
   missionFailed: 0
   player: {fileID: 0}
-  currentLevel: 1
-  sfxVolume: 100
-  musicVolume: 100
+  mms: {fileID: 0}
+  mmsPrefab: {fileID: 1762735722077652, guid: 74cea4e84dd01614b9468039d8d85e51, type: 2}
 --- !u!114 &114233170241577230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -123,6 +122,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   currentDialogueTrigger: {fileID: 0}
   dialogueParent: {fileID: 0}
+  dialogueOnTheWay: 0
 --- !u!114 &114979944243118138
 MonoBehaviour:
   m_ObjectHideFlags: 1

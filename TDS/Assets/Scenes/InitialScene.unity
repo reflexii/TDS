@@ -1290,6 +1290,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 114625925749314186, guid: 928a3b9430837324192821c6a44e6cc3,
+        type: 2}
+      propertyPath: sceneName
+      value: 1stmap
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 928a3b9430837324192821c6a44e6cc3, type: 2}
   m_IsPrefabParent: 0
@@ -5701,7 +5706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95fa4c5b9de74414197ce9690431a53a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  talker: 0
+  talker: 3
   searchedCode: LVL_1_6
   useOneByOne: 1
   useToTrigger: 1
@@ -5709,6 +5714,7 @@ MonoBehaviour:
   isDone: 1
   showE: 0
   triggerObjective: 1
+  stopText: 0
 --- !u!212 &1429359765
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6018,6 +6024,11 @@ Prefab:
     - target: {fileID: 4145420190770826, guid: 911977fa2b107b14691e513a0f141a80, type: 2}
       propertyPath: m_RootOrder
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114737011624127284, guid: 911977fa2b107b14691e513a0f141a80,
+        type: 2}
+      propertyPath: talker
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 911977fa2b107b14691e513a0f141a80, type: 2}

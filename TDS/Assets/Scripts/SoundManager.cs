@@ -27,7 +27,7 @@ public class SoundManager : MonoBehaviour {
             audio.SetActive(true);
             AudioSource source = audio.GetComponent<AudioSource>();
             source.clip = audioList[audioListString.IndexOf(soundFileName)];
-            source.volume = (gm.sfxVolume/100f);
+            source.volume = (gm.mms.sfxVolume/100f);
 
             if (randomizePitch) {
                 RandomizePitch(source, pitchMin, pitchMax);

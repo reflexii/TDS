@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DialogueToggle : MonoBehaviour {
 
-    public enum Talker { Moustache, VIP, Player };
+    public enum Talker { Moustache, VIP, Player, Boss };
     public Talker talker;
     private int talkerInt;
     private GameManager gameManager;
@@ -54,6 +54,9 @@ public class DialogueToggle : MonoBehaviour {
                 case Talker.VIP:
                     talkerInt = 3;
                     break;
+                case Talker.Boss:
+                    talkerInt = 4;
+                    break;
             }
 
             animator.SetInteger("TalkerInt", talkerInt);
@@ -87,6 +90,9 @@ public class DialogueToggle : MonoBehaviour {
                 case Talker.VIP:
                     talkerInt = 3;
                     break;
+                case Talker.Boss:
+                    talkerInt = 4;
+                    break;
             }
 
             animator.SetInteger("TalkerInt", talkerInt);
@@ -99,16 +105,6 @@ public class DialogueToggle : MonoBehaviour {
                 StartCoroutine("OneCharacterAtATime", searchedCode);
             }
             
-        }
-    }
-    public void Update() {
-        Test();
-    }
-
-    public void Test() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            Debug.Log("Test");
-            StopCoroutine("OneCharacterAtATime");
         }
     }
 

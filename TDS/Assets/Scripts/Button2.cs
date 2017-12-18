@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Button : MonoBehaviour {
+public class Button2 : MonoBehaviour {
 
     public float toggleDelay = 1f;
     public bool togglable = false;

@@ -10,10 +10,6 @@ public class CutSceneTrigger : MonoBehaviour {
     public float timeBeforeDialogue;
     private float runningDialogueTime = 0.0f;
     private bool dialogue = false;
-
-	void Start () {
-		
-	}
 	
 	void Update () {
 		if (dialogue) {
