@@ -266,7 +266,7 @@ Prefab:
     - target: {fileID: 20094271417364746, guid: 32ae2d2f563a90e458c93db491353299,
         type: 2}
       propertyPath: orthographic size
-      value: 9.890625
+      value: 6.953125
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 32ae2d2f563a90e458c93db491353299, type: 2}
@@ -3852,6 +3852,8 @@ MonoBehaviour:
   toggleTimer: 0
   alertOnToggle: 0
   walkTrigger: 1
+  showE: 1
+  togglableOnlyOnce: 0
 --- !u!61 &1213996288
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3902,6 +3904,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vipTrigger: 0
+  vipStopTrigger: 0
   activateTimer: 0
 --- !u!1001 &1222984890
 Prefab:
@@ -5288,6 +5291,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114948756840253144, guid: f5b03a3e932fdde42b3adf5a91001061,
+        type: 2}
+      propertyPath: parentObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4389315028006712, guid: f5b03a3e932fdde42b3adf5a91001061, type: 2}
       propertyPath: m_LocalPosition.x
       value: 8.5
@@ -5617,6 +5625,9 @@ MonoBehaviour:
   useToTrigger: 0
   waitTimeInBetweenLetters: 0.02
   isDone: 1
+  showE: 0
+  triggerObjective: 0
+  stopText: 0
 --- !u!4 &1786524625
 Transform:
   m_ObjectHideFlags: 0

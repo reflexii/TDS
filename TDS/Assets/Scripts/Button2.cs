@@ -60,14 +60,15 @@ public class Button2 : MonoBehaviour {
         for (int i = 0; i < parentObjects.Count; i++)
         {
             //children objects
-            foreach (Transform child in parentObjects[i].transform)
-            {
-                if (child.GetComponent<TogglableObject>() != null)
-                {
-                    allTogglableObjects.Add(child.gameObject);
+            if (parentObjects[i].transform.childCount > 0) {
+                foreach (Transform child in parentObjects[i].transform) {
+                    if (child.GetComponent<TogglableObject>() != null) {
+                        allTogglableObjects.Add(child.gameObject);
+                    }
+
                 }
-                
             }
+            
             //parents
             if (parentObjects[i].GetComponent<TogglableObject>() != null)
             {
