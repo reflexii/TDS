@@ -50,6 +50,12 @@ public class SceneChanger : MonoBehaviour {
     public void ChangeToFirstMap() {
         mms.ClearKeys();
         mms.mainMenu = false;
+        if (GameObject.Find("Pause") != null) {
+            GameObject.Find("Pause").GetComponent<Pause>().inMenu = false;
+        }
+        if (GameObject.Find("GameManager") != null) {
+            GameObject.Find("GameManager").GetComponent<GameManager>().ColorSettings();
+        }
         SceneManager.LoadScene("1stmap");
     }
 
@@ -104,6 +110,13 @@ public class SceneChanger : MonoBehaviour {
                 name = "1stmap";
                 break;
 
+        }
+
+        if (GameObject.Find("Pause") != null) {
+            GameObject.Find("Pause").GetComponent<Pause>().inMenu = false;
+        }
+        if (GameObject.Find("GameManager") != null) {
+            GameObject.Find("GameManager").GetComponent<GameManager>().ColorSettings();
         }
 
         SceneManager.LoadScene(name);

@@ -346,7 +346,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 136004134}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 203.5, y: 30.5, z: 0}
+  m_LocalPosition: {x: 276.5, y: 71.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 629260985}
@@ -1054,7 +1054,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 629260981}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 395.5, y: 222.5, z: 0}
+  m_LocalPosition: {x: 468.5, y: 263.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1626193315}
@@ -1287,7 +1287,8 @@ Prefab:
       propertyPath: continueButton
       value: 
       objectReference: {fileID: 1626193314}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114960961192507436, guid: 74cea4e84dd01614b9468039d8d85e51, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 74cea4e84dd01614b9468039d8d85e51, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &750721365
@@ -1765,7 +1766,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1.5451388
+  orthographic size: 1.497159
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

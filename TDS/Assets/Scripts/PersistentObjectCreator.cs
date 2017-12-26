@@ -7,11 +7,15 @@ public class PersistentObjectCreator : MonoBehaviour {
     public GameObject gameManagerPrefab;
     public GameObject canvasPrefab;
     public GameObject reticlePrefab;
+    public GameObject pausePrefab;
+    public GameObject eventPrefab;
 
 	void Awake () {
         CreateGameManager();
         CreateGameCanvas();
+        CreateEventSystem();
         CreateTargetReticle();
+        CreatePause();
 	}
 
     void CreateGameManager() {
@@ -32,6 +36,20 @@ public class PersistentObjectCreator : MonoBehaviour {
         if (GameObject.Find("Reticle") == null) {
             GameObject g = Instantiate<GameObject>(reticlePrefab);
             g.name = "Reticle";
+        }
+    }
+
+    void CreateEventSystem() {
+        if (GameObject.Find("EventSystem") == null) {
+            GameObject g = Instantiate<GameObject>(eventPrefab);
+            g.name = "EventSystem";
+        }
+    }
+
+    void CreatePause() {
+        if (GameObject.Find("Pause") == null) {
+            GameObject g = Instantiate<GameObject>(pausePrefab);
+            g.name = "Pause";
         }
     }
 }

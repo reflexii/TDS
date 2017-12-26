@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
     public GameObject player;
     public MainMenuScript mms;
     public GameObject mmsPrefab;
+    public bool paused = false;
 
     private float runningSceneTime;
     private float value = 1f;
@@ -19,13 +20,7 @@ public class GameManager : MonoBehaviour {
 
     private void Awake() {
 
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = false;
-        pp = GameObject.Find("Main Camera").GetComponent<UnityEngine.PostProcessing.PostProcessingBehaviour>();
-        profile = pp.profile.colorGrading.settings;
-        profile.basic.saturation = value;
-        profile.tonemapping.neutralWhiteIn = 10f;
-        pp.profile.colorGrading.settings = profile;
+        ColorSettings();
 
         if (GameObject.Find("MainMenuScript") != null) {
             mms = GameObject.Find("MainMenuScript").GetComponent<MainMenuScript>();
@@ -35,8 +30,15 @@ public class GameManager : MonoBehaviour {
             g.name = "MainMenuScript";
             g.GetComponent<MainMenuScript>().mainMenu = false;
         }
-        
+    }
 
+    public void ColorSettings() {
+        pp = GameObject.Find("Main Camera").GetComponent<UnityEngine.PostProcessing.PostProcessingBehaviour>();
+        profile = pp.profile.colorGrading.settings;
+        value = 1f;
+        profile.basic.saturation = value;
+        profile.tonemapping.neutralWhiteIn = 10f;
+        pp.profile.colorGrading.settings = profile;
     }
 
     public void Update() {
@@ -58,7 +60,7 @@ public class GameManager : MonoBehaviour {
             }
             pp.profile.colorGrading.settings = profile;
 
-            if (runningSceneTime >= 1f && Input.GetKeyDown(KeyCode.Mouse0)) {
+            if (runningSceneTime >= 1f && Input.GetKeyDown(KeyCode.Mouse0) && !paused) {
                 LoadSameScene();
             }
         }

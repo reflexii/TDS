@@ -86,7 +86,6 @@ public class PlayerMovement : MonoBehaviour {
     private bool showE = false;
 
     //health
-    private Image healthImage;
     private Text healthText;
     private bool lowHealth = false;
 
@@ -107,6 +106,9 @@ public class PlayerMovement : MonoBehaviour {
     [HideInInspector]
     public bool stopPlayer = false;
 
+    //pause
+    public bool gameIsPaused = false;
+
     private void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         gameManager.GetComponent<GameManager>().player = gameObject;
@@ -121,7 +123,6 @@ public class PlayerMovement : MonoBehaviour {
         rightClickIndicator = GameObject.Find("RightClickIndicator").GetComponent<Image>();
         bulletSpawnPoint = transform.Find("BulletSpawnPoint").gameObject;
         reticle = GameObject.Find("Reticle");
-        healthImage = GameObject.Find("HealthImage").GetComponent<Image>();
         healthText = GameObject.Find("HealthText").GetComponent<Text>();
         objectiveManager = GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>();
         animator = GetComponent<Animator>();
@@ -168,6 +169,13 @@ public class PlayerMovement : MonoBehaviour {
             Animations();
             reticle.SetActive(true);
             Shooting();
+        } else if (gameIsPaused) {
+            reticle.SetActive(false);
+            useHelper.enabled = false;
+            rightClickIndicator.enabled = false;
+            if (hasGun) {
+                gun.GetComponent<Gun>().fail = true;
+            }
         } else {
             Movement();
             MouseLook();
@@ -180,7 +188,11 @@ public class PlayerMovement : MonoBehaviour {
             Animations();
             UseHelper();
             RightClickIndicator();
+            KillYourself();
             reticle.SetActive(true);
+            if (hasGun) {
+                gun.GetComponent<Gun>().fail = false;
+            }
         }
 
         HealthUpdate();
@@ -598,6 +610,13 @@ public class PlayerMovement : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.E) && vipTogglable) {
             vipObject.GetComponent<VIP>().following = !vipObject.GetComponent<VIP>().following;
+        }
+    }
+
+    void KillYourself() {
+        if (Input.GetKeyDown(KeyCode.K)) {
+            reticle.SetActive(false);
+            TakeDamage(1000f);
         }
     }
 

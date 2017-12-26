@@ -9,30 +9,31 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1456314140766254}
+  m_RootGameObject: {fileID: 1151460978314434}
   m_IsPrefabParent: 1
---- !u!1 &1456314140766254
+--- !u!1 &1151460978314434
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4901507361702748}
-  - component: {fileID: 114496372512727736}
+  - component: {fileID: 4985502741470536}
+  - component: {fileID: 114251883761563884}
+  - component: {fileID: 114206955970636120}
   m_Layer: 0
-  m_Name: PersistentObjectCreator
+  m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4901507361702748
+--- !u!4 &4985502741470536
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1456314140766254}
+  m_GameObject: {fileID: 1151460978314434}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,24 +41,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114496372512727736
+--- !u!114 &114206955970636120
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1456314140766254}
+  m_GameObject: {fileID: 1151460978314434}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10a153dca16bc4e4abce4f731fab8239, type: 3}
+  m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManagerPrefab: {fileID: 1974674772446796, guid: 22cfd25b49fb7c24d8ae55a4cf60c033,
-    type: 2}
-  canvasPrefab: {fileID: 1800683706691524, guid: 55d8fb4cf07e8444f84615c7532a55d4,
-    type: 2}
-  reticlePrefab: {fileID: 1257578589198854, guid: 78442572cfea05d41bc9c994196046a4,
-    type: 2}
-  pausePrefab: {fileID: 1381824684512464, guid: 800216f3cdf31004897b3bfb52c5a7bf,
-    type: 2}
-  eventPrefab: {fileID: 1151460978314434, guid: 6e0c419073d66ac4ab1b9850f2a51686,
-    type: 2}
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &114251883761563884
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1151460978314434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 5

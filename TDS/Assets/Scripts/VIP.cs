@@ -22,7 +22,6 @@ public class VIP : MonoBehaviour {
     private Animator animator;
     private GameObject player;
     private bool walking = false;
-    private GameObject damageCollider;
     public bool doneOnce = false;
     private bool dead = false;
     private GameObject em;
@@ -39,7 +38,6 @@ public class VIP : MonoBehaviour {
             g.name = "EnemyTargets";
         }
         targetParentObject = GameObject.Find("EnemyTargets").transform;
-        damageCollider = transform.Find("damageCollider").gameObject;
         vipCurrentHealth = vipHealth;
 
         if (!following) {

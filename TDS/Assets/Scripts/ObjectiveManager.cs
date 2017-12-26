@@ -48,14 +48,7 @@ public class ObjectiveManager : MonoBehaviour {
         timerText.enabled = false;
         questList = new List<string>();
 
-        for (int i = 0; i < deathScreenParent.transform.childCount; i++) {
-            if (deathScreenParent.transform.GetChild(i).GetComponent<Image>() != null) {
-                deathScreenParent.transform.GetChild(i).GetComponent<Image>().enabled = false;
-            }
-            if (deathScreenParent.transform.GetChild(i).GetComponent<Text>() != null) {
-                deathScreenParent.transform.GetChild(i).GetComponent<Text>().enabled = false;
-            }
-        }
+        ToggleDeathScreenOff();
 
         string[] linesInFile = textAsset.text.Split("\n"[0]);
 
@@ -79,6 +72,17 @@ public class ObjectiveManager : MonoBehaviour {
             timerImage.enabled = false;
         }
 	}
+
+    public void ToggleDeathScreenOff() {
+        for (int i = 0; i < deathScreenParent.transform.childCount; i++) {
+            if (deathScreenParent.transform.GetChild(i).GetComponent<Image>() != null) {
+                deathScreenParent.transform.GetChild(i).GetComponent<Image>().enabled = false;
+            }
+            if (deathScreenParent.transform.GetChild(i).GetComponent<Text>() != null) {
+                deathScreenParent.transform.GetChild(i).GetComponent<Text>().enabled = false;
+            }
+        }
+    }
 
     public void NextObjective() {
         if (currentObjective < objectiveCount) {

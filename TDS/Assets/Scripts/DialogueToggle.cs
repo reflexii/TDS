@@ -11,7 +11,6 @@ public class DialogueToggle : MonoBehaviour {
     private GameManager gameManager;
     private bool didOnce = false;
     private Text dialogueText;
-    private GameObject dialogueFace;
     private Animator animator;
 
     public string searchedCode = "";
@@ -27,7 +26,6 @@ public class DialogueToggle : MonoBehaviour {
     private void Start() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         dialogueText = gameManager.gameObject.GetComponent<DialogManager>().dialogueText.GetComponent<Text>();
-        dialogueFace = gameManager.gameObject.GetComponent<DialogManager>().dialogueImage;
         animator = gameManager.gameObject.GetComponent<DialogManager>().animator;
 
         if (useToTrigger) {

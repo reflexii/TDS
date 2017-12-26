@@ -59,7 +59,6 @@ public class Gun : MonoBehaviour {
     private LineRenderer lineRenderer;
 
     //objectives
-    private ObjectiveManager objectiveManager;
     public bool fail = false;
 
 
@@ -71,7 +70,6 @@ public class Gun : MonoBehaviour {
         magazineText = GameObject.Find("MagazineText").GetComponent<Text>();
         currentGunImage = GameObject.Find("GunImage").GetComponent<Image>();
         sr = GetComponent<SpriteRenderer>();
-        objectiveManager = GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>();
         lineRenderer = transform.Find("ShootingLine").gameObject.GetComponent<LineRenderer>();
         Vector3[] initLaserPositions = new Vector3[2] { transform.position, transform.position };
         lineRenderer.SetPositions(initLaserPositions);
