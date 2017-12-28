@@ -14,6 +14,9 @@ public class Pause : MonoBehaviour {
     public GameManager gm;
     public GameObject playerObject;
 
+    private float fadeTimer = 0f;
+    private bool startFade = false;
+
 
     private void Awake() {
         Cursor.lockState = CursorLockMode.Confined;
@@ -51,13 +54,26 @@ public class Pause : MonoBehaviour {
                     GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().ToggleDeathScreenOff();
                 }
             }
+
+            //restartbutton
+            if (startFade) {
+                fadeTimer += Time.deltaTime;
+
+                if (fadeTimer >= 1.5f) {
+                    gm.LoadSameScene();
+                    startFade = false;
+                    fadeTimer = 0f;
+                }
+            }
         }
 	}
 
     public void RestartButton() {
-        //add fadetoblack
+
         pauseMenuEnabled = false;
-        gm.LoadSameScene();
+        startFade = true;
+
+        GameObject.Find("Fade").GetComponent<Fade>().StartFadeOut(1f);
     }
 
     public void ExitButton() {

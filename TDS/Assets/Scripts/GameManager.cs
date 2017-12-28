@@ -69,6 +69,7 @@ public class GameManager : MonoBehaviour {
     public void LoadSameScene() {
         runningSceneTime = 0f;
         missionFailed = false;
+        GameObject.Find("Fade").GetComponent<Fade>().StartFadeIn(1f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         value = 1f;
         profile.basic.saturation = value;

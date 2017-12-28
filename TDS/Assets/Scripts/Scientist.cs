@@ -141,7 +141,7 @@ public class Scientist : MonoBehaviour {
                 walking = true;
                 ai.speed = 6f;
                 animator.speed = 2f;
-                targetObject.transform.position = alertButtonObjectToRunWhenAlerted.transform.position;
+                targetObject.transform.position = alertButtonObjectToRunWhenAlerted.GetComponent<Collider2D>().transform.position;
                 em.GetComponent<SpriteRenderer>().enabled = true;
                 break;
             case CurrentStance.Hiding:

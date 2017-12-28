@@ -14,6 +14,7 @@ public class SceneChanger : MonoBehaviour {
     private bool scenesChanging = false;
     private float runningSwitchTime = 0.0f;
     private MainMenuScript mms;
+    private bool fadedOnce = false;
 
     private void Start() {
         if (!mainMenu) {
@@ -37,12 +38,21 @@ public class SceneChanger : MonoBehaviour {
     }
 
     void ChangeScene() {
+
+        if (!fadedOnce) {
+            GameObject.Find("Fade").GetComponent<Fade>().StartFadeOut();
+            fadedOnce = true;
+        }
+        
+        //Mission complete
+
         runningSwitchTime += Time.deltaTime;
 
         if (runningSwitchTime >= timeBeforeSwitching) {
             gm.NextLevelPreferences();
             StopAllSounds();
 
+            GameObject.Find("Fade").GetComponent<Fade>().StartFadeIn();
             SceneManager.LoadScene(sceneName);
         }
     }
