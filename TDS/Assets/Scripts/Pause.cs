@@ -13,9 +13,11 @@ public class Pause : MonoBehaviour {
     public UnityEngine.UI.Button menu;
     public GameManager gm;
     public GameObject playerObject;
+    public float runningMenuTime = 0.0f;
 
     private float fadeTimer = 0f;
     private bool startFade = false;
+    
 
 
     private void Awake() {
@@ -28,6 +30,7 @@ public class Pause : MonoBehaviour {
     void Update () {
 		
         if (!inMenu) {
+            runningMenuTime += Time.deltaTime;
             if (pauseMenuEnabled) {
                 pauseMenuParent.SetActive(true);
                 if (playerObject != null) {
@@ -44,7 +47,7 @@ public class Pause : MonoBehaviour {
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (Input.GetKeyDown(KeyCode.Escape) && runningMenuTime >= 2f) {
                 playerObject = GameObject.Find("Player");
                 pauseMenuEnabled = !pauseMenuEnabled;
                 gm.paused = pauseMenuEnabled;
@@ -60,6 +63,8 @@ public class Pause : MonoBehaviour {
                 fadeTimer += Time.deltaTime;
 
                 if (fadeTimer >= 1.5f) {
+                    gm.paused = false;
+                    runningMenuTime = 0f;
                     gm.LoadSameScene();
                     startFade = false;
                     fadeTimer = 0f;
@@ -70,6 +75,7 @@ public class Pause : MonoBehaviour {
 
     public void RestartButton() {
 
+        runningMenuTime = 0f;
         pauseMenuEnabled = false;
         startFade = true;
 
@@ -81,8 +87,10 @@ public class Pause : MonoBehaviour {
     }
     
     public void MenuButton() {
+        runningMenuTime = 0f;
         gm.missionFailed = false;
         gm.playerIsDead = false;
+        gm.paused = false;
         pauseMenuEnabled = false;
         pauseMenuParent.SetActive(false);
         Time.timeScale = 1f;

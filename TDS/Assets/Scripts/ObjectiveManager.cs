@@ -139,9 +139,9 @@ public class ObjectiveManager : MonoBehaviour {
             string temp = "" + timerTime;
             if (temp.Length >= 3 && timerTime < 10f) {
                 temp = temp.Substring(0, 3);
-            } else if (temp.Length >= 3 && timerTime >= 10f && timerTime < 100f) {
+            } else if (temp.Length >= 4 && timerTime >= 10f && timerTime < 100f) {
                 temp = temp.Substring(0, 4);
-            } else if (temp.Length >= 3 && timerTime >= 100f) {
+            } else if (temp.Length >= 5 && timerTime >= 100f) {
                 temp = temp.Substring(0, 5);
             }
             

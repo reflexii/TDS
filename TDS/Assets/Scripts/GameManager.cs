@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour {
     public bool paused = false;
 
     private float runningSceneTime;
+    private bool doneOnce = false;
+    private bool toggleMapChange = false;
     private float value = 1f;
     private UnityEngine.PostProcessing.PostProcessingBehaviour pp;
     private UnityEngine.PostProcessing.ColorGradingModel.Settings profile;
@@ -60,8 +62,19 @@ public class GameManager : MonoBehaviour {
             }
             pp.profile.colorGrading.settings = profile;
 
-            if (runningSceneTime >= 1f && Input.GetKeyDown(KeyCode.Mouse0) && !paused) {
-                LoadSameScene();
+            if (runningSceneTime >= 1f && !paused) {
+                if (Input.GetKeyDown(KeyCode.Mouse0) && !doneOnce) {
+                    GameObject.Find("Fade").GetComponent<Fade>().StartFadeOut(1f);
+                    GameObject.Find("Pause").GetComponent<Pause>().runningMenuTime = 0f;
+                    runningSceneTime = 1f;
+                    toggleMapChange = true;
+                    doneOnce = true;
+                }
+                if (runningSceneTime >= 2f && toggleMapChange) {
+                    toggleMapChange = false;
+                    doneOnce = false;
+                    LoadSameScene();
+                }  
             }
         }
     }

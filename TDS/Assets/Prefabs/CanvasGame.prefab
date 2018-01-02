@@ -1056,6 +1056,7 @@ MonoBehaviour:
   menu: {fileID: 0}
   gm: {fileID: 0}
   playerObject: {fileID: 0}
+  runningMenuTime: 0
 --- !u!114 &114152526839644548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1771,6 +1772,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeTime: 2
   startBlack: 1
+  fadeValue: 0
+  fadeList: []
 --- !u!114 &114675365693493480
 MonoBehaviour:
   m_ObjectHideFlags: 1

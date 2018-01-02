@@ -11,11 +11,12 @@ public class MainMenuScript : MonoBehaviour {
     public bool mainMenu = true;
     public GameObject continueButton;
 
-
 	void Awake () {
         FirstTimeLaunch();
         LoadPlayerPreferences();
         Debug.Log(PlayerPrefs.GetInt("currentLevel"));
+
+        
     }
 
     private void Update() {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SceneChanger : MonoBehaviour {
 
@@ -15,6 +16,7 @@ public class SceneChanger : MonoBehaviour {
     private float runningSwitchTime = 0.0f;
     private MainMenuScript mms;
     private bool fadedOnce = false;
+    private GameObject canvasObject;
 
     private void Start() {
         if (!mainMenu) {
@@ -22,6 +24,11 @@ public class SceneChanger : MonoBehaviour {
             gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         } else {
             mms = GameObject.Find("MainMenuScript").GetComponent<MainMenuScript>();
+
+            if (GameObject.Find("Fade") != null) {
+                GameObject.Find("Fade").GetComponent<Fade>().fadeValue = 1f;
+                GameObject.Find("Fade").GetComponent<Image>().color = new Color(0f, 0f, 0f, 1f);
+            }
         }
     }
 
@@ -60,11 +67,18 @@ public class SceneChanger : MonoBehaviour {
     public void ChangeToFirstMap() {
         mms.ClearKeys();
         mms.mainMenu = false;
+        if (canvasObject != null) {
+            canvasObject.SetActive(true);
+        }
         if (GameObject.Find("Pause") != null) {
             GameObject.Find("Pause").GetComponent<Pause>().inMenu = false;
+            GameObject.Find("Pause").GetComponent<Pause>().runningMenuTime = 0.0f;
         }
         if (GameObject.Find("GameManager") != null) {
             GameObject.Find("GameManager").GetComponent<GameManager>().ColorSettings();
+        }
+        if (GameObject.Find("Fade") != null) {
+            GameObject.Find("Fade").GetComponent<Fade>().StartFadeIn(2f);
         }
         SceneManager.LoadScene("1stmap");
     }
@@ -122,11 +136,19 @@ public class SceneChanger : MonoBehaviour {
 
         }
 
+
+        if (canvasObject != null) {
+            canvasObject.SetActive(true);
+        }
         if (GameObject.Find("Pause") != null) {
             GameObject.Find("Pause").GetComponent<Pause>().inMenu = false;
+            GameObject.Find("Pause").GetComponent<Pause>().runningMenuTime = 0.0f;
         }
         if (GameObject.Find("GameManager") != null) {
             GameObject.Find("GameManager").GetComponent<GameManager>().ColorSettings();
+        }
+        if (GameObject.Find("Fade") != null) {
+            GameObject.Find("Fade").GetComponent<Fade>().StartFadeIn(2f);
         }
 
         SceneManager.LoadScene(name);

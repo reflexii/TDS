@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DialogueToggle : MonoBehaviour {
 
-    public enum Talker { Moustache, VIP, Player, Boss };
+    public enum Talker { Moustache, VIP, Player, Boss, Scientist };
     public Talker talker;
     private int talkerInt;
     private GameManager gameManager;
@@ -55,6 +55,9 @@ public class DialogueToggle : MonoBehaviour {
                 case Talker.Boss:
                     talkerInt = 4;
                     break;
+                case Talker.Scientist:
+                    talkerInt = 5;
+                    break;
             }
 
             animator.SetInteger("TalkerInt", talkerInt);
@@ -90,6 +93,9 @@ public class DialogueToggle : MonoBehaviour {
                     break;
                 case Talker.Boss:
                     talkerInt = 4;
+                    break;
+                case Talker.Scientist:
+                    talkerInt = 5;
                     break;
             }
 

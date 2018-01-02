@@ -7,10 +7,12 @@ public class Fade : MonoBehaviour {
 
     public float fadeTime = 1f;
     public bool startBlack = false;
+    public float fadeValue = 0f;
 
-    private float fadeValue = 0f;
     private bool startFadeOut = false;
     private bool startFadeIn = false;
+
+    public List<GameObject> fadeList;
 
 	void Awake () {
 
@@ -67,12 +69,14 @@ public class Fade : MonoBehaviour {
 
     public void StartFadeOut(float fadeOutTime = 2f) {
         fadeTime = fadeOutTime;
+        fadeValue = 0f;
         startFadeOut = true;
         startFadeIn = false;
     }
 
     public void StartFadeIn(float fadeInTime = 2f) {
         fadeTime = fadeInTime;
+        fadeValue = 1f;
         startFadeIn = true;
         startFadeOut = false;
     }
