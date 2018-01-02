@@ -46,7 +46,10 @@ public class SceneChanger : MonoBehaviour {
 
     void ChangeScene() {
 
-        if (!fadedOnce) {
+        GameObject.Find("MissionComplete").transform.GetChild(0).GetComponent<Text>().color = new Color(0f, 0f, 0f, 1f);
+        GameObject.Find("MissionComplete").transform.GetChild(1).GetComponent<Text>().color = new Color(1f, 1f, 1f, 1f);
+
+        if (!fadedOnce && runningSwitchTime >= 0.5f) {
             GameObject.Find("Fade").GetComponent<Fade>().StartFadeOut();
             fadedOnce = true;
         }
@@ -60,6 +63,8 @@ public class SceneChanger : MonoBehaviour {
             StopAllSounds();
 
             GameObject.Find("Fade").GetComponent<Fade>().StartFadeIn();
+            GameObject.Find("MissionComplete").transform.GetChild(0).GetComponent<Text>().color = new Color(0f, 0f, 0f, 0f);
+            GameObject.Find("MissionComplete").transform.GetChild(1).GetComponent<Text>().color = new Color(1f, 1f, 1f, 0f);
             SceneManager.LoadScene(sceneName);
         }
     }
