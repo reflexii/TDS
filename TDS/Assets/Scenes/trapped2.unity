@@ -1650,6 +1650,7 @@ MonoBehaviour:
   showE: 0
   triggerObjective: 0
   stopText: 0
+  vipTrigger: 0
 --- !u!4 &486179958
 Transform:
   m_ObjectHideFlags: 0
@@ -3654,6 +3655,7 @@ MonoBehaviour:
   showE: 0
   triggerObjective: 0
   stopText: 0
+  vipTrigger: 0
 --- !u!4 &893135848
 Transform:
   m_ObjectHideFlags: 0
@@ -4677,6 +4679,7 @@ MonoBehaviour:
   showE: 0
   triggerObjective: 0
   stopText: 0
+  vipTrigger: 0
 --- !u!4 &1190003438
 Transform:
   m_ObjectHideFlags: 0
@@ -4813,6 +4816,7 @@ MonoBehaviour:
   showE: 0
   triggerObjective: 0
   stopText: 0
+  vipTrigger: 0
 --- !u!61 &1256762804
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4889,6 +4893,7 @@ MonoBehaviour:
   showE: 0
   triggerObjective: 0
   stopText: 0
+  vipTrigger: 1
 --- !u!61 &1316593043
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5736,6 +5741,11 @@ Prefab:
     - target: {fileID: 4639566795816734, guid: 928a3b9430837324192821c6a44e6cc3, type: 2}
       propertyPath: m_RootOrder
       value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 114625925749314186, guid: 928a3b9430837324192821c6a44e6cc3,
+        type: 2}
+      propertyPath: sceneName
+      value: killzone
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 928a3b9430837324192821c6a44e6cc3, type: 2}
@@ -6664,6 +6674,11 @@ Prefab:
         type: 2}
       propertyPath: timerTime
       value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 114124828908043252, guid: 688f0ea4fb6f46d4b883b3af3d9818b5,
+        type: 2}
+      propertyPath: killTargetedEnemyMission
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 688f0ea4fb6f46d4b883b3af3d9818b5, type: 2}
