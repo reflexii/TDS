@@ -12,6 +12,7 @@ public class ObjectiveManager : MonoBehaviour {
     public bool missionFailed = false;
     public bool killAllMission = false;
     public bool toggleObjectsAfterKillAllMission = false;
+    public List<GameObject> togglableObjects2;
     public int enemiesLeft;
     public bool timer = false;
     public float timerTime = 60f;
@@ -109,9 +110,9 @@ public class ObjectiveManager : MonoBehaviour {
                 NextObjective();
 
                 if (toggleObjectsAfterKillAllMission) {
-                    if (togglableObjects != null) {
-                        for (int i = 0; i < togglableObjects.Count; i++) {
-                            togglableObjects[i].GetComponent<Button2>().Toggle();
+                    if (togglableObjects2 != null) {
+                        for (int i = 0; i < togglableObjects2.Count; i++) {
+                            togglableObjects2[i].GetComponent<Button2>().Toggle();
                         }
                     }
                 }
