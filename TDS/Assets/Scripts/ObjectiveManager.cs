@@ -11,6 +11,7 @@ public class ObjectiveManager : MonoBehaviour {
     public bool objectivesComplete = false;
     public bool missionFailed = false;
     public bool killAllMission = false;
+    public bool toggleObjectsAfterKillAllMission = false;
     public int enemiesLeft;
     public bool timer = false;
     public float timerTime = 60f;
@@ -106,6 +107,14 @@ public class ObjectiveManager : MonoBehaviour {
 
             if (enemiesLeft <= 0 && !doneOnce2) {
                 NextObjective();
+
+                if (toggleObjectsAfterKillAllMission) {
+                    if (togglableObjects != null) {
+                        for (int i = 0; i < togglableObjects.Count; i++) {
+                            togglableObjects[i].GetComponent<Button2>().Toggle();
+                        }
+                    }
+                }
                 doneOnce2 = true;
             }
         }

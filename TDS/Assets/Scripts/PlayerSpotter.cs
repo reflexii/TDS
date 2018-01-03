@@ -6,6 +6,7 @@ public class PlayerSpotter : MonoBehaviour {
 
     public GameObject enemy;
     public bool movingEnemy = true;
+    public bool boss = false;
 
     private bool isPlayerVisible = false;
     private GameObject player;
@@ -42,7 +43,11 @@ public class PlayerSpotter : MonoBehaviour {
                     enemy.GetComponent<MovingEnemy>().playerSearchPosition = player.transform.position;
                 }
             }
-        } else {
+        } else if (boss) {
+            if (isPlayerVisible) {
+                enemy.GetComponent<Boss>().whatEnemyIsDoing = Boss.CurrentStance.Shooting; 
+            }
+        } else if (!movingEnemy && !boss) {
             if (isPlayerVisible && enemy.GetComponent<Scientist>().whatEnemyIsDoing == Scientist.CurrentStance.Moving ||
                 isPlayerVisible && enemy.GetComponent<Scientist>().whatEnemyIsDoing == Scientist.CurrentStance.WaitingToMove) {
                 enemy.GetComponent<Scientist>().whatEnemyIsDoing = Scientist.CurrentStance.Alerted;

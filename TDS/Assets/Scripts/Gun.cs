@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Gun : MonoBehaviour {
 
-    public enum Weapons { Pistol, Shotgun, SMG, Rifle };
+    public enum Weapons { Pistol, Shotgun, SMG, Rifle, BossMinigun };
     public Weapons weaponInUse;
     public Transform bulletSpawnPoint;
     public bool playerOwned = true;
@@ -14,16 +14,19 @@ public class Gun : MonoBehaviour {
     public float shotgunShootCooldown = 1f;
     public float smgShootCooldown = 0.04f;
     public float rifleShootCooldown = 0.08f;
+    public float minigunCooldown = 0.01f;
 
     public float pistolDamage;
     public float shotgunDamage;
     public float smgDamage;
     public float rifleDamage;
+    public float minigunDamage = 500f;
 
     public int pistolMagazineSize = 7;
     public int shotgunMagazineSize = 2;
     public int smgMagazineSize = 30;
     public int rifleMagazineSize = 20;
+    public int minigunMagazineSize = 100000;
     public int currentMagazineSize;
     public bool gunOnTheFloor = false;
 
@@ -42,6 +45,7 @@ public class Gun : MonoBehaviour {
     private Vector3 shotgunRandomSpread;
     private Vector3 smgRandomSpread;
     private Vector3 pistolRandomSpread;
+    private Vector3 minigunRandomSpread;
     private float runningCooldown = 0f;
     public int maxMagazineSize;
     private SpriteRenderer sr;
@@ -384,6 +388,47 @@ public class Gun : MonoBehaviour {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
                     }
                     break;
+                case Weapons.BossMinigun:
+
+                    if (runningCooldown > minigunCooldown && currentMagazineSize > 0) {
+                        transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
+
+                        //gameManager.GetComponent<SoundManager>().PlaySound("Gunshot_temp", true);
+
+                        GameObject minigunBullet = pool.GetPooledBigBullet();
+                        minigunBullet.SetActive(true);
+                        minigunBullet.transform.position = bulletSpawnPoint.position;
+                        RandomizeMinigunDirection();
+                        minigunBullet.GetComponent<Bullet>().direction = shootingDirection + minigunRandomSpread;
+
+                        //rotate
+                        float angle = Mathf.Atan2(minigunBullet.GetComponent<Bullet>().direction.y, minigunBullet.GetComponent<Bullet>().direction.x) * Mathf.Rad2Deg;
+                        minigunBullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+                        minigunBullet.GetComponent<Bullet>().bulletSpeed = 47f;
+                        minigunBullet.GetComponent<Bullet>().bulletDamage = minigunDamage;
+                        runningCooldown = 0f;
+                        currentMagazineSize--;
+
+                        if (!playerOwned) {
+                            minigunBullet.GetComponent<Bullet>().playerBullet = false;
+                        } else {
+                            minigunBullet.GetComponent<Bullet>().playerBullet = true;
+                        }
+                    } else {
+                        //transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+
+                        /*
+                        if (currentMagazineSize <= 0 && runningCooldown > rifleShootCooldown) {
+                            gameManager.GetComponent<SoundManager>().PlaySound("EmptyGun", false);
+                            runningCooldown = 0f;
+                        }
+                        */
+                    }
+                    if (currentMagazineSize <= 0) {
+                        transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+                    }
+                    break;
             }
         }
     }
@@ -440,6 +485,9 @@ public class Gun : MonoBehaviour {
                         bulletSpawnPoint.localPosition = new Vector3(0.2503f, 1.3389f, bulletSpawnPoint.localPosition.z);
                     }
                 }
+                break;
+            case Weapons.BossMinigun:
+                currentMagazineSize = minigunMagazineSize;
                 break;
         }
         maxMagazineSize = currentMagazineSize;
@@ -505,5 +553,10 @@ public class Gun : MonoBehaviour {
         float y = Random.Range(-0.05f, 0.05f);
         pistolRandomSpread = new Vector3(x, y, 0f);
 
+    }
+    private void RandomizeMinigunDirection() {
+        float x = Random.Range(-0.3f, 0.3f);
+        float y = Random.Range(-0.3f, 0.3f);
+        minigunRandomSpread = new Vector3(x, y, 0f);
     }
 }
