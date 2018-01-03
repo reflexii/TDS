@@ -65,7 +65,7 @@ public class PlayerSpotter : MonoBehaviour {
         bool returnValue = true;
         if (hits != null) {
             for (int i = 0; i < hits.Length; i++) {
-                if (hits[i].transform.tag != "SeeThroughItem" && hits[i].transform.tag != "SeeThroughDestructable" && hits[i].transform.gameObject.layer == LayerMask.NameToLayer("Wall")) {
+                if (hits[i].transform.tag != "SeeThroughItem" && hits[i].transform.tag != "SeeThroughDestructable" && hits[i].transform.gameObject.layer == LayerMask.NameToLayer("Wall") || hits[i].transform.gameObject.layer == LayerMask.NameToLayer("BushBlocker")) {
                     returnValue = false;
                 }
             }

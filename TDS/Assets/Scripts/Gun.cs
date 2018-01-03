@@ -46,7 +46,7 @@ public class Gun : MonoBehaviour {
     private Vector3 smgRandomSpread;
     private Vector3 pistolRandomSpread;
     private Vector3 minigunRandomSpread;
-    private float runningCooldown = 0f;
+    public float runningCooldown = 0f;
     public int maxMagazineSize;
     private SpriteRenderer sr;
 
@@ -64,6 +64,9 @@ public class Gun : MonoBehaviour {
 
     //objectives
     public bool fail = false;
+
+    //boss
+    public int minigunBulletsShot = 0;
 
 
     void Awake () {
@@ -388,48 +391,50 @@ public class Gun : MonoBehaviour {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
                     }
                     break;
-                case Weapons.BossMinigun:
-
-                    if (runningCooldown > minigunCooldown && currentMagazineSize > 0) {
-                        transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
-
-                        //gameManager.GetComponent<SoundManager>().PlaySound("Gunshot_temp", true);
-
-                        GameObject minigunBullet = pool.GetPooledBigBullet();
-                        minigunBullet.SetActive(true);
-                        minigunBullet.transform.position = bulletSpawnPoint.position;
-                        RandomizeMinigunDirection();
-                        minigunBullet.GetComponent<Bullet>().direction = shootingDirection + minigunRandomSpread;
-
-                        //rotate
-                        float angle = Mathf.Atan2(minigunBullet.GetComponent<Bullet>().direction.y, minigunBullet.GetComponent<Bullet>().direction.x) * Mathf.Rad2Deg;
-                        minigunBullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-                        minigunBullet.GetComponent<Bullet>().bulletSpeed = 47f;
-                        minigunBullet.GetComponent<Bullet>().bulletDamage = minigunDamage;
-                        runningCooldown = 0f;
-                        currentMagazineSize--;
-
-                        if (!playerOwned) {
-                            minigunBullet.GetComponent<Bullet>().playerBullet = false;
-                        } else {
-                            minigunBullet.GetComponent<Bullet>().playerBullet = true;
-                        }
-                    } else {
-                        //transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
-
-                        /*
-                        if (currentMagazineSize <= 0 && runningCooldown > rifleShootCooldown) {
-                            gameManager.GetComponent<SoundManager>().PlaySound("EmptyGun", false);
-                            runningCooldown = 0f;
-                        }
-                        */
-                    }
-                    if (currentMagazineSize <= 0) {
-                        transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
-                    }
-                    break;
             }
+        }
+    }
+
+    public void BossShoot(Vector3 direction) {
+        if (runningCooldown > minigunCooldown && currentMagazineSize > 0) {
+            transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
+
+            //gameManager.GetComponent<SoundManager>().PlaySound("Gunshot_temp", true);
+
+            GameObject minigunBullet = pool.GetPooledBigBullet();
+            minigunBullet.SetActive(true);
+            minigunBullet.transform.position = bulletSpawnPoint.position;
+            RandomizeMinigunDirection();
+            minigunBullet.GetComponent<Bullet>().direction = direction.normalized + minigunRandomSpread;
+
+            minigunBulletsShot++;
+
+            //rotate
+            float angle = Mathf.Atan2(minigunBullet.GetComponent<Bullet>().direction.y, minigunBullet.GetComponent<Bullet>().direction.x) * Mathf.Rad2Deg;
+            minigunBullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+            minigunBullet.GetComponent<Bullet>().bulletSpeed = 47f;
+            minigunBullet.GetComponent<Bullet>().bulletDamage = minigunDamage;
+            runningCooldown = 0f;
+            currentMagazineSize--;
+
+            if (!playerOwned) {
+                minigunBullet.GetComponent<Bullet>().playerBullet = false;
+            } else {
+                minigunBullet.GetComponent<Bullet>().playerBullet = true;
+            }
+        } else {
+            //transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+
+            /*
+            if (currentMagazineSize <= 0 && runningCooldown > rifleShootCooldown) {
+                gameManager.GetComponent<SoundManager>().PlaySound("EmptyGun", false);
+                runningCooldown = 0f;
+            }
+            */
+        }
+        if (currentMagazineSize <= 0) {
+            transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
         }
     }
 
@@ -555,8 +560,8 @@ public class Gun : MonoBehaviour {
 
     }
     private void RandomizeMinigunDirection() {
-        float x = Random.Range(-0.3f, 0.3f);
-        float y = Random.Range(-0.3f, 0.3f);
+        float x = Random.Range(-0.25f, 0.25f);
+        float y = Random.Range(-0.25f, 0.25f);
         minigunRandomSpread = new Vector3(x, y, 0f);
     }
 }

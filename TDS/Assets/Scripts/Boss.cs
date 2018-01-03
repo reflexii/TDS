@@ -11,11 +11,20 @@ public class Boss : MonoBehaviour {
     public AIPath ai;
     public Transform targetParentObject;
     public GameObject exclamationMarkPrefab;
+    public GameObject targetPrefab;
+    public Vector3 savedPlayerPosition;
+    public Vector3 newPlayerPosition;
 
     private GameObject player;
     private GameObject symbolObject;
     private Animator animator;
     private GameObject em;
+    private GameObject targetObject;
+    private bool doneOnce = false;
+    private bool doneOnce2 = false;
+    private float runningShootTime = 0.0f;
+    private Vector3 direction;
+    private float distanceBetweenPositions;
 
     void Awake () {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -35,17 +44,56 @@ public class Boss : MonoBehaviour {
         CreateAlerts();
 
     }
-	
-	void Update () {
+
+    private void Start() {
+        /*
+        GameObject target = Instantiate<GameObject>(targetPrefab, transform.position, Quaternion.identity, targetParentObject);
+
+        target.GetComponent<TargetMovement>().enemyObject = gameObject;
+        target.name = "Boss target";
+        ai.target = target.transform;
+        targetObject = target;
+        */
+    }
+
+    void Update () {
         Animations();
         UpdateAlerts();
 
         switch (whatEnemyIsDoing) {
             case CurrentStance.Waiting:
+                doneOnce = false;
+                doneOnce2 = false;
                 break;
             case CurrentStance.Shooting:
-                transform.up = player.transform.position - transform.position;
-                gun.GetComponent<Gun>().Shoot();
+
+                runningShootTime += Time.deltaTime;
+
+                //shoot 20 bullets towards player's old position, start rotating to the side the player was moving
+
+                if (runningShootTime < 0.5f) {
+                    if (!doneOnce) {
+                        transform.up = player.transform.position - transform.position;
+                        savedPlayerPosition = player.transform.position;
+                        doneOnce = true;
+                    }
+                }
+                //shoot 20 bullets towards saved player position
+                if (runningShootTime >= 0.5f && gun.GetComponent<Gun>().minigunBulletsShot <= 10 && gun.GetComponent<Gun>().runningCooldown > gun.GetComponent<Gun>().minigunCooldown) {
+                    gun.GetComponent<Gun>().BossShoot(savedPlayerPosition - transform.position);
+                } else if (gun.GetComponent<Gun>().minigunBulletsShot > 10 && gun.GetComponent<Gun>().minigunBulletsShot < 70 && gun.GetComponent<Gun>().runningCooldown > gun.GetComponent<Gun>().minigunCooldown) {
+                    if (!doneOnce2) {
+                        newPlayerPosition = player.transform.position;
+                        doneOnce2 = true;
+                        direction = (newPlayerPosition - savedPlayerPosition).normalized;
+                        distanceBetweenPositions = Vector3.Distance(newPlayerPosition, savedPlayerPosition);
+                    }
+
+                    savedPlayerPosition += (direction / 60f * distanceBetweenPositions*2f);
+                    transform.up = savedPlayerPosition - transform.position;
+                    gun.GetComponent<Gun>().BossShoot(savedPlayerPosition - transform.position);
+                }
+                
                 break;
         }
 	}

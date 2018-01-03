@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.2.0f3</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -384,6 +382,7 @@
     <Compile Include="Assets\Scripts\AlertButton.cs" />
     <Compile Include="Assets\Scripts\Boss.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
+    <Compile Include="Assets\Scripts\Bush.cs" />
     <Compile Include="Assets\Scripts\Button2.cs" />
     <Compile Include="Assets\Scripts\CameraSmooth.cs" />
     <Compile Include="Assets\Scripts\CutSceneEnemy.cs" />
@@ -505,6 +504,7 @@
     <None Include="Assets\Tiled2Unity\Imported\escape.tiled2unity.xml" />
     <None Include="Assets\Tiled2Unity\Imported\gaslab.tiled2unity.xml" />
     <None Include="Assets\Tiled2Unity\Imported\glassfloor.tiled2unity.xml" />
+    <None Include="Assets\Tiled2Unity\Imported\killzone.tiled2unity.xml" />
     <None Include="Assets\Tiled2Unity\Imported\layer_warehouse.tiled2unity.xml" />
     <None Include="Assets\Tiled2Unity\Imported\mechanics_test.tiled2unity.xml" />
     <None Include="Assets\Tiled2Unity\Imported\pranked.tiled2unity.xml" />
