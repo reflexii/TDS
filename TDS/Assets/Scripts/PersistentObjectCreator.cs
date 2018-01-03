@@ -36,6 +36,7 @@ public class PersistentObjectCreator : MonoBehaviour {
         if (GameObject.Find("Reticle") == null) {
             GameObject g = Instantiate<GameObject>(reticlePrefab);
             g.name = "Reticle";
+            GameObject.Find("GameManager").GetComponent<GameManager>().reticle = g;
         }
     }
 

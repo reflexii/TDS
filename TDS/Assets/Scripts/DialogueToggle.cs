@@ -22,6 +22,7 @@ public class DialogueToggle : MonoBehaviour {
     public bool showE = false;
     public bool triggerObjective = false;
     public bool stopText = false;
+    public bool vipTrigger = false;
 
     private void Start() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -34,7 +35,7 @@ public class DialogueToggle : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (!didOnce && collision.gameObject.layer == LayerMask.NameToLayer("Player1") && !useToTrigger) {
+        if (!didOnce && collision.gameObject.layer == LayerMask.NameToLayer("Player1") && !useToTrigger && !vipTrigger) {
             gameManager.gameObject.GetComponent<DialogManager>().ToggleDialogueUIOn();
 
             if (gameManager.GetComponent<DialogManager>().dialogueOnTheWay && gameManager.GetComponent<DialogManager>().currentDialogueTrigger != null) {
@@ -69,7 +70,44 @@ public class DialogueToggle : MonoBehaviour {
             }
             
             didOnce = true;
-        }   
+        }
+        
+        if (vipTrigger && !didOnce && collision.gameObject.layer == LayerMask.NameToLayer("VIP")) {
+            gameManager.gameObject.GetComponent<DialogManager>().ToggleDialogueUIOn();
+
+            if (gameManager.GetComponent<DialogManager>().dialogueOnTheWay && gameManager.GetComponent<DialogManager>().currentDialogueTrigger != null) {
+                gameManager.GetComponent<DialogManager>().currentDialogueTrigger.GetComponent<DialogueToggle>().StopCoroutine("OneCharacterAtATime");
+            }
+
+            gameManager.GetComponent<DialogManager>().currentDialogueTrigger = gameObject;
+            switch (talker) {
+                case Talker.Moustache:
+                    talkerInt = 1;
+                    break;
+                case Talker.Player:
+                    talkerInt = 2;
+                    break;
+                case Talker.VIP:
+                    talkerInt = 3;
+                    break;
+                case Talker.Boss:
+                    talkerInt = 4;
+                    break;
+                case Talker.Scientist:
+                    talkerInt = 5;
+                    break;
+            }
+
+            animator.SetInteger("TalkerInt", talkerInt);
+
+            if (!useOneByOne) {
+                dialogueText.text = gameManager.gameObject.GetComponent<DialogManager>().GetStringFromList(searchedCode);
+            } else {
+                StartCoroutine("OneCharacterAtATime", searchedCode);
+            }
+
+            didOnce = true;
+        }
     }
 
     public void TriggerDialogue() {

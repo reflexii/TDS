@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
     public MainMenuScript mms;
     public GameObject mmsPrefab;
     public bool paused = false;
+    public GameObject reticle;
 
     private float runningSceneTime;
     private bool doneOnce = false;
@@ -73,6 +74,7 @@ public class GameManager : MonoBehaviour {
                 if (runningSceneTime >= 2f && toggleMapChange) {
                     toggleMapChange = false;
                     doneOnce = false;
+                    reticle.SetActive(true);
                     LoadSameScene();
                 }  
             }

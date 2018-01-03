@@ -78,7 +78,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private Camera mainCamera;
     private GameObject bulletSpawnPoint;
-    private GameObject reticle;
+    public GameObject reticle;
 
     //UseHelper
     private Image useHelper;
