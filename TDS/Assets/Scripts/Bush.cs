@@ -14,20 +14,21 @@ public class Bush : MonoBehaviour {
 	
 	void Update () {
 		if (bushList.Count == 0) {
-            col.enabled = true;
+            gameObject.layer = LayerMask.NameToLayer("BushBlocker");
         } else {
-            col.enabled = false;
+            gameObject.layer = LayerMask.NameToLayer("Default");
         }
 	}
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
-            Debug.Log("Enter");
             bushList.Add(collision.gameObject);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
-        bushList.Remove(collision.gameObject);
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+            bushList.Remove(collision.gameObject);
+        }
     }
 }
