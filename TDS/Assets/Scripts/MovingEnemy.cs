@@ -64,9 +64,6 @@ public class MovingEnemy : MonoBehaviour {
 
     private GameObject player;
 
-    
-
-
     private void Awake()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();

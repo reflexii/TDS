@@ -413,7 +413,7 @@ public class Gun : MonoBehaviour {
             float angle = Mathf.Atan2(minigunBullet.GetComponent<Bullet>().direction.y, minigunBullet.GetComponent<Bullet>().direction.x) * Mathf.Rad2Deg;
             minigunBullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-            minigunBullet.GetComponent<Bullet>().bulletSpeed = 47f;
+            minigunBullet.GetComponent<Bullet>().bulletSpeed = 30f;
             minigunBullet.GetComponent<Bullet>().bulletDamage = minigunDamage;
             runningCooldown = 0f;
             currentMagazineSize--;
@@ -517,6 +517,7 @@ public class Gun : MonoBehaviour {
 
     public void FillMagazine() {
         currentMagazineSize = maxMagazineSize;
+        minigunBulletsShot = 0;
     }
 
     public void SetUIImage()
@@ -560,8 +561,8 @@ public class Gun : MonoBehaviour {
 
     }
     private void RandomizeMinigunDirection() {
-        float x = Random.Range(-0.25f, 0.25f);
-        float y = Random.Range(-0.25f, 0.25f);
+        float x = Random.Range(-0.2f, 0.2f);
+        float y = Random.Range(-0.2f, 0.2f);
         minigunRandomSpread = new Vector3(x, y, 0f);
     }
 }

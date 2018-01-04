@@ -7,7 +7,7 @@ public class DestroyableObject : MonoBehaviour {
     public GameObject ps;
     public bool breakableWithBullets = false;
     public float health = 1f;
-    public enum MaterialType { Glass, Wood };
+    public enum MaterialType { Glass, Wood, Concrete };
     public MaterialType material;
 
     private float currentHealth;
@@ -26,6 +26,8 @@ public class DestroyableObject : MonoBehaviour {
         } else if (material == MaterialType.Wood) {
             //Play wood sound
             gm.GetComponent<SoundManager>().PlaySound("BoxBreak", true, 0.7f, 1.3f);
+        } else if (material == MaterialType.Concrete) {
+            //play concrete sound
         }
 
         Instantiate<GameObject>(ps, transform.position, Quaternion.identity);

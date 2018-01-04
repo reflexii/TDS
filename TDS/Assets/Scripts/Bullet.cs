@@ -47,11 +47,12 @@ public class Bullet : MonoBehaviour {
             collision.gameObject.layer == LayerMask.NameToLayer("Wall") && collision.gameObject.tag == "SeeThroughDestructable" && collision.gameObject.GetComponent<DestroyableObject>() != null) {
             if (collision.gameObject.GetComponent<DestroyableObject>().breakableWithBullets) {
                 gameObject.SetActive(false);
-                collision.gameObject.GetComponent<DestroyableObject>().TakeDamage(5f);
+                collision.gameObject.GetComponent<DestroyableObject>().TakeDamage(bulletDamage);
             }
         }
 
-        if (playerBullet && collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (playerBullet && collision.gameObject.layer == LayerMask.NameToLayer("Enemy") ||
+            playerBullet && collision.gameObject.layer == LayerMask.NameToLayer("Boss"))
         {
             if (collision.gameObject.GetComponent<MovingEnemy>() != null) {
                 if (collision.gameObject.GetComponent<MovingEnemy>().enemyHealth > 0) {
@@ -61,6 +62,11 @@ public class Bullet : MonoBehaviour {
             } else if (collision.gameObject.GetComponent<Scientist>() != null) {
                 if (collision.gameObject.GetComponent<Scientist>().enemyHealth > 0) {
                     collision.gameObject.GetComponent<Scientist>().DamageEnemy(bulletDamage);
+                    gameObject.SetActive(false);
+                }
+            } else if (collision.gameObject.GetComponent<Boss>() != null) {
+                if (collision.gameObject.GetComponent<Boss>().enemyHealth > 0) {
+                    collision.gameObject.GetComponent<Boss>().DamageEnemy(bulletDamage);
                     gameObject.SetActive(false);
                 }
             }

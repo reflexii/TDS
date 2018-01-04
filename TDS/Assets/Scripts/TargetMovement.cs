@@ -7,6 +7,7 @@ public class TargetMovement : MonoBehaviour {
     public GameObject enemyObject;
     public bool movingEnemy = true;
     public bool scientist = false;
+    public bool boss = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -25,15 +26,19 @@ public class TargetMovement : MonoBehaviour {
             enemyObject.GetComponent<Scientist>().whatEnemyIsDoing != Scientist.CurrentStance.Hiding) {
                 enemyObject.GetComponent<Scientist>().whatEnemyIsDoing = Scientist.CurrentStance.WaitingToMove;
             }
-        } else if (!movingEnemy && !scientist) {
+        } else if (!movingEnemy && !scientist && !boss) {
             if (collision.gameObject == enemyObject && enemyObject.GetComponent<VIP>().whatVIPIsDoing == VIP.CurrentStance.Follow && enemyObject.GetComponent<VIP>().following) {
                 collision.gameObject.GetComponent<VIP>().whatVIPIsDoing = VIP.CurrentStance.Stand;
+            }
+        } else if (boss) {
+            if (collision.gameObject == enemyObject && enemyObject.GetComponent<Boss>().whatEnemyIsDoing != Boss.CurrentStance.Shooting && enemyObject.GetComponent<Boss>().whatEnemyIsDoing != Boss.CurrentStance.Loading) {
+                collision.gameObject.GetComponent<Boss>().whatEnemyIsDoing = Boss.CurrentStance.Waiting;
             }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
-        if (!movingEnemy && !scientist) {
+        if (!movingEnemy && !scientist && !boss) {
             if (collision.gameObject == enemyObject && enemyObject.GetComponent<VIP>().whatVIPIsDoing == VIP.CurrentStance.Stand && enemyObject.GetComponent<VIP>().following) {
                 collision.gameObject.GetComponent<VIP>().whatVIPIsDoing = VIP.CurrentStance.Follow;
                 enemyObject.GetComponent<VIP>().doneOnce = false;

@@ -44,7 +44,7 @@ public class PlayerSpotter : MonoBehaviour {
                 }
             }
         } else if (boss) {
-            if (isPlayerVisible) {
+            if (isPlayerVisible && enemy.GetComponent<Boss>().whatEnemyIsDoing == Boss.CurrentStance.Waiting || isPlayerVisible && enemy.GetComponent<Boss>().whatEnemyIsDoing == Boss.CurrentStance.Moving) {
                 enemy.GetComponent<Boss>().whatEnemyIsDoing = Boss.CurrentStance.Shooting; 
             }
         } else if (!movingEnemy && !boss) {
