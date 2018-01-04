@@ -6590,6 +6590,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 1218167275}
   movingEnemy: 0
+  boss: 0
 --- !u!1001 &995052157
 Prefab:
   m_ObjectHideFlags: 0
@@ -11097,6 +11098,7 @@ MonoBehaviour:
   showE: 0
   triggerObjective: 0
   stopText: 0
+  vipTrigger: 0
 --- !u!1001 &1618294287
 Prefab:
   m_ObjectHideFlags: 0
@@ -12400,6 +12402,7 @@ MonoBehaviour:
   showE: 0
   triggerObjective: 0
   stopText: 0
+  vipTrigger: 0
 --- !u!1001 &1914688430
 Prefab:
   m_ObjectHideFlags: 0
@@ -13011,9 +13014,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2027595865}
   - component: {fileID: 2027595866}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision
-  m_TagString: Untagged
+  m_TagString: SeeThroughItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
