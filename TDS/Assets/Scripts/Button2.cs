@@ -16,11 +16,13 @@ public class Button2 : MonoBehaviour {
     [HideInInspector]
     public bool showE = true;
     public bool togglableOnlyOnce = false;
+    public bool broken = false;
+    public bool breakableWithEnemyBullets = false;
 
     private List<GameObject> allTogglableObjects;
     private float runningDelayTime = 2f;
     private Alert alert;
-
+    
     //animation
     private Animator animator;
     private bool toggleButtonAnimation;
@@ -85,6 +87,10 @@ public class Button2 : MonoBehaviour {
             animator.SetBool("Toggled", toggleButtonAnimation);
             animator.SetBool("PressedButton", pressedButton);
         }
+
+        if (broken) {
+            animator.SetBool("Broken", broken);
+        }
         
     }
 
@@ -97,6 +103,7 @@ public class Button2 : MonoBehaviour {
                     if (allTogglableObjects != null) {
                         if (allTogglableObjects[i] != null) {
                             allTogglableObjects[i].GetComponent<TogglableObject>().toggled = !allTogglableObjects[i].GetComponent<TogglableObject>().toggled;
+                            allTogglableObjects[i].GetComponent<TogglableObject>().objectThatToggledThis = gameObject;
                         }
                     }
                 }
@@ -126,6 +133,23 @@ public class Button2 : MonoBehaviour {
                 }
 
                 doneOnce = true;
+            }
+
+            runningDelayTime = 0f;
+        }
+    }
+
+    public void ToggleOff() {
+        if (runningDelayTime >= toggleDelay) {
+            if (allTogglableObjects.Count >= 1) {
+                for (int i = 0; i < allTogglableObjects.Count; i++) {
+                    if (allTogglableObjects != null) {
+                        if (allTogglableObjects[i] != null) {
+                            allTogglableObjects[i].GetComponent<TogglableObject>().toggled = false;
+                            allTogglableObjects[i].GetComponent<TogglableObject>().objectThatToggledThis = gameObject;
+                        }
+                    }
+                }
             }
 
             runningDelayTime = 0f;

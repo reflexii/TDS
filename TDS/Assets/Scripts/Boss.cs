@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Boss : MonoBehaviour {
 
-    public enum CurrentStance { Shooting, Waiting, Loading, Moving };
+    public enum CurrentStance { Shooting, Waiting, Loading, Moving, ShootingAtComputer };
     public CurrentStance whatEnemyIsDoing;
     public GameManager gameManager;
     public GameObject gun;
@@ -23,6 +24,8 @@ public class Boss : MonoBehaviour {
     public GameObject dieBloodBigPrefab;
     public GameObject dieBloodSmallPrefab;
     public float enemyHealth = 60f;
+    public Text bossHpText;
+    public GameObject buttonTarget;
 
     private GameObject player;
     private GameObject symbolObject;
@@ -45,6 +48,7 @@ public class Boss : MonoBehaviour {
     private int startingDirection = 1;
     private float standardMovement = 115f;
     private bool dead = false;
+    private float maxHealth;
 
     void Awake () {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -52,6 +56,7 @@ public class Boss : MonoBehaviour {
         gun = transform.Find("Gun").gameObject;
         ai = GetComponent<AIPath>();
         gun.GetComponent<Gun>().playerOwned = false;
+        maxHealth = enemyHealth;
 
         if (GameObject.Find("WayPoints") == null) {
             GameObject g = new GameObject();
@@ -98,9 +103,14 @@ public class Boss : MonoBehaviour {
         
     }
 
+    void HealthUpdate() {
+        bossHpText.text = enemyHealth + "/" + maxHealth;
+    }
+
     void Update () {
         Animations();
         UpdateAlerts();
+        HealthUpdate();
 
         switch (whatEnemyIsDoing) {
             case CurrentStance.Waiting:
@@ -148,6 +158,21 @@ public class Boss : MonoBehaviour {
                 walking = true;
                 turnIndex = 0;
                 runningWaitTime = 0f;
+                break;
+            case CurrentStance.ShootingAtComputer:
+                if (gun.GetComponent<Gun>().runningCooldown > gun.GetComponent<Gun>().minigunCooldown && gun.GetComponent<Gun>().minigunBulletsShot <= 200f) {
+                    gun.GetComponent<Gun>().BossShoot(buttonTarget.transform.position - transform.position);
+                    ai.canMove = false;
+                    ai.canSearch = false;
+                    shooting = true;
+                } else if (gun.GetComponent<Gun>().minigunBulletsShot > 200f) {
+                    shooting = false;
+                    transform.Find("BulletSpawnPoint/Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+                    runningShootTime = 0f;
+                    ai.canMove = true;
+                    ai.canSearch = true;
+                    whatEnemyIsDoing = CurrentStance.Loading;
+                }
                 break;
             case CurrentStance.Shooting:
                 walking = false;

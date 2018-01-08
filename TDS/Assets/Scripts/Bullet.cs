@@ -70,8 +70,6 @@ public class Bullet : MonoBehaviour {
                     gameObject.SetActive(false);
                 }
             }
-            
-
         }
         if (!playerBullet && collision.gameObject.layer == LayerMask.NameToLayer("Player1"))
         {
@@ -85,6 +83,16 @@ public class Bullet : MonoBehaviour {
             if (collision.gameObject.transform.parent.GetComponent<VIP>().vipCurrentHealth > 0) {
                 collision.gameObject.transform.parent.GetComponent<VIP>().TakeDamage(bulletDamage);
                 gameObject.SetActive(false);
+            }
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerBlocker") && collision.gameObject.tag == "Button" && !playerBullet) {
+            GameObject buttonSprite = collision.transform.parent.transform.Find("ButtonSprite").gameObject;
+
+            if (buttonSprite.GetComponent<Button2>().breakableWithEnemyBullets) {
+                buttonSprite.GetComponent<Button2>().broken = true;
+                buttonSprite.GetComponent<Button2>().ToggleOff();
+                buttonSprite.GetComponent<BoxCollider2D>().enabled = false;
             }
         }
     }

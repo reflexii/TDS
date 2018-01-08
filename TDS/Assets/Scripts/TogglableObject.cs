@@ -13,6 +13,7 @@ public class TogglableObject : MonoBehaviour {
     public float tntExplodeTime = 1f;
     public GameObject explosionPrefab;
     public float tntDamage = 1000f;
+    public GameObject objectThatToggledThis;
 
     private List<GameObject> damageGasList;
     private bool playerInGas = false;
@@ -26,6 +27,8 @@ public class TogglableObject : MonoBehaviour {
     private GameObject tntObject;
     private float runningTNTTime = 0.0f;
     private GameManager gm;
+    private bool doneOnce2 = false;
+    
 
 
 
@@ -93,8 +96,19 @@ public class TogglableObject : MonoBehaviour {
                                     damageGasList[i].GetComponent<MovingEnemy>().DamageEnemy(gasDamage);
                                 } else if (damageGasList[i].GetComponent<Scientist>() != null) {
                                     damageGasList[i].GetComponent<Scientist>().DamageEnemy(gasDamage);
-                                } else if (damageGasList[i].transform.parent.GetComponent<VIP>() != null) {
-                                    damageGasList[i].transform.parent.GetComponent<VIP>().TakeDamage(gasDamage);
+                                } else if (damageGasList[i].transform.parent != null) {
+                                    if (damageGasList[i].transform.parent.GetComponent<VIP>() != null) {
+                                        damageGasList[i].transform.parent.GetComponent<VIP>().TakeDamage(gasDamage);
+                                    } 
+                                } else if (damageGasList[i].GetComponent<Boss>() != null) {
+                                    damageGasList[i].GetComponent<Boss>().DamageEnemy(gasDamage * 7f);
+                                    damageGasList[i].GetComponent<Boss>().buttonTarget = objectThatToggledThis;
+                                    damageGasList[i].GetComponent<Boss>().whatEnemyIsDoing = Boss.CurrentStance.ShootingAtComputer;
+                                    if (!doneOnce2) {
+                                        damageGasList[i].GetComponent<Boss>().gun.GetComponent<Gun>().FillMagazine();
+                                        doneOnce2 = true;
+                                    }
+                                    
                                 }
 
 
@@ -221,7 +235,7 @@ public class TogglableObject : MonoBehaviour {
     }
 
     private void KillEnemiesAndVipIfTooClose() {
-        Collider2D[] col = Physics2D.OverlapCircleAll(transform.position, 3f, 1 << LayerMask.NameToLayer("Enemy") | 1 << LayerMask.NameToLayer("VIPDamage"));
+        Collider2D[] col = Physics2D.OverlapCircleAll(transform.position, 3f, 1 << LayerMask.NameToLayer("Enemy") | 1 << LayerMask.NameToLayer("VIPDamage") | 1 << LayerMask.NameToLayer("Boss"));
 
         if (col != null) {
             for (int i = 0; i < col.Length; i++) {
@@ -246,6 +260,8 @@ public class TogglableObject : MonoBehaviour {
                         if (col[i].gameObject.transform.parent.gameObject.layer == LayerMask.NameToLayer("VIP") && hitTarget) {
                             col[i].transform.parent.GetComponent<VIP>().TakeDamage(tntDamage);
                         }
+                    } else if (col[i].gameObject.layer == LayerMask.NameToLayer("Boss")) {
+                        col[i].GetComponent<Boss>().DamageEnemy(tntDamage * 2f);
                     }
                 }
             }
@@ -262,6 +278,9 @@ public class TogglableObject : MonoBehaviour {
         if (collision.gameObject.layer == LayerMask.NameToLayer("VIPDamage") && objectType == ObjectType.Gas) {
             damageGasList.Add(collision.gameObject);
         }
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Boss") && objectType == ObjectType.Gas) {
+            damageGasList.Add(collision.gameObject);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
@@ -273,6 +292,10 @@ public class TogglableObject : MonoBehaviour {
         }
         if (collision.gameObject.layer == LayerMask.NameToLayer("VIPDamage") && objectType == ObjectType.Gas) {
             damageGasList.Remove(collision.gameObject);
+        }
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Boss") && objectType == ObjectType.Gas) {
+            damageGasList.Remove(collision.gameObject);
+            doneOnce2 = false;
         }
     }
 }
