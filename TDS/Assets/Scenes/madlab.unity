@@ -6376,7 +6376,7 @@ Prefab:
     - target: {fileID: 114948756840253144, guid: f5b03a3e932fdde42b3adf5a91001061,
         type: 2}
       propertyPath: parentObjects.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4389315028006712, guid: f5b03a3e932fdde42b3adf5a91001061, type: 2}
       propertyPath: m_LocalPosition.x
@@ -6439,6 +6439,11 @@ Prefab:
       propertyPath: parentObjects.Array.data[2]
       value: 
       objectReference: {fileID: 53944513}
+    - target: {fileID: 114948756840253144, guid: f5b03a3e932fdde42b3adf5a91001061,
+        type: 2}
+      propertyPath: parentObjects.Array.data[4]
+      value: 
+      objectReference: {fileID: 1099517815}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f5b03a3e932fdde42b3adf5a91001061, type: 2}
   m_IsPrefabParent: 0
@@ -8539,6 +8544,8 @@ MonoBehaviour:
   walkTrigger: 0
   showE: 1
   togglableOnlyOnce: 0
+  broken: 0
+  breakableWithEnemyBullets: 0
 --- !u!61 &1068508081
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8643,6 +8650,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 406c1be2b08157b4891ccffe6a757078, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1099517815 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1933004061596692, guid: b9425912c74eaf24bb653339e79bd819,
+    type: 2}
+  m_PrefabInternal: {fileID: 557236287}
 --- !u!4 &1114172200 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4610209647935000, guid: 68bc8617a5d8a6346a66f9ab8bcb5857,
