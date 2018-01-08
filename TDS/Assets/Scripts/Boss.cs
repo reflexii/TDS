@@ -35,6 +35,7 @@ public class Boss : MonoBehaviour {
     private bool doneOnce = false;
     private bool doneOnce2 = false;
     private float runningShootTime = 0.0f;
+    private float runningComputerTime = 0f;
     private Vector3 direction;
     private float distanceBetweenPositions;
     private Transform wayPointParentObject;
@@ -118,6 +119,8 @@ public class Boss : MonoBehaviour {
                 doneOnce2 = false;
                 shooting = false;
                 walking = false;
+                ai.canMove = true;
+                ai.canSearch = true;
 
                 //Turning around, preparing to walk around
 
@@ -156,21 +159,36 @@ public class Boss : MonoBehaviour {
             case CurrentStance.Moving:
                 //Moving from one waypoint to another, afterwards goes back to CurrentStance.Waiting
                 walking = true;
+                ai.canMove = true;
+                ai.canSearch = true;
                 turnIndex = 0;
                 runningWaitTime = 0f;
                 break;
             case CurrentStance.ShootingAtComputer:
-                if (gun.GetComponent<Gun>().runningCooldown > gun.GetComponent<Gun>().minigunCooldown && gun.GetComponent<Gun>().minigunBulletsShot <= 200f) {
+
+                runningComputerTime += Time.deltaTime;
+
+                if (runningComputerTime < 0.5f) {
+                    ai.canMove = true;
+                    ai.canSearch = true;
+                    shooting = false;
+                    walking = false;
+                }
+                else if (gun.GetComponent<Gun>().runningCooldown > gun.GetComponent<Gun>().minigunCooldown && gun.GetComponent<Gun>().minigunBulletsShot <= 260f && runningComputerTime >= 0.5f) {
                     gun.GetComponent<Gun>().BossShoot(buttonTarget.transform.position - transform.position);
+                    transform.up = buttonTarget.transform.position - transform.position;
                     ai.canMove = false;
                     ai.canSearch = false;
                     shooting = true;
-                } else if (gun.GetComponent<Gun>().minigunBulletsShot > 200f) {
+                    walking = false;
+                } else if (gun.GetComponent<Gun>().minigunBulletsShot > 260f) {
                     shooting = false;
                     transform.Find("BulletSpawnPoint/Muzzle").GetComponent<SpriteRenderer>().enabled = false;
                     runningShootTime = 0f;
                     ai.canMove = true;
                     ai.canSearch = true;
+                    walking = false;
+                    runningComputerTime = 0f;
                     whatEnemyIsDoing = CurrentStance.Loading;
                 }
                 break;
@@ -219,8 +237,6 @@ public class Boss : MonoBehaviour {
                     shooting = false;
                     transform.Find("BulletSpawnPoint/Muzzle").GetComponent<SpriteRenderer>().enabled = false;
                     runningShootTime = 0f;
-                    ai.canMove = true;
-                    ai.canSearch = true;
                     whatEnemyIsDoing = CurrentStance.Loading;
                     standardMovement = 115f;
                 }
@@ -231,6 +247,8 @@ public class Boss : MonoBehaviour {
 
                 shooting = false;
                 walking = false;
+                ai.canMove = false;
+                ai.canSearch = false;
 
                 if (runningShootTime >= 1.5f) {
                     gun.GetComponent<Gun>().FillMagazine();

@@ -71,9 +71,9 @@ public class Grenade : MonoBehaviour {
             }
         }
 
-        //Explode enemies, in two different radiuses, when enemy is close he takes damage from all two
-        Collider2D[] firstExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 3f, 1 << LayerMask.NameToLayer("Enemy") | 1 << LayerMask.NameToLayer("VIPDamage") | 1 << LayerMask.NameToLayer("Player1"));
-        Collider2D[] secondExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 5f, 1 << LayerMask.NameToLayer("Enemy") | 1 << LayerMask.NameToLayer("VIPDamage") | 1 << LayerMask.NameToLayer("Player1"));
+        //Explode enemies, in two different radiuses, when enemy is close he takes damage from both
+        Collider2D[] firstExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 3f, 1 << LayerMask.NameToLayer("Enemy") | 1 << LayerMask.NameToLayer("VIPDamage") | 1 << LayerMask.NameToLayer("Player1") | 1 << LayerMask.NameToLayer("Boss"));
+        Collider2D[] secondExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 5f, 1 << LayerMask.NameToLayer("Enemy") | 1 << LayerMask.NameToLayer("VIPDamage") | 1 << LayerMask.NameToLayer("Player1") | 1 << LayerMask.NameToLayer("Boss"));
         Collider2D[] tntExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 3f, 1 << LayerMask.NameToLayer("Wall"));
         if (firstExplosionRadius != null)
         {
@@ -93,6 +93,8 @@ public class Grenade : MonoBehaviour {
                             }
                         } else if (firstExplosionRadius[i].gameObject.GetComponent<PlayerMovement>() != null) {
                             firstExplosionRadius[i].gameObject.GetComponent<PlayerMovement>().TakeDamage(grenadeDamage);
+                        } else if (firstExplosionRadius[i].gameObject.GetComponent<Boss>() != null) {
+                            firstExplosionRadius[i].gameObject.GetComponent<Boss>().DamageEnemy(grenadeDamage * 3f);
                         }
                     }
                 }
@@ -127,6 +129,8 @@ public class Grenade : MonoBehaviour {
                             }
                         } else if (secondExplosionRadius[i].gameObject.GetComponent<PlayerMovement>() != null) {
                             secondExplosionRadius[i].gameObject.GetComponent<PlayerMovement>().TakeDamage(grenadeDamage);
+                        } else if (secondExplosionRadius[i].gameObject.GetComponent<Boss>() != null) {
+                            secondExplosionRadius[i].gameObject.GetComponent<Boss>().DamageEnemy(grenadeDamage * 3f);
                         }
                     }
                 }

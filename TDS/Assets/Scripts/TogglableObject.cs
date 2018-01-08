@@ -5,7 +5,7 @@ using UnityEngine;
 public class TogglableObject : MonoBehaviour {
 
     public bool toggled = true;
-    public enum ObjectType { Laser, Gas, Door, Ammo, TNT};
+    public enum ObjectType { Laser, Gas, Door, Ammo, TNT, FlyingBox};
     public ObjectType objectType;
     public Sprite offImage;
     public int grenadesGivenOnUse = 2;
@@ -14,6 +14,7 @@ public class TogglableObject : MonoBehaviour {
     public GameObject explosionPrefab;
     public float tntDamage = 1000f;
     public GameObject objectThatToggledThis;
+    public GameObject tntPrefab;
 
     private List<GameObject> damageGasList;
     private bool playerInGas = false;
@@ -28,6 +29,7 @@ public class TogglableObject : MonoBehaviour {
     private float runningTNTTime = 0.0f;
     private GameManager gm;
     private bool doneOnce2 = false;
+    private float runningFlyingTime = 0.0f;
     
 
 
@@ -35,7 +37,7 @@ public class TogglableObject : MonoBehaviour {
 
     private void Awake() {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-        if (objectType == ObjectType.Door || objectType == ObjectType.Laser || objectType == ObjectType.Ammo) {
+        if (objectType == ObjectType.Door || objectType == ObjectType.Laser || objectType == ObjectType.Ammo || objectType == ObjectType.FlyingBox) {
             animator = GetComponent<Animator>();
         }
         damageGasList = new List<GameObject>();
@@ -101,7 +103,7 @@ public class TogglableObject : MonoBehaviour {
                                         damageGasList[i].transform.parent.GetComponent<VIP>().TakeDamage(gasDamage);
                                     } 
                                 } else if (damageGasList[i].GetComponent<Boss>() != null) {
-                                    damageGasList[i].GetComponent<Boss>().DamageEnemy(gasDamage * 7f);
+                                    damageGasList[i].GetComponent<Boss>().DamageEnemy(gasDamage * 10f);
                                     damageGasList[i].GetComponent<Boss>().buttonTarget = objectThatToggledThis;
                                     damageGasList[i].GetComponent<Boss>().whatEnemyIsDoing = Boss.CurrentStance.ShootingAtComputer;
                                     if (!doneOnce2) {
@@ -171,6 +173,19 @@ public class TogglableObject : MonoBehaviour {
                 if (toggled && !doneOnce && runningTNTTime >= tntExplodeTime) {
                     doneOnce = true;
                     ExplodeTNT();
+                }
+                break;
+            case ObjectType.FlyingBox:
+                if (toggled) {
+                    animator.SetBool("Toggled", true);
+
+                    //spawn box after time x
+                    runningFlyingTime += Time.deltaTime;
+
+                    if (runningFlyingTime >= 2.3f && !doneOnce) {
+                        Instantiate<GameObject>(tntPrefab, transform.position, Quaternion.identity);
+                        doneOnce = true;
+                    }
                 }
                 break;
         }
