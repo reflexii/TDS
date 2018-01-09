@@ -10,19 +10,35 @@ public class MainMenuScript : MonoBehaviour {
     public float musicVolume = 100f;
     public bool mainMenu = true;
     public GameObject continueButton;
+    public bool startQuit = false;
+    public float runningQuitTime = 0.0f;
+    public Slider slider;
 
 	void Awake () {
         FirstTimeLaunch();
         LoadPlayerPreferences();
-        Debug.Log(PlayerPrefs.GetInt("currentLevel"));
-
-        
     }
 
     private void Update() {
         if (mainMenu) {
             UpdateContinueButton();
         }
+
+        //Exit game after one second to play the fadetoblack animation before.
+        if (startQuit) {
+            runningQuitTime += Time.deltaTime;
+
+            if (runningQuitTime >= 1f) {
+                Application.Quit();
+            }
+        }
+    }
+
+    public void SaveSoundOptions() {
+        if (PlayerPrefs.HasKey("soundVolume")) {
+            PlayerPrefs.SetInt("soundVolume", (int)slider.value);
+        }
+        
     }
 
     public void LoadPlayerPreferences() {
@@ -51,10 +67,8 @@ public class MainMenuScript : MonoBehaviour {
 
     public void ClearKeys() {
         if (PlayerPrefs.HasKey("currentLevel")) {
-            Debug.Log("currentLevel: " + currentLevel);
             PlayerPrefs.SetInt("currentLevel", 1);
             currentLevel = PlayerPrefs.GetInt("currentLevel");
-            Debug.Log("currentLevel: " + currentLevel);
         }
         if (PlayerPrefs.HasKey("soundVolume")) {
             PlayerPrefs.SetInt("soundVolume", 100);
@@ -70,5 +84,9 @@ public class MainMenuScript : MonoBehaviour {
         } else {
             continueButton.GetComponent<Button>().interactable = false;
         }
+    }
+
+    public void ExitGame() {
+        startQuit = true;
     }
 }
