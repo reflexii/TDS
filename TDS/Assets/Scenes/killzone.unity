@@ -3306,6 +3306,14 @@ Prefab:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1223677042474924, guid: 503a3d8d3be420448b3ee86527db0f6b, type: 2}
+      propertyPath: m_TagString
+      value: SeeThroughItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223677042474924, guid: 503a3d8d3be420448b3ee86527db0f6b, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 503a3d8d3be420448b3ee86527db0f6b, type: 2}
   m_IsPrefabParent: 0
@@ -9035,6 +9043,8 @@ MonoBehaviour:
   walkTrigger: 0
   showE: 1
   togglableOnlyOnce: 1
+  broken: 0
+  breakableWithEnemyBullets: 0
 --- !u!61 &1644708668
 BoxCollider2D:
   m_ObjectHideFlags: 0

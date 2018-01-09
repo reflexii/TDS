@@ -12970,6 +12970,8 @@ MonoBehaviour:
   walkTrigger: 0
   showE: 1
   togglableOnlyOnce: 0
+  broken: 0
+  breakableWithEnemyBullets: 0
 --- !u!61 &1039886185
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14371,6 +14373,22 @@ Prefab:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1255224343261970, guid: dcb86fbfdbb9ad047bc601c585548dc4, type: 2}
+      propertyPath: m_TagString
+      value: SeeThroughItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 1255224343261970, guid: dcb86fbfdbb9ad047bc601c585548dc4, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109526922678298, guid: dcb86fbfdbb9ad047bc601c585548dc4, type: 2}
+      propertyPath: m_TagString
+      value: SeeThroughItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109526922678298, guid: dcb86fbfdbb9ad047bc601c585548dc4, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dcb86fbfdbb9ad047bc601c585548dc4, type: 2}
   m_IsPrefabParent: 0
@@ -14541,8 +14559,11 @@ MonoBehaviour:
   tntExplodeTime: 1
   explosionPrefab: {fileID: 0}
   tntDamage: 1000
+  objectThatToggledThis: {fileID: 0}
+  tntPrefab: {fileID: 0}
   gasInterval: 0.2
   gasDamage: 10
+  doneOnce: 0
 --- !u!61 &1624864470
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15495,6 +15516,8 @@ MonoBehaviour:
   walkTrigger: 0
   showE: 1
   togglableOnlyOnce: 0
+  broken: 0
+  breakableWithEnemyBullets: 0
 --- !u!61 &1917589196
 BoxCollider2D:
   m_ObjectHideFlags: 0

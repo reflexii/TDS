@@ -3234,6 +3234,8 @@ MonoBehaviour:
   walkTrigger: 0
   showE: 1
   togglableOnlyOnce: 0
+  broken: 0
+  breakableWithEnemyBullets: 0
 --- !u!4 &1502843704
 Transform:
   m_ObjectHideFlags: 0
@@ -4566,7 +4568,7 @@ Prefab:
     - target: {fileID: 114625925749314186, guid: 928a3b9430837324192821c6a44e6cc3,
         type: 2}
       propertyPath: sceneName
-      value: prison
+      value: longhall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 928a3b9430837324192821c6a44e6cc3, type: 2}
