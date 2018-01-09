@@ -840,6 +840,21 @@ Prefab:
       propertyPath: alertButtonObjectToRunWhenAlerted
       value: 
       objectReference: {fileID: 1994755086}
+    - target: {fileID: 114828132198081380, guid: 941fa814181fbd24e824281bab50991b,
+        type: 2}
+      propertyPath: ToggleQuestOnKill
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114828132198081380, guid: 941fa814181fbd24e824281bab50991b,
+        type: 2}
+      propertyPath: hideEulerAngles
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 114828132198081380, guid: 941fa814181fbd24e824281bab50991b,
+        type: 2}
+      propertyPath: standingEnemy
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 941fa814181fbd24e824281bab50991b, type: 2}
   m_IsPrefabParent: 0
@@ -2470,6 +2485,8 @@ MonoBehaviour:
   isDone: 1
   showE: 0
   triggerObjective: 0
+  stopText: 0
+  vipTrigger: 0
 --- !u!4 &918498878
 Transform:
   m_ObjectHideFlags: 0
