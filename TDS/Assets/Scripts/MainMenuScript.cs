@@ -12,7 +12,8 @@ public class MainMenuScript : MonoBehaviour {
     public GameObject continueButton;
     public bool startQuit = false;
     public float runningQuitTime = 0.0f;
-    public Slider slider;
+    public Slider sliderSfx;
+    public Slider sliderMusic;
 
 	void Awake () {
         FirstTimeLaunch();
@@ -36,7 +37,10 @@ public class MainMenuScript : MonoBehaviour {
 
     public void SaveSoundOptions() {
         if (PlayerPrefs.HasKey("soundVolume")) {
-            PlayerPrefs.SetInt("soundVolume", (int)slider.value);
+            PlayerPrefs.SetInt("soundVolume", (int)sliderSfx.value);
+        }
+        if (PlayerPrefs.HasKey("musicVolume")) {
+            PlayerPrefs.SetInt("musicVolume", (int)sliderMusic.value);
         }
         
     }
