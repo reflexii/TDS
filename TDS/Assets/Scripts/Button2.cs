@@ -29,7 +29,9 @@ public class Button2 : MonoBehaviour {
     private bool pressedButton = false;
     private bool doneOnce = false;
     private bool doneOnce2 = false;
+    private bool togglesDoor = false;
     private ObjectiveManager om;
+    private GameManager gm;
 
     private void Awake()
     {
@@ -55,6 +57,7 @@ public class Button2 : MonoBehaviour {
         }
 
         om = GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>();
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void AddTogglableObjectsToList()
@@ -103,6 +106,9 @@ public class Button2 : MonoBehaviour {
                     if (allTogglableObjects != null) {
                         if (allTogglableObjects[i] != null) {
                             allTogglableObjects[i].GetComponent<TogglableObject>().toggled = !allTogglableObjects[i].GetComponent<TogglableObject>().toggled;
+                            if (allTogglableObjects[i].GetComponent<TogglableObject>().objectType == TogglableObject.ObjectType.Door) {
+                                togglesDoor = true;
+                            }
                             allTogglableObjects[i].GetComponent<TogglableObject>().objectThatToggledThis = gameObject;
                         }
                     }
@@ -135,6 +141,11 @@ public class Button2 : MonoBehaviour {
                 doneOnce = true;
             }
 
+            if (togglesDoor) {
+                gm.GetComponent<SoundManager>().PlaySound("BlastDoor", true);
+            }
+
+            gm.GetComponent<SoundManager>().PlaySound("Switch", true);
             runningDelayTime = 0f;
         }
     }

@@ -228,7 +228,7 @@ public class MovingEnemy : MonoBehaviour {
 
 
         //Sound
-        gameManager.GetComponent<SoundManager>().PlaySound("BloodSplatter", true);
+        gameManager.GetComponent<SoundManager>().PlaySound("Blood2", true);
         Destroy(gameObject, 0f);
     }
 
@@ -237,6 +237,7 @@ public class MovingEnemy : MonoBehaviour {
         //blood
         Instantiate<GameObject>(dieBloodSmallPrefab, transform.position, Quaternion.identity);
         //sound
+        gameManager.GetComponent<SoundManager>().PlaySound("Blood1", true);
 
         enemyHealth -= damageValue;
 

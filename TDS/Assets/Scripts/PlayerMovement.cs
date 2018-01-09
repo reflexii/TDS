@@ -383,6 +383,7 @@ public class PlayerMovement : MonoBehaviour {
         //blood
         Instantiate<GameObject>(dieBloodSmallPrefab, transform.position, Quaternion.identity);
         //sound
+        gameManager.GetComponent<SoundManager>().PlaySound("Blood1", true);
 
         playerCurrentHealth -= amount;
 
@@ -410,7 +411,7 @@ public class PlayerMovement : MonoBehaviour {
         GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().MissionFailed("You have died.");
 
         //Sound
-        gameManager.GetComponent<SoundManager>().PlaySound("BloodSplatter", true);
+        gameManager.GetComponent<SoundManager>().PlaySound("Blood2", true);
         //Death
         gameManager.playerIsDead = true;
         gameObject.SetActive(false);
@@ -455,6 +456,7 @@ public class PlayerMovement : MonoBehaviour {
         gunInRange = false;
         hasGun = false;
         transform.Find("BulletSpawnPoint/Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+        gameManager.GetComponent<SoundManager>().PlaySound("Pickup2", true);
     }
 
     void PickUpGun()
@@ -476,6 +478,7 @@ public class PlayerMovement : MonoBehaviour {
         gun.GetComponent<Gun>().FixBulletSpawnPoints();
         gun.GetComponent<Collider2D>().enabled = false;
         transform.Find("BulletSpawnPoint/Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+        gameManager.GetComponent<SoundManager>().PlaySound("Pickup", true);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -651,6 +654,7 @@ public class PlayerMovement : MonoBehaviour {
                 knife.DestroyObjectsInRange();
                 knifeTimer = 0f;
                 swingKnife = true;
+                gameManager.GetComponent<SoundManager>().PlaySound("KnifeSwing", true);
             }
             if (Input.GetKeyUp(KeyCode.Mouse0) && hasGun && !gunDeactivated && !gameManager.GetComponent<DialogManager>().DialogueActive()) {
                 transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;

@@ -236,7 +236,7 @@ public class Gun : MonoBehaviour {
                     if (runningCooldown > pistolShootCooldown && currentMagazineSize > 0)
                     {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
-                        gameManager.GetComponent<SoundManager>().PlaySound("Gunshot_temp", true);
+                        gameManager.GetComponent<SoundManager>().PlaySound("Pistol", true);
 
                         GameObject pistolBullet = pool.GetPooledBullet();
                         pistolBullet.SetActive(true);
@@ -274,7 +274,7 @@ public class Gun : MonoBehaviour {
                     if (runningCooldown > shotgunShootCooldown && currentMagazineSize > 0)
                     {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
-                        gameManager.GetComponent<SoundManager>().PlaySound("ShotGun2", true);
+                        gameManager.GetComponent<SoundManager>().PlaySound("ShotGun", true);
                         for (int i = 0; i < 6; i++)
                         {
                             GameObject shotgunPellet = pool.GetPooledBigBullet();
@@ -317,7 +317,12 @@ public class Gun : MonoBehaviour {
                     {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
 
-                        gameManager.GetComponent<SoundManager>().PlaySound("Gunshot_temp2", true);
+                        float randomized = Random.Range(0, 2);
+                        if (randomized == 0) {
+                            gameManager.GetComponent<SoundManager>().PlaySound("Rifle2", true);
+                        } else {
+                            gameManager.GetComponent<SoundManager>().PlaySound("Rifle1", true);
+                        }
 
                         GameObject smgBullet = pool.GetPooledMediumBullet();
                         smgBullet.SetActive(true);
@@ -357,7 +362,7 @@ public class Gun : MonoBehaviour {
                     {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
 
-                        gameManager.GetComponent<SoundManager>().PlaySound("Gunshot_temp", true);
+                        gameManager.GetComponent<SoundManager>().PlaySound("SMG", true);
 
                         GameObject rifleBullet = pool.GetPooledBigBullet();
                         rifleBullet.SetActive(true);

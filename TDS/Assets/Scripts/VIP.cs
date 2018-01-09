@@ -109,6 +109,7 @@ public class VIP : MonoBehaviour {
         //blood
         Instantiate<GameObject>(dieBloodSmallPrefab, transform.position, Quaternion.identity);
         //sound
+        gm.GetComponent<SoundManager>().PlaySound("Blood1", true);
 
         vipCurrentHealth -= damageAmount;
 
@@ -127,7 +128,7 @@ public class VIP : MonoBehaviour {
 
         GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().MissionFailed("VIP has died.");
 
-        gm.GetComponent<SoundManager>().PlaySound("BloodSplatter", true);
+        gm.GetComponent<SoundManager>().PlaySound("Blood2", true);
 
         Destroy(em);
         Destroy(targetObject, 0f);

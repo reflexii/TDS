@@ -24,7 +24,7 @@ public class TogglableObject : MonoBehaviour {
     public int gasDamage = 2;
     private bool toggleDoorAnimation = false;
     private Animator animator;
-    private bool doneOnce = false;
+    public bool doneOnce = false;
     private GameObject tntObject;
     private float runningTNTTime = 0.0f;
     private GameManager gm;
@@ -141,6 +141,7 @@ public class TogglableObject : MonoBehaviour {
                 if (toggled) {
                     toggleDoorAnimation = true;
                     GetComponent<BoxCollider2D>().enabled = false;
+
                 } else {
                     toggleDoorAnimation = false;
                     if (GetComponent<BoxCollider2D>().size.y >= 2f) {
@@ -158,6 +159,7 @@ public class TogglableObject : MonoBehaviour {
                         playerObject.GetComponent<PlayerMovement>().gun.GetComponent<Gun>().FillMagazine();
                         playerObject.GetComponent<PlayerMovement>().currentGrenadeAmount += grenadesGivenOnUse;
                         playerObject.GetComponent<PlayerMovement>().grenadeText.text = "" + playerObject.GetComponent<PlayerMovement>().currentGrenadeAmount;
+                        gm.GetComponent<SoundManager>().PlaySound("AmmoCrate", false);
                     } else {
                         toggled = false;
                     }

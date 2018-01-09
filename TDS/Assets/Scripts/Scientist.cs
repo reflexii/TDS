@@ -202,7 +202,7 @@ public class Scientist : MonoBehaviour {
             doneOnce = true;
         }
 
-        gm.GetComponent<SoundManager>().PlaySound("BloodSplatter", true);
+        gm.GetComponent<SoundManager>().PlaySound("Blood2", true);
 
         Destroy(em);
         Destroy(targetObject, 0f);
@@ -211,6 +211,7 @@ public class Scientist : MonoBehaviour {
 
     public void DamageEnemy(float damageValue) {
         Instantiate<GameObject>(dieBloodSmallPrefab, transform.position, Quaternion.identity);
+        gm.GetComponent<SoundManager>().PlaySound("Blood1", true);
         whatEnemyIsDoing = CurrentStance.Alerted;
 
         enemyHealth -= damageValue;
