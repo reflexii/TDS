@@ -25,7 +25,11 @@ public class Boss : MonoBehaviour {
     public GameObject dieBloodSmallPrefab;
     public float enemyHealth = 60f;
     public Text bossHpText;
+    public Text bossHpTextShadow;
+    public Image bossHpBar;
+    public Image bossHpBarBackground;
     public GameObject buttonTarget;
+    public GameObject gibsPrefab;
 
     private GameObject player;
     private GameObject symbolObject;
@@ -106,6 +110,8 @@ public class Boss : MonoBehaviour {
 
     void HealthUpdate() {
         bossHpText.text = enemyHealth + "/" + maxHealth;
+        bossHpTextShadow.text = bossHpText.text;
+        bossHpBar.fillAmount = (enemyHealth / maxHealth);
     }
 
     void Update () {
@@ -300,11 +306,12 @@ public class Boss : MonoBehaviour {
 
     public void Die() {
         dead = true;
-        //Corpse
-        //RandomizeAndSpawnCorpse();
         //Blood
         Instantiate<GameObject>(dieBloodBigPrefab, transform.position, Quaternion.identity);
         Instantiate<GameObject>(dieBloodSmallPrefab, transform.position, Quaternion.identity);
+
+        //Gibs and explosion
+        Instantiate<GameObject>(gibsPrefab, transform.position, Quaternion.identity);
 
         //Destroy targets and alerts(! and ?)
         Destroy(targetObject, 0f);
@@ -313,6 +320,7 @@ public class Boss : MonoBehaviour {
 
         //Sound
         gameManager.GetComponent<SoundManager>().PlaySound("Blood2", true);
+        gameManager.GetComponent<SoundManager>().PlaySound("TNT", false);
         Destroy(gameObject, 0f);
     }
 
@@ -325,6 +333,8 @@ public class Boss : MonoBehaviour {
         enemyHealth -= damageValue;
 
         if (enemyHealth <= 0f && !dead) {
+            enemyHealth = 0f;
+            HealthUpdate();
             Die();
         }
 

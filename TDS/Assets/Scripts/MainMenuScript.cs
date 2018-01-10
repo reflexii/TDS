@@ -14,8 +14,13 @@ public class MainMenuScript : MonoBehaviour {
     public float runningQuitTime = 0.0f;
     public Slider sliderSfx;
     public Slider sliderMusic;
+    public Toggle sfxToggle;
+    public Toggle musicToggle;
+    public bool soundMuted;
+    public bool musicMuted;
+    public AudioSource buttonSound;
 
-	void Awake () {
+    private void Start() {
         FirstTimeLaunch();
         LoadPlayerPreferences();
     }
@@ -37,23 +42,79 @@ public class MainMenuScript : MonoBehaviour {
 
     public void SaveSoundOptions() {
         if (PlayerPrefs.HasKey("soundVolume")) {
+            sliderSfx = GameObject.Find("Slider").GetComponent<Slider>();
             PlayerPrefs.SetInt("soundVolume", (int)sliderSfx.value);
+            sfxVolume = (int)sliderSfx.value;
         }
         if (PlayerPrefs.HasKey("musicVolume")) {
+            sliderMusic = GameObject.Find("Slider (1)").GetComponent<Slider>();
             PlayerPrefs.SetInt("musicVolume", (int)sliderMusic.value);
+            musicVolume = (int)sliderMusic.value;
+        }
+        if (PlayerPrefs.HasKey("musicToggle")) {
+            musicToggle = GameObject.Find("Music").GetComponent<Toggle>();
+            if (musicToggle.isOn) {
+                PlayerPrefs.SetInt("musicToggle", 1);
+                musicMuted = false;
+            } else {
+                PlayerPrefs.SetInt("musicToggle", 0);
+                musicMuted = true;
+            }
+        }
+        if (PlayerPrefs.HasKey("sfxToggle")) {
+            sfxToggle = GameObject.Find("SFX").GetComponent<Toggle>();
+            if (sfxToggle.isOn) {
+                PlayerPrefs.SetInt("sfxToggle", 1);
+                soundMuted = false;
+            } else {
+                PlayerPrefs.SetInt("sfxToggle", 0);
+                soundMuted = true;
+            }
+        }
+
+        if (!soundMuted) {
+            buttonSound.volume = sfxVolume / 100f;
+        } else {
+            buttonSound.volume = 0f;
         }
         
     }
 
     public void LoadPlayerPreferences() {
-        if (PlayerPrefs.HasKey("currentLevel")) {
-            currentLevel = PlayerPrefs.GetInt("currentLevel");
-        }
-        if (PlayerPrefs.HasKey("soundVolume")) {
-            sfxVolume = PlayerPrefs.GetInt("soundVolume");
-        }
-        if (PlayerPrefs.HasKey("musicVolume")) {
-            musicVolume = PlayerPrefs.GetInt("musicVolume");
+        if (mainMenu) {
+            if (PlayerPrefs.HasKey("currentLevel")) {
+                currentLevel = PlayerPrefs.GetInt("currentLevel");
+            }
+            if (PlayerPrefs.HasKey("soundVolume")) {
+                sliderSfx = GameObject.Find("Slider").GetComponent<Slider>();
+                sfxVolume = PlayerPrefs.GetInt("soundVolume");
+                sliderSfx.value = PlayerPrefs.GetInt("soundVolume");
+            }
+            if (PlayerPrefs.HasKey("musicVolume")) {
+                sliderMusic = GameObject.Find("Slider (1)").GetComponent<Slider>();
+                musicVolume = PlayerPrefs.GetInt("musicVolume");
+                sliderMusic.value = PlayerPrefs.GetInt("musicVolume");
+            }
+            if (PlayerPrefs.HasKey("musicToggle")) {
+                musicToggle = GameObject.Find("Music").GetComponent<Toggle>();
+                if (PlayerPrefs.GetInt("musicToggle") == 1) {
+                    musicToggle.isOn = true;
+                    musicMuted = false;
+                } else {
+                    musicToggle.isOn = false;
+                    musicMuted = true;
+                }
+            }
+            if (PlayerPrefs.HasKey("sfxToggle")) {
+                sfxToggle = GameObject.Find("SFX").GetComponent<Toggle>();
+                if (PlayerPrefs.GetInt("sfxToggle") == 1) {
+                    sfxToggle.isOn = true;
+                    soundMuted = false;
+                } else {
+                    sfxToggle.isOn = false;
+                    soundMuted = true;
+                }
+            }
         }
     }
 
@@ -67,6 +128,14 @@ public class MainMenuScript : MonoBehaviour {
         if (!PlayerPrefs.HasKey("musicVolume")) {
             PlayerPrefs.SetInt("musicVolume", 100);
         }
+        if (!PlayerPrefs.HasKey("musicToggle")) {
+            PlayerPrefs.SetInt("musicToggle", 1);
+            musicMuted = false;
+        }
+        if (!PlayerPrefs.HasKey("sfxToggle")) {
+            PlayerPrefs.SetInt("sfxToggle", 1);
+            soundMuted = false;
+        }
     }
 
     public void ClearKeys() {
@@ -74,23 +143,26 @@ public class MainMenuScript : MonoBehaviour {
             PlayerPrefs.SetInt("currentLevel", 1);
             currentLevel = PlayerPrefs.GetInt("currentLevel");
         }
-        if (PlayerPrefs.HasKey("soundVolume")) {
-            PlayerPrefs.SetInt("soundVolume", 100);
-        }
-        if (PlayerPrefs.HasKey("musicVolume")) {
-            PlayerPrefs.SetInt("musicVolume", 100);
-        }
     }
 
     public void UpdateContinueButton() {
         if (currentLevel >= 2) {
             continueButton.GetComponent<Button>().interactable = true;
-        } else {
+        } else if (currentLevel < 2) {
             continueButton.GetComponent<Button>().interactable = false;
         }
     }
 
     public void ExitGame() {
         startQuit = true;
+    }
+
+    public void ButtonVolume() {
+        if (!soundMuted) {
+            buttonSound.volume = sfxVolume / 100f;
+        } else {
+            buttonSound.volume = 0f;
+        }
+        
     }
 }

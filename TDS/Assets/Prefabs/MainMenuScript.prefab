@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4658029435078046}
   - component: {fileID: 114421699438593650}
-  - component: {fileID: 114960961192507436}
+  - component: {fileID: 114999217140003848}
   m_Layer: 0
   m_Name: MainMenuScript
   m_TagString: Untagged
@@ -57,7 +57,16 @@ MonoBehaviour:
   musicVolume: 100
   mainMenu: 1
   continueButton: {fileID: 0}
---- !u!114 &114960961192507436
+  startQuit: 0
+  runningQuitTime: 0
+  sliderSfx: {fileID: 0}
+  sliderMusic: {fileID: 0}
+  sfxToggle: {fileID: 0}
+  musicToggle: {fileID: 0}
+  soundMuted: 0
+  musicMuted: 0
+  buttonSound: {fileID: 0}
+--- !u!114 &114999217140003848
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

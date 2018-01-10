@@ -278,7 +278,7 @@ public class TogglableObject : MonoBehaviour {
                             col[i].transform.parent.GetComponent<VIP>().TakeDamage(tntDamage);
                         }
                     } else if (col[i].gameObject.layer == LayerMask.NameToLayer("Boss")) {
-                        col[i].GetComponent<Boss>().DamageEnemy(tntDamage * 2f);
+                        col[i].GetComponent<Boss>().DamageEnemy(tntDamage * 1.5f);
                     }
                 }
             }

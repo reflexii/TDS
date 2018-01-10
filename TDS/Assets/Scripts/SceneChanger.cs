@@ -82,6 +82,8 @@ public class SceneChanger : MonoBehaviour {
         if (GameObject.Find("GameManager") != null) {
             GameObject.Find("GameManager").GetComponent<GameManager>().ColorSettings();
             GameObject.Find("GameManager").GetComponent<GameManager>().reticle.SetActive(true);
+            GameObject.Find("GameManager").GetComponent<GameManager>().mms = GameObject.Find("MainMenuScript").GetComponent<MainMenuScript>();
+
         }
         if (GameObject.Find("Fade") != null) {
             GameObject.Find("Fade").GetComponent<Fade>().StartFadeIn(2f);
@@ -153,6 +155,7 @@ public class SceneChanger : MonoBehaviour {
         if (GameObject.Find("GameManager") != null) {
             GameObject.Find("GameManager").GetComponent<GameManager>().ColorSettings();
             GameObject.Find("GameManager").GetComponent<GameManager>().reticle.SetActive(true);
+            GameObject.Find("GameManager").GetComponent<GameManager>().mms = GameObject.Find("MainMenuScript").GetComponent<MainMenuScript>();
         }
         if (GameObject.Find("Fade") != null) {
             GameObject.Find("Fade").GetComponent<Fade>().StartFadeIn(2f);

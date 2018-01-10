@@ -95,6 +95,8 @@ public class Pause : MonoBehaviour {
         pauseMenuParent.SetActive(false);
         Time.timeScale = 1f;
         inMenu = true;
+        gm.mms.mainMenu = true;
+        Destroy(GameObject.Find("MainMenuScript"));
         SceneManager.LoadScene("MainMenu");
     }
 }
