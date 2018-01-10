@@ -939,7 +939,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4575442083673878, guid: 8545c5702c3b286469d9b79d14bd3b62, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1849027819521788, guid: 8545c5702c3b286469d9b79d14bd3b62, type: 2}
       propertyPath: m_Name
@@ -1493,59 +1493,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 23
       objectReference: {fileID: 0}
-    - target: {fileID: 1771545605978868, guid: 8e9e206064175724eae869b4dbe11a8c, type: 2}
-      propertyPath: m_Name
-      value: Bounds
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_TagString
-      value: SeeThroughItem
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_TagString
-      value: SeeThroughItem
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_SortingOrder
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 23779323736539396, guid: 8e9e206064175724eae869b4dbe11a8c,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: 17
-      objectReference: {fileID: 0}
-    - target: {fileID: 1566743577362428, guid: 8e9e206064175724eae869b4dbe11a8c, type: 2}
-      propertyPath: m_TagString
-      value: SeeThroughItem
-      objectReference: {fileID: 0}
-    - target: {fileID: 1566743577362428, guid: 8e9e206064175724eae869b4dbe11a8c, type: 2}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1537109949421466, guid: 8e9e206064175724eae869b4dbe11a8c, type: 2}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1041195917566558, guid: 8e9e206064175724eae869b4dbe11a8c, type: 2}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1041195917566558, guid: 8e9e206064175724eae869b4dbe11a8c, type: 2}
-      propertyPath: m_TagString
-      value: SeeThroughItem
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e9e206064175724eae869b4dbe11a8c, type: 2}
   m_IsPrefabParent: 0
@@ -1645,6 +1592,8 @@ MonoBehaviour:
   walkTrigger: 0
   showE: 1
   togglableOnlyOnce: 0
+  broken: 0
+  breakableWithEnemyBullets: 0
 --- !u!61 &891228395
 BoxCollider2D:
   m_ObjectHideFlags: 0

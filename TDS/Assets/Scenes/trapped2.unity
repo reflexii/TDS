@@ -4421,6 +4421,8 @@ MonoBehaviour:
   walkTrigger: 1
   showE: 1
   togglableOnlyOnce: 1
+  broken: 0
+  breakableWithEnemyBullets: 0
 --- !u!61 &1112657482
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7085,106 +7087,6 @@ Prefab:
     - target: {fileID: 4525653796325466, guid: de1bd760296258842967f1e036e0e975, type: 2}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_TagString
-      value: SeeThroughItem
-      objectReference: {fileID: 0}
-    - target: {fileID: 1781878299240248, guid: de1bd760296258842967f1e036e0e975, type: 2}
-      propertyPath: m_Name
-      value: Bounds
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_TagString
-      value: SeeThroughItem
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_TagString
-      value: SeeThroughItem
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_TagString
-      value: SeeThroughItem
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_TagString
-      value: SeeThroughItem
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1137010292231826, guid: de1bd760296258842967f1e036e0e975, type: 2}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_TagString
-      value: SeeThroughItem
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_TagString
-      value: SeeThroughItem
-      objectReference: {fileID: 0}
-    - target: {fileID: 1671600848782530, guid: de1bd760296258842967f1e036e0e975, type: 2}
-      propertyPath: m_TagString
-      value: SeeThroughItem
-      objectReference: {fileID: 0}
-    - target: {fileID: 1671600848782530, guid: de1bd760296258842967f1e036e0e975, type: 2}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1081276647172832, guid: de1bd760296258842967f1e036e0e975, type: 2}
-      propertyPath: m_TagString
-      value: SeeThroughItem
-      objectReference: {fileID: 0}
-    - target: {fileID: 1081276647172832, guid: de1bd760296258842967f1e036e0e975, type: 2}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1071766330659884, guid: de1bd760296258842967f1e036e0e975, type: 2}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1186329921429206, guid: de1bd760296258842967f1e036e0e975, type: 2}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1186329921429206, guid: de1bd760296258842967f1e036e0e975, type: 2}
-      propertyPath: m_TagString
-      value: SeeThroughItem
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de1bd760296258842967f1e036e0e975, type: 2}
