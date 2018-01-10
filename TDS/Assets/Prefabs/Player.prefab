@@ -356,14 +356,17 @@ MonoBehaviour:
   shotgunShootCooldown: 0.8
   smgShootCooldown: 0.04
   rifleShootCooldown: 0.08
+  minigunCooldown: 0.01
   pistolDamage: 20
   shotgunDamage: 25
   smgDamage: 20
   rifleDamage: 35
+  minigunDamage: 500
   pistolMagazineSize: 12
   shotgunMagazineSize: 5
   smgMagazineSize: 30
   rifleMagazineSize: 20
+  minigunMagazineSize: 100000
   currentMagazineSize: 0
   gunOnTheFloor: 0
   pistolImage: {fileID: 21300004, guid: 81ca8c1dac3ab9c43bf4ff45efdcdc28, type: 3}
@@ -372,11 +375,13 @@ MonoBehaviour:
   rifleImage: {fileID: 21300010, guid: 81ca8c1dac3ab9c43bf4ff45efdcdc28, type: 3}
   currentGunImage: {fileID: 0}
   magazineText: {fileID: 0}
+  runningCooldown: 0
   maxMagazineSize: 0
   throwWeapon: 0
   throwDirection: {x: 0, y: 0, z: 0}
   throwSpeed: 10
   fail: 0
+  minigunBulletsShot: 0
 --- !u!114 &114787236824361298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -428,6 +433,7 @@ MonoBehaviour:
   togglable: 0
   walking: 0
   dialogueTime: 0.5
+  reticle: {fileID: 0}
   playerCorpse1: {fileID: 1642774933394460, guid: 7ad1c8cd69d301741ba5c7d417a2d107,
     type: 2}
   playerCorpse2: {fileID: 1484741606092194, guid: 62f9cfd179c0dbc4593bcf0064d08643,
@@ -435,6 +441,7 @@ MonoBehaviour:
   playerCorpse3: {fileID: 1753769905029644, guid: 5988ad6ddfb1c694e97063cf8151e98d,
     type: 2}
   stopPlayer: 0
+  gameIsPaused: 0
 --- !u!120 &120040173853199826
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -644,7 +651,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 11
   m_Sprite: {fileID: 21300048, guid: c6ee21a1c5fd7e9468daabaf7ad542e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
