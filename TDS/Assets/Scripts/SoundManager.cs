@@ -37,6 +37,7 @@ public class SoundManager : MonoBehaviour {
             }
 
             source.Play();
+
             disableAudioList.Add(audio);
         }
     }

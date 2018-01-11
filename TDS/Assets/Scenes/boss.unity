@@ -9754,6 +9754,21 @@ Prefab:
       propertyPath: weaponInUse
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 212655489465992986, guid: ecb6d49fc021d5547baeefc98f8dec15,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212655489465992986, guid: ecb6d49fc021d5547baeefc98f8dec15,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212655489465992986, guid: ecb6d49fc021d5547baeefc98f8dec15,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ecb6d49fc021d5547baeefc98f8dec15, type: 2}
   m_IsPrefabParent: 0
@@ -13047,7 +13062,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -743887143
+  randomSeed: 99056530
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -21481,7 +21496,7 @@ Prefab:
     - target: {fileID: 114377513790628214, guid: db592d5c703327042b01f675b66c07b9,
         type: 2}
       propertyPath: enemyHealth
-      value: 9000
+      value: 8000
       objectReference: {fileID: 0}
     - target: {fileID: 58894969206169090, guid: db592d5c703327042b01f675b66c07b9,
         type: 2}

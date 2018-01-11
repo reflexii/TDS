@@ -274,7 +274,7 @@ public class Gun : MonoBehaviour {
                     if (runningCooldown > shotgunShootCooldown && currentMagazineSize > 0)
                     {
                         transform.parent.transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = true;
-                        gameManager.GetComponent<SoundManager>().PlaySound("ShotGun", true);
+                        gameManager.GetComponent<SoundManager>().PlaySound("ShotGun2", true);
                         for (int i = 0; i < 6; i++)
                         {
                             GameObject shotgunPellet = pool.GetPooledBigBullet();

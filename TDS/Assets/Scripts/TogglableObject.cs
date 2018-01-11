@@ -81,13 +81,16 @@ public class TogglableObject : MonoBehaviour {
             case ObjectType.Gas:
                 if (toggled)
                 {
+
+                    transform.Find("GasSound").GetComponent<GasSoundScript>().toggleSound = true;
                     runningGasTime += Time.deltaTime;
                     GetComponent<BoxCollider2D>().enabled = true;
                     for (int i = 0; i < transform.childCount; i++) {
-                        if (transform.GetChild(i).gameObject.GetComponent<ParticleSystem>().isStopped) {
-                            transform.GetChild(i).gameObject.GetComponent<ParticleSystem>().Play();
+                        if (transform.GetChild(i).gameObject.GetComponent<ParticleSystem>() != null) {
+                            if (transform.GetChild(i).gameObject.GetComponent<ParticleSystem>().isStopped) {
+                                transform.GetChild(i).gameObject.GetComponent<ParticleSystem>().Play();
+                            }
                         }
-                        
                     }
 
                     //damage enemies
@@ -127,10 +130,11 @@ public class TogglableObject : MonoBehaviour {
                 {
                     GetComponent<BoxCollider2D>().enabled = false;
                     for (int i = 0; i < transform.childCount; i++) {
-                        if (transform.GetChild(i).gameObject.GetComponent<ParticleSystem>().isPlaying) {
-                            transform.GetChild(i).gameObject.GetComponent<ParticleSystem>().Stop();
+                        if (transform.GetChild(i).GetComponent<ParticleSystem>() != null) {
+                            if (transform.GetChild(i).gameObject.GetComponent<ParticleSystem>().isPlaying) {
+                                transform.GetChild(i).gameObject.GetComponent<ParticleSystem>().Stop();
+                            }
                         }
-                        
                     }
                 }
                 break;

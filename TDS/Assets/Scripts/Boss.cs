@@ -216,22 +216,16 @@ public class Boss : MonoBehaviour {
                     ai.canMove = false;
                     ai.canSearch = false;
                 }
-                //shoot 20 bullets towards saved player position
+                //shoot 40 bullets towards saved player position
                 if (runningShootTime >= 0.25f && gun.GetComponent<Gun>().minigunBulletsShot <= 40 && gun.GetComponent<Gun>().runningCooldown > gun.GetComponent<Gun>().minigunCooldown) {
                     gun.GetComponent<Gun>().BossShoot(savedPlayerPosition - transform.position);
-                    //gameManager.GetComponent<SoundManager>().PlaySound("minigun", true);
-                    
-                    int randomize = Random.Range(0, 4);
-                    if (randomize == 0) {
-                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGun1", true);
-                    } else if (randomize == 1) {
-                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGun2", true);
-                    } else if (randomize == 2) {
-                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGun3", true);
-                    } else if (randomize == 3) {
-                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGun4", true);
+                    if (gun.GetComponent<Gun>().minigunBulletsShot % 18f == 0f) {
+                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGunNew", true);
                     }
-                    
+                    if (gun.GetComponent<Gun>().minigunBulletsShot == 1) {
+                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGunNew", true);
+                    }
+
                     ai.canMove = false;
                     ai.canSearch = false;
                     shooting = true;
@@ -250,19 +244,13 @@ public class Boss : MonoBehaviour {
                     }
                     transform.up = savedPlayerPosition - transform.position;
                     gun.GetComponent<Gun>().BossShoot(savedPlayerPosition - transform.position);
-                    //gameManager.GetComponent<SoundManager>().PlaySound("minigun", true);
-                    
-                    int randomize = Random.Range(0, 4);
-                    if (randomize == 0) {
-                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGun1", true);
-                    } else if (randomize == 1) {
-                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGun2", true);
-                    } else if (randomize == 2) {
-                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGun3", true);
-                    } else if (randomize == 3) {
-                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGun4", true);
+                    if (gun.GetComponent<Gun>().minigunBulletsShot % 18f == 0f && gun.GetComponent<Gun>().minigunBulletsShot != 198) {
+                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGunNew", true);
                     }
-                    
+                    if (gun.GetComponent<Gun>().minigunBulletsShot == 180) {
+                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGunEnd", false);
+                    }
+
                 } else if (gun.GetComponent<Gun>().minigunBulletsShot >= 200) {
                     shooting = false;
                     transform.Find("BulletSpawnPoint/Muzzle").GetComponent<SpriteRenderer>().enabled = false;
@@ -280,10 +268,16 @@ public class Boss : MonoBehaviour {
                 ai.canMove = false;
                 ai.canSearch = false;
 
+                if (!doneOnce2) {
+                    gameManager.GetComponent<SoundManager>().PlaySound("overheat", false);
+                    doneOnce2 = true;
+                }
+
                 if (runningShootTime >= 1.5f) {
                     gun.GetComponent<Gun>().FillMagazine();
                     runningShootTime = 0f;
                     doneOnce = false;
+                    doneOnce2 = false;
                     whatEnemyIsDoing = CurrentStance.Waiting;
                 }
                 break;

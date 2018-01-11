@@ -30,6 +30,7 @@ public class Button2 : MonoBehaviour {
     private bool doneOnce = false;
     private bool doneOnce2 = false;
     private bool togglesDoor = false;
+    private bool togglesLaser = false;
     private ObjectiveManager om;
     private GameManager gm;
 
@@ -109,6 +110,9 @@ public class Button2 : MonoBehaviour {
                             if (allTogglableObjects[i].GetComponent<TogglableObject>().objectType == TogglableObject.ObjectType.Door) {
                                 togglesDoor = true;
                             }
+                            if (allTogglableObjects[i].GetComponent<TogglableObject>().objectType == TogglableObject.ObjectType.Laser) {
+                                togglesLaser = true;
+                            }
                             allTogglableObjects[i].GetComponent<TogglableObject>().objectThatToggledThis = gameObject;
                         }
                     }
@@ -143,6 +147,10 @@ public class Button2 : MonoBehaviour {
 
             if (togglesDoor) {
                 gm.GetComponent<SoundManager>().PlaySound("BlastDoor", true);
+            }
+
+            if (togglesLaser) {
+                gm.GetComponent<SoundManager>().PlaySound("laser", true);
             }
 
             gm.GetComponent<SoundManager>().PlaySound("Switch", true);
