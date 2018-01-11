@@ -210,6 +210,7 @@ public class Boss : MonoBehaviour {
                         transform.up = player.transform.position - transform.position;
                         savedPlayerPosition = player.transform.position;
                         doneOnce = true;
+                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGunStart", false);
                     }
                     shooting = false;
                     ai.canMove = false;
@@ -218,16 +219,26 @@ public class Boss : MonoBehaviour {
                 //shoot 20 bullets towards saved player position
                 if (runningShootTime >= 0.25f && gun.GetComponent<Gun>().minigunBulletsShot <= 40 && gun.GetComponent<Gun>().runningCooldown > gun.GetComponent<Gun>().minigunCooldown) {
                     gun.GetComponent<Gun>().BossShoot(savedPlayerPosition - transform.position);
+                    //gameManager.GetComponent<SoundManager>().PlaySound("minigun", true);
+                    
+                    int randomize = Random.Range(0, 4);
+                    if (randomize == 0) {
+                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGun1", true);
+                    } else if (randomize == 1) {
+                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGun2", true);
+                    } else if (randomize == 2) {
+                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGun3", true);
+                    } else if (randomize == 3) {
+                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGun4", true);
+                    }
+                    
                     ai.canMove = false;
                     ai.canSearch = false;
                     shooting = true;
                 } else if (gun.GetComponent<Gun>().minigunBulletsShot > 40 && gun.GetComponent<Gun>().minigunBulletsShot < 200 && gun.GetComponent<Gun>().runningCooldown > gun.GetComponent<Gun>().minigunCooldown) {
-                    //if (!doneOnce2) {
                         newPlayerPosition = player.transform.position;
-                        //doneOnce2 = true;
                         direction = (newPlayerPosition - savedPlayerPosition).normalized;
                         distanceBetweenPositions = Vector3.Distance(newPlayerPosition, savedPlayerPosition);
-                    //}
 
                     shooting = true;
                     ai.canMove = false;
@@ -239,6 +250,19 @@ public class Boss : MonoBehaviour {
                     }
                     transform.up = savedPlayerPosition - transform.position;
                     gun.GetComponent<Gun>().BossShoot(savedPlayerPosition - transform.position);
+                    //gameManager.GetComponent<SoundManager>().PlaySound("minigun", true);
+                    
+                    int randomize = Random.Range(0, 4);
+                    if (randomize == 0) {
+                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGun1", true);
+                    } else if (randomize == 1) {
+                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGun2", true);
+                    } else if (randomize == 2) {
+                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGun3", true);
+                    } else if (randomize == 3) {
+                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGun4", true);
+                    }
+                    
                 } else if (gun.GetComponent<Gun>().minigunBulletsShot >= 200) {
                     shooting = false;
                     transform.Find("BulletSpawnPoint/Muzzle").GetComponent<SpriteRenderer>().enabled = false;
@@ -260,7 +284,6 @@ public class Boss : MonoBehaviour {
                     gun.GetComponent<Gun>().FillMagazine();
                     runningShootTime = 0f;
                     doneOnce = false;
-                    doneOnce2 = false;
                     whatEnemyIsDoing = CurrentStance.Waiting;
                 }
                 break;
