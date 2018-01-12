@@ -7200,7 +7200,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &567308998
 RectTransform:
@@ -7209,8 +7209,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 567308994}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 486.5, y: 283, z: 0}
-  m_LocalScale: {x: 0.50677085, y: 0.50677085, z: 0.50677085}
+  m_LocalPosition: {x: 387.5, y: 218, z: 0}
+  m_LocalScale: {x: 0.40364584, y: 0.40364584, z: 0.40364584}
   m_Children:
   - {fileID: 1820258342}
   m_Father: {fileID: 0}
@@ -17312,6 +17312,16 @@ Prefab:
       propertyPath: m_Size.y
       value: 38
       objectReference: {fileID: 0}
+    - target: {fileID: 114625925749314186, guid: 928a3b9430837324192821c6a44e6cc3,
+        type: 2}
+      propertyPath: timeBeforeSwitching
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114625925749314186, guid: 928a3b9430837324192821c6a44e6cc3,
+        type: 2}
+      propertyPath: fadeTime
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 928a3b9430837324192821c6a44e6cc3, type: 2}
   m_IsPrefabParent: 0
@@ -18169,7 +18179,7 @@ Prefab:
     - target: {fileID: 20094271417364746, guid: 32ae2d2f563a90e458c93db491353299,
         type: 2}
       propertyPath: orthographic size
-      value: 8.84375
+      value: 6.8125
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 32ae2d2f563a90e458c93db491353299, type: 2}
@@ -19418,7 +19428,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1820258341}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 28.437805, z: 0}
+  m_LocalPosition: {x: 0, y: 10.077393, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2088776882}
@@ -21516,7 +21526,7 @@ Prefab:
     - target: {fileID: 114377513790628214, guid: db592d5c703327042b01f675b66c07b9,
         type: 2}
       propertyPath: enemyHealth
-      value: 8000
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 58894969206169090, guid: db592d5c703327042b01f675b66c07b9,
         type: 2}

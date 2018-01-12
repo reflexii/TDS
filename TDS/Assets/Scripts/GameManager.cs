@@ -97,8 +97,6 @@ public class GameManager : MonoBehaviour {
         playerIsDead = false;
     }
 
-    //make code to options for number next to volume slider + saving volume to playerprefs after pressing back
-
     public void NextLevelPreferences() {
         if (PlayerPrefs.HasKey("currentLevel")) {
             mms.currentLevel++;

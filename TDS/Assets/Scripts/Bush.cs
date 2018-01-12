@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bush : MonoBehaviour {
 
     private List<GameObject> bushList;
+    public GameObject leavesPrefab;
 
 	void Start () {
         bushList = new List<GameObject>();
@@ -21,6 +22,11 @@ public class Bush : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
             bushList.Add(collision.gameObject);
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player1")) {
+            Instantiate<GameObject>(leavesPrefab, transform.position, Quaternion.identity);
+            GameObject.Find("GameManager").GetComponent<SoundManager>().PlaySound("Leaf", true);
         }
     }
 

@@ -19,6 +19,9 @@ public class MainMenuScript : MonoBehaviour {
     public bool soundMuted;
     public bool musicMuted;
     public AudioSource buttonSound;
+    public AudioSource gunshotSound;
+
+    private bool prefLoaded = false;
 
     private void Start() {
         FirstTimeLaunch();
@@ -127,7 +130,25 @@ public class MainMenuScript : MonoBehaviour {
             } else {
                 GameObject.Find("MusicPlayer").GetComponent<MusicPlayer>().musicVolume = 0f;
             }
+
+            prefLoaded = true;
         }
+    }
+
+    public void OnChangeSoundValue() {
+        if (prefLoaded) {
+            if (!soundMuted) {
+                if (sliderSfx != null) {
+                    sfxVolume = sliderSfx.value;
+                }
+                gunshotSound.volume = sfxVolume / 100f;
+                if (!gunshotSound.isPlaying) {
+                    gunshotSound.Play();
+                }
+            } else {
+                soundMuted = true;
+            }
+        } 
     }
 
     public void ChangeMusicVolume() {
@@ -192,8 +213,10 @@ public class MainMenuScript : MonoBehaviour {
     public void ButtonVolume() {
         if (!soundMuted) {
             buttonSound.volume = sfxVolume / 100f;
+            gunshotSound.volume = sfxVolume / 100f;
         } else {
             buttonSound.volume = 0f;
+            gunshotSound.volume = 0f;
         }
         
     }

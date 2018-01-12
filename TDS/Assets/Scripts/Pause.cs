@@ -54,7 +54,10 @@ public class Pause : MonoBehaviour {
 
                 if (pauseMenuEnabled) {
                     gm.GetComponent<DialogManager>().ToggleDialogueUIOff();
-                    GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().ToggleDeathScreenOff();
+                    if (GameObject.Find("ObjectiveManager") != null) {
+                        GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().ToggleDeathScreenOff();
+                    }
+                    
                 }
             }
 

@@ -30,6 +30,7 @@ public class Boss : MonoBehaviour {
     public Image bossHpBarBackground;
     public GameObject buttonTarget;
     public GameObject gibsPrefab;
+    public bool ToggleQuestOnKill = true;
 
     private GameObject player;
     private GameObject symbolObject;
@@ -54,6 +55,7 @@ public class Boss : MonoBehaviour {
     private float standardMovement = 115f;
     private bool dead = false;
     private float maxHealth;
+    private bool doneOnce3 = false;
 
     void Awake () {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -334,6 +336,11 @@ public class Boss : MonoBehaviour {
         Destroy(targetObject, 0f);
         Destroy(em);
 
+
+        if (ToggleQuestOnKill && !doneOnce3) {
+            GameObject.Find("ObjectiveManager").GetComponent<ObjectiveManager>().NextObjective();
+            doneOnce3 = true;
+        }
 
         //Sound
         gameManager.GetComponent<SoundManager>().PlaySound("Blood2", true);

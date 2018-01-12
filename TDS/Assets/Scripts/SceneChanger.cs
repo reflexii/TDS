@@ -9,6 +9,7 @@ public class SceneChanger : MonoBehaviour {
     public string sceneName = "";
     public float timeBeforeSwitching;
     public bool mainMenu = false;
+    public float fadeTime = 0.5f;
 
     private ObjectiveManager om;
     private GameManager gm;
@@ -49,7 +50,7 @@ public class SceneChanger : MonoBehaviour {
         GameObject.Find("MissionComplete").transform.GetChild(0).GetComponent<Text>().color = new Color(0f, 0f, 0f, 1f);
         GameObject.Find("MissionComplete").transform.GetChild(1).GetComponent<Text>().color = new Color(1f, 1f, 1f, 1f);
 
-        if (!fadedOnce && runningSwitchTime >= 0.5f) {
+        if (!fadedOnce && runningSwitchTime >= fadeTime) {
             GameObject.Find("Fade").GetComponent<Fade>().StartFadeOut();
             fadedOnce = true;
         }
