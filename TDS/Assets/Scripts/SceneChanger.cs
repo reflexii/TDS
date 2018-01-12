@@ -88,6 +88,9 @@ public class SceneChanger : MonoBehaviour {
         if (GameObject.Find("Fade") != null) {
             GameObject.Find("Fade").GetComponent<Fade>().StartFadeIn(2f);
         }
+
+        GameObject.Find("MusicPlayer").GetComponent<MusicPlayer>().FadeOutAndInAndChangeSong("Sewer");
+
         SceneManager.LoadScene("1stmap");
     }
 

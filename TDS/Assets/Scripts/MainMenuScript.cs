@@ -77,6 +77,12 @@ public class MainMenuScript : MonoBehaviour {
         } else {
             buttonSound.volume = 0f;
         }
+
+        if (!musicMuted) {
+            GameObject.Find("MusicPlayer").GetComponent<MusicPlayer>().musicVolume = musicVolume / 100f;
+        } else {
+            GameObject.Find("MusicPlayer").GetComponent<MusicPlayer>().musicVolume = 0f;
+        }
         
     }
 
@@ -115,6 +121,32 @@ public class MainMenuScript : MonoBehaviour {
                     soundMuted = true;
                 }
             }
+
+            if (!musicMuted) {
+                GameObject.Find("MusicPlayer").GetComponent<MusicPlayer>().musicVolume = musicVolume / 100f;
+            } else {
+                GameObject.Find("MusicPlayer").GetComponent<MusicPlayer>().musicVolume = 0f;
+            }
+        }
+    }
+
+    public void ChangeMusicVolume() {
+        if (!musicMuted) {
+            musicVolume = sliderMusic.value;
+            GameObject.Find("MusicPlayer").GetComponent<MusicPlayer>().musicVolume = musicVolume / 100f;
+        } else {
+            GameObject.Find("MusicPlayer").GetComponent<MusicPlayer>().musicVolume = 0f;
+        }
+    }
+
+    public void MusicToggle() {
+        if (musicToggle.isOn) {
+            musicMuted = false;
+            musicVolume = sliderMusic.value;
+            GameObject.Find("MusicPlayer").GetComponent<MusicPlayer>().musicVolume = musicVolume / 100f;
+        } else {
+            musicMuted = true;
+            GameObject.Find("MusicPlayer").GetComponent<MusicPlayer>().musicVolume = 0f;
         }
     }
 
