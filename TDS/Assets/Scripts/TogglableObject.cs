@@ -128,6 +128,7 @@ public class TogglableObject : MonoBehaviour {
                     }
                 } else
                 {
+                    transform.Find("GasSound").GetComponent<GasSoundScript>().toggleSound = false;
                     GetComponent<BoxCollider2D>().enabled = false;
                     for (int i = 0; i < transform.childCount; i++) {
                         if (transform.GetChild(i).GetComponent<ParticleSystem>() != null) {

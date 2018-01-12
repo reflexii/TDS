@@ -31,6 +31,8 @@ public class GasSoundScript : MonoBehaviour {
                 value *= gm.mms.sfxVolume / 100f;
                 source.volume = value;
             }
+        } else {
+            source.Stop();
         }
 	}
 }

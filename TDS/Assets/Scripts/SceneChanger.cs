@@ -18,6 +18,7 @@ public class SceneChanger : MonoBehaviour {
     private MainMenuScript mms;
     private bool fadedOnce = false;
     private GameObject canvasObject;
+    private GameObject playerObject;
 
     private void Start() {
         if (!mainMenu) {
@@ -42,6 +43,8 @@ public class SceneChanger : MonoBehaviour {
     private void OnTriggerStay2D(Collider2D collision) {
         if (om.objectivesComplete && collision.gameObject.layer == LayerMask.NameToLayer("Player1")) {
             scenesChanging = true;
+            playerObject = collision.gameObject;
+            playerObject.GetComponent<PlayerMovement>().playerCantBeDamaged = true;
         }
     }
 
@@ -66,6 +69,7 @@ public class SceneChanger : MonoBehaviour {
             GameObject.Find("Fade").GetComponent<Fade>().StartFadeIn();
             GameObject.Find("MissionComplete").transform.GetChild(0).GetComponent<Text>().color = new Color(0f, 0f, 0f, 0f);
             GameObject.Find("MissionComplete").transform.GetChild(1).GetComponent<Text>().color = new Color(1f, 1f, 1f, 0f);
+            playerObject.GetComponent<PlayerMovement>().playerCantBeDamaged = false;
             SceneManager.LoadScene(sceneName);
         }
     }

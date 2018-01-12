@@ -109,6 +109,9 @@ public class PlayerMovement : MonoBehaviour {
     //pause
     public bool gameIsPaused = false;
 
+    //damageprevention
+    public bool playerCantBeDamaged = false;
+
     private void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         gameManager.GetComponent<GameManager>().player = gameObject;
@@ -385,7 +388,9 @@ public class PlayerMovement : MonoBehaviour {
         //sound
         gameManager.GetComponent<SoundManager>().PlaySound("Blood1", true);
 
-        playerCurrentHealth -= amount;
+        if (!playerCantBeDamaged) {
+            playerCurrentHealth -= amount;
+        }
 
         if (playerCurrentHealth <= 0f && !dead) {
             Die();
