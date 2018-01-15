@@ -359,8 +359,16 @@ MonoBehaviour:
   toggled: 1
   objectType: 2
   offImage: {fileID: 21300000, guid: cb268243cb10d42439bebb35246849a0, type: 3}
+  grenadesGivenOnUse: 2
+  tntList: []
+  tntExplodeTime: 1
+  explosionPrefab: {fileID: 0}
+  tntDamage: 1000
+  objectThatToggledThis: {fileID: 0}
+  tntPrefab: {fileID: 0}
   gasInterval: 0.2
   gasDamage: 2
+  doneOnce: 0
 --- !u!114 &114175346583232710
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -375,8 +383,16 @@ MonoBehaviour:
   toggled: 1
   objectType: 2
   offImage: {fileID: 21300000, guid: cb268243cb10d42439bebb35246849a0, type: 3}
+  grenadesGivenOnUse: 2
+  tntList: []
+  tntExplodeTime: 1
+  explosionPrefab: {fileID: 0}
+  tntDamage: 1000
+  objectThatToggledThis: {fileID: 0}
+  tntPrefab: {fileID: 0}
   gasInterval: 0.2
   gasDamage: 2
+  doneOnce: 0
 --- !u!114 &114362831651080624
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -440,7 +456,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 32
+  m_SortingOrder: 14
   m_Sprite: {fileID: 21300000, guid: cb268243cb10d42439bebb35246849a0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -572,7 +588,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 32
+  m_SortingOrder: 14
   m_Sprite: {fileID: 21300000, guid: cb268243cb10d42439bebb35246849a0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

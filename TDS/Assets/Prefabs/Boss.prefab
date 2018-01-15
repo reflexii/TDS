@@ -503,6 +503,16 @@ MonoBehaviour:
     type: 2}
   WaitTimeBeforeNextWaypoint: 5
   turnIndex: 0
+  dieBloodBigPrefab: {fileID: 0}
+  dieBloodSmallPrefab: {fileID: 0}
+  enemyHealth: 60
+  bossHpText: {fileID: 0}
+  bossHpTextShadow: {fileID: 0}
+  bossHpBar: {fileID: 0}
+  bossHpBarBackground: {fileID: 0}
+  buttonTarget: {fileID: 0}
+  gibsPrefab: {fileID: 0}
+  ToggleQuestOnKill: 1
 --- !u!114 &114602257174498334
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -775,7 +785,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 11
   m_Sprite: {fileID: 21300100, guid: 758439f8940a6e54ba1bae9649250bdf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

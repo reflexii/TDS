@@ -164,8 +164,15 @@ MonoBehaviour:
   objectType: 1
   offImage: {fileID: 0}
   grenadesGivenOnUse: 2
+  tntList: []
+  tntExplodeTime: 1
+  explosionPrefab: {fileID: 0}
+  tntDamage: 1000
+  objectThatToggledThis: {fileID: 0}
+  tntPrefab: {fileID: 0}
   gasInterval: 0.2
   gasDamage: 10
+  doneOnce: 0
 --- !u!198 &198378710168736800
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -6835,7 +6842,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 8
+  m_SortingOrder: 12
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -6889,7 +6896,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 8
+  m_SortingOrder: 12
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
