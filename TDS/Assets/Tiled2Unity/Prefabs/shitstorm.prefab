@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 114822737549275008}
   - component: {fileID: 61674682879133890}
   m_Layer: 0
-  m_Name: RectangleObject
+  m_Name: Bounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -304,7 +304,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4961897995524094}
   - component: {fileID: 60838949295890964}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,9 +426,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4333259957596840}
   - component: {fileID: 60802923109761872}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision
-  m_TagString: Untagged
+  m_TagString: SeeThroughItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -458,7 +458,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4323998423058068}
   - component: {fileID: 60686562530956994}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -935,7 +935,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1657112511286154}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4350725380785732}
@@ -1022,7 +1022,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 8
 --- !u!23 &23021600898981654
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -1056,7 +1056,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 14
 --- !u!23 &23072112066576310
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -1124,7 +1124,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 8
 --- !u!23 &23135343282207388
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -1158,7 +1158,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 8
 --- !u!23 &23227421989008258
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -1260,7 +1260,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 8
 --- !u!23 &23437193037054724
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -1294,7 +1294,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 8
 --- !u!23 &23619180303625786
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -1328,7 +1328,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 8
 --- !u!23 &23648469340845268
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -1396,7 +1396,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 15
 --- !u!23 &23700942266649856
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -1430,7 +1430,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 8
 --- !u!23 &23760012745913292
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -1532,7 +1532,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 8
 --- !u!23 &23865803843826270
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -1566,7 +1566,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 8
 --- !u!23 &23963493223976658
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -1600,7 +1600,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 8
 --- !u!33 &33042916017655882
 MeshFilter:
   m_ObjectHideFlags: 1

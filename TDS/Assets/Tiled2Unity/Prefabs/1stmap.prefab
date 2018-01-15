@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 60062455840897178}
   m_Layer: 10
   m_Name: Collision
-  m_TagString: Untagged
+  m_TagString: SeeThroughItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -197,7 +197,7 @@ GameObject:
   - component: {fileID: 60458558570176988}
   m_Layer: 10
   m_Name: Collision
-  m_TagString: Untagged
+  m_TagString: SeeThroughItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -313,7 +313,7 @@ GameObject:
   - component: {fileID: 114727562519149066}
   - component: {fileID: 61378649213163808}
   m_Layer: 0
-  m_Name: RectangleObject
+  m_Name: Bounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -691,7 +691,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1761719305361462}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4730314146611684}
@@ -794,7 +794,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 14
 --- !u!23 &23136135686741920
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -896,7 +896,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 8
 --- !u!23 &23284963660482416
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -930,7 +930,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 7
 --- !u!23 &23365591209754834
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -998,7 +998,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 8
 --- !u!23 &23634845734238624
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -1066,7 +1066,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 13
 --- !u!23 &23789654016085712
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -1134,7 +1134,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 13
 --- !u!23 &23947248458378140
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -1168,7 +1168,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 8
 --- !u!33 &33020971407042308
 MeshFilter:
   m_ObjectHideFlags: 1
