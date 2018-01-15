@@ -51,6 +51,7 @@ public class MovingEnemy : MonoBehaviour {
     private GameObject symbolObject;
     private bool dead = false;
     private bool doneOnce = false;
+    private bool noticeSoundOnce = false;
 
     //corpses
     public GameObject greenCorpse1;
@@ -279,6 +280,7 @@ public class MovingEnemy : MonoBehaviour {
             case CurrentStance.Moving:
                 walking = true;
                 doneOnce = false;
+                noticeSoundOnce = false;
                 em.GetComponent<SpriteRenderer>().enabled = false;
                 qm.GetComponent<SpriteRenderer>().enabled = false;
                 turnIndex = 0;
@@ -288,6 +290,7 @@ public class MovingEnemy : MonoBehaviour {
                 break;
             case CurrentStance.SearchingPlayer:
                 doneOnce = false;
+                noticeSoundOnce = false;
                 transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
                 searchingTime += Time.deltaTime;
                 runningWaitTime += Time.deltaTime;
@@ -325,6 +328,11 @@ public class MovingEnemy : MonoBehaviour {
                 {
                     em.GetComponent<SpriteRenderer>().enabled = false;
                     qm.GetComponent<SpriteRenderer>().enabled = true;
+
+                    if (!noticeSoundOnce) {
+                        //gameManager.GetComponent<SoundManager>().PlaySound("EnemyNotice", false);
+                        noticeSoundOnce = true;
+                    }
                 }
 
                 if (shootingTime >= 0.2f)
@@ -333,6 +341,7 @@ public class MovingEnemy : MonoBehaviour {
                     ai.canSearch = false;
                     em.GetComponent<SpriteRenderer>().enabled = true;
                     qm.GetComponent<SpriteRenderer>().enabled = false;
+                    noticeSoundOnce = false;
                 }
                 if (shootingTime >= (timeBeforeShooting / 1.3f))
                 {
@@ -355,6 +364,7 @@ public class MovingEnemy : MonoBehaviour {
                 break;
             case CurrentStance.WaitingToMove:
                 transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
+                noticeSoundOnce = false;
                 doneOnce = false;
                 walking = false;
                 startSearching = false;

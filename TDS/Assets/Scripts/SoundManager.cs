@@ -34,6 +34,8 @@ public class SoundManager : MonoBehaviour {
 
             if (randomizePitch) {
                 RandomizePitch(source, pitchMin, pitchMax);
+            } else {
+                source.pitch = 1f;
             }
 
             source.Play();

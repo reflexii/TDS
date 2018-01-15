@@ -16,9 +16,7 @@ public class Pause : MonoBehaviour {
     public float runningMenuTime = 0.0f;
 
     private float fadeTimer = 0f;
-    private bool startFade = false;
-    
-
+    private bool startFade = false;  
 
     private void Awake() {
         Cursor.lockState = CursorLockMode.Confined;
@@ -100,6 +98,7 @@ public class Pause : MonoBehaviour {
         inMenu = true;
         gm.mms.mainMenu = true;
         Destroy(GameObject.Find("MainMenuScript"));
+        GameObject.Find("MusicPlayer").GetComponent<MusicPlayer>().FadeOutAndInAndChangeSong("sky");
         SceneManager.LoadScene("MainMenu");
     }
 }

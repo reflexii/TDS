@@ -22,7 +22,8 @@ public class MusicPlayer : MonoBehaviour {
     private float originalLerpTime;
     
 
-	void Awake () {
+	void Awake () { 
+
         musicSource = GetComponent<AudioSource>();
         mms = GameObject.Find("MainMenuScript").GetComponent<MainMenuScript>();
 
@@ -39,7 +40,16 @@ public class MusicPlayer : MonoBehaviour {
         } else {
             musicSource.volume = musicVolume;
         }
-	}
+
+        GameObject[] listOfMusicPlayers = GameObject.FindGameObjectsWithTag("MusicPlayer");
+
+        if (listOfMusicPlayers.Length >= 1) {
+            Destroy(gameObject);
+        } else {
+            gameObject.transform.tag = "MusicPlayer";
+        }
+
+    }
 	
 	void Update () {
 
