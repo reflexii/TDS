@@ -281,7 +281,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ffa072e9d95e9034188b511ed2a09a8d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3657951e9da98df499b0c404211669b6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0
   m_Pitch: 1
@@ -364,11 +364,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicList:
-  - {fileID: 8300000, guid: ffa072e9d95e9034188b511ed2a09a8d, type: 3}
+  - {fileID: 0}
   - {fileID: 8300000, guid: a80d7053fa851bb4e939ab5b36e9f5f6, type: 3}
   - {fileID: 8300000, guid: a0dc0f7f329aa02418319ac326d04c6a, type: 3}
   - {fileID: 8300000, guid: a09e1a8324fd94d498c042cb0004e437, type: 3}
-  - {fileID: 8300000, guid: fd1cebb93429417469db307167e4164b, type: 3}
+  - {fileID: 0}
   lerpAudioAtStart: 1
   musicVolume: 0.5
   lerpTime: 1.6
@@ -421,7 +421,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 136004134}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 320, y: 96.04129, z: 0}
+  m_LocalPosition: {x: 320, y: 105.833496, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 629260985}
@@ -810,19 +810,14 @@ MonoBehaviour:
 
     Music
 
-    "Sector off limits", "Sewer Monsters", "Escape from the insane machines", "Jewel
-    thieves", "Moonlit streets"
+    "Fourth Sector", "Jewel Thieves", "Monster Stake Out", "70s Moon Base", "Moonlit
+    Streets", "Sector Off Limits", "Sewer Monsters", "Sky Elevator", "Space Monsters
+    with Extra Cheese", "Tower Defense"
 
 
     by Eric Matyas
 
     www.soundimage.org
-
-
-    "Supra", "On khyl", "Ajatushan oli"
-
-
-    by Ville Pulkkinen
 
 
     Sound effects acquired from royalty-free sources'
@@ -1436,8 +1431,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 629260981}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 387.5, y: 218, z: 0}
-  m_LocalScale: {x: 0.75683594, y: 0.75683594, z: 0.75683594}
+  m_LocalPosition: {x: 486.5, y: 283, z: 0}
+  m_LocalScale: {x: 0.9501953, y: 0.9501953, z: 0.9501953}
   m_Children:
   - {fileID: 1998271562}
   - {fileID: 278177799}
@@ -1978,7 +1973,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1.513889
+  orthographic size: 1.4739584
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
