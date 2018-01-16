@@ -272,6 +272,11 @@ MonoBehaviour:
   dieBloodSmallPrefab: {fileID: 1619409838994012, guid: 8d180fdf17f847b47a1fedf172299a2a,
     type: 2}
   following: 1
+  vipHealth: 200
+  vipCurrentHealth: 0
+  corpse1: {fileID: 0}
+  corpse2: {fileID: 0}
+  exclamationMarkPrefab: {fileID: 0}
   doneOnce: 0
 --- !u!212 &212618125449083852
 SpriteRenderer:
@@ -306,7 +311,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 9
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300124, guid: 758439f8940a6e54ba1bae9649250bdf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
