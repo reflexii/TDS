@@ -139,5 +139,6 @@ public class MusicPlayer : MonoBehaviour {
         lerpTime = 1f;
         runningLerpTime = lerpTime;
         firstPart = true;
+        secondPart = false;
     }
 }
