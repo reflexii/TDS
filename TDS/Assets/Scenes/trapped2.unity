@@ -2220,6 +2220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggleSound: 1
+  soundRange: 35
 --- !u!82 &417398374
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2231,7 +2232,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5e4f565e804dcd54dbf0039320add2d6, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -4761,7 +4762,7 @@ Prefab:
     - target: {fileID: 20094271417364746, guid: 32ae2d2f563a90e458c93db491353299,
         type: 2}
       propertyPath: orthographic size
-      value: 8.546875
+      value: 6.8125
       objectReference: {fileID: 0}
     - target: {fileID: 114298110255930994, guid: 32ae2d2f563a90e458c93db491353299,
         type: 2}
@@ -5833,12 +5834,12 @@ Prefab:
     - target: {fileID: 212842440390661002, guid: b9425912c74eaf24bb653339e79bd819,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 212196924465623716, guid: b9425912c74eaf24bb653339e79bd819,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114175346583232710, guid: b9425912c74eaf24bb653339e79bd819,
         type: 2}

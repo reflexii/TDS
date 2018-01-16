@@ -9,6 +9,7 @@ public class GasSoundScript : MonoBehaviour {
     private AudioSource source;
     
     public bool toggleSound = false;
+    public float soundRange = 20f;
 
 	void Awake () {
         player = GameObject.Find("Player");
@@ -24,10 +25,10 @@ public class GasSoundScript : MonoBehaviour {
             }
             float distance = Vector3.Distance(player.transform.position, transform.position);
 
-            if (distance > 20f) {
+            if (distance > soundRange) {
                 source.volume = 0f;
             } else {
-                float value = 1 - (distance / 20f);
+                float value = 1 - (distance / soundRange);
                 value *= gm.mms.sfxVolume / 100f;
                 source.volume = value;
             }
