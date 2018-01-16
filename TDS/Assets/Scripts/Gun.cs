@@ -98,6 +98,7 @@ public class Gun : MonoBehaviour {
                     
                 } else {
                     endPos = hit[i].point;
+                    break;
                 }
             }
         }
