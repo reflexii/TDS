@@ -92,6 +92,7 @@ public class Pause : MonoBehaviour {
         gm.missionFailed = false;
         gm.playerIsDead = false;
         gm.paused = false;
+        GameObject.Find("Player").GetComponent<PlayerMovement>().gameIsPaused = false;
         pauseMenuEnabled = false;
         pauseMenuParent.SetActive(false);
         Time.timeScale = 1f;

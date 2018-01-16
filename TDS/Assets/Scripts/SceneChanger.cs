@@ -33,6 +33,18 @@ public class SceneChanger : MonoBehaviour {
                 GameObject.Find("Fade").GetComponent<Fade>().fadeValue = 1f;
                 GameObject.Find("Fade").GetComponent<Image>().color = new Color(0f, 0f, 0f, 0f);
             }
+            if (GameObject.Find("CanvasGame") != null) {
+                Destroy(GameObject.Find("CanvasGame"));
+            }
+            if (GameObject.Find("GameManager") != null) {
+                Destroy(GameObject.Find("GameManager"));
+            }
+            if (GameObject.Find("Reticle") != null) {
+                Destroy(GameObject.Find("Reticle"));
+            }
+            if (GameObject.Find("PooledObjects")) {
+                Destroy(GameObject.Find("PooledObjects"));
+            }
         }
     }
 
@@ -58,7 +70,7 @@ public class SceneChanger : MonoBehaviour {
         if (!fadedOnce && runningSwitchTime >= fadeTime) {
             GameObject.Find("Fade").GetComponent<Fade>().StartFadeOut();
             fadedOnce = true;
-            if (changeMusic) {
+            if (changeMusic && GameObject.Find("MusicPlayer") != null) {
                 GameObject.Find("MusicPlayer").GetComponent<MusicPlayer>().FadeOutAndInAndChangeSong(musicName);
             }
         }
