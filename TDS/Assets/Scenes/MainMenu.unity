@@ -1425,8 +1425,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 629260981}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 377.5, y: 283, z: 0}
-  m_LocalScale: {x: 0.7373047, y: 0.7373047, z: 0.7373047}
+  m_LocalPosition: {x: 387.5, y: 218, z: 0}
+  m_LocalScale: {x: 0.75683594, y: 0.75683594, z: 0.75683594}
   m_Children:
   - {fileID: 1998271562}
   - {fileID: 136004135}
@@ -1967,7 +1967,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1.4739584
+  orthographic size: 1.513889
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3121,6 +3121,14 @@ Prefab:
     - target: {fileID: 19800000, guid: 5a97962f7d5ba4df0823334b52c7c02c, type: 2}
       propertyPath: InitialModule.startLifetime.scalar
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 19900000, guid: 5a97962f7d5ba4df0823334b52c7c02c, type: 2}
+      propertyPath: m_SortingLayerID
+      value: -215463495
+      objectReference: {fileID: 0}
+    - target: {fileID: 19900000, guid: 5a97962f7d5ba4df0823334b52c7c02c, type: 2}
+      propertyPath: m_SortingLayer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5a97962f7d5ba4df0823334b52c7c02c, type: 2}

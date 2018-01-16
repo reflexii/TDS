@@ -20,6 +20,7 @@ public class MainMenuScript : MonoBehaviour {
     public bool musicMuted;
     public AudioSource buttonSound;
     public AudioSource gunshotSound;
+    public GameObject fadeObject;
 
     private bool prefLoaded = false;
 

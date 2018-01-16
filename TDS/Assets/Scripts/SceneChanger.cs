@@ -31,7 +31,7 @@ public class SceneChanger : MonoBehaviour {
 
             if (GameObject.Find("Fade") != null) {
                 GameObject.Find("Fade").GetComponent<Fade>().fadeValue = 1f;
-                GameObject.Find("Fade").GetComponent<Image>().color = new Color(0f, 0f, 0f, 1f);
+                GameObject.Find("Fade").GetComponent<Image>().color = new Color(0f, 0f, 0f, 0f);
             }
         }
     }
@@ -68,7 +68,7 @@ public class SceneChanger : MonoBehaviour {
         runningSwitchTime += Time.deltaTime;
 
         if (runningSwitchTime >= timeBeforeSwitching) {
-            gm.NextLevelPreferences();
+            gm.NextLevelPreferences(sceneName);
             StopAllSounds();
 
             GameObject.Find("Fade").GetComponent<Fade>().StartFadeIn();

@@ -98,7 +98,9 @@ public class Pause : MonoBehaviour {
         inMenu = true;
         gm.mms.mainMenu = true;
         Destroy(GameObject.Find("MainMenuScript"));
-        GameObject.Find("MusicPlayer").GetComponent<MusicPlayer>().FadeOutAndInAndChangeSong("sky");
+        if (GameObject.Find("MusicPlayer") != null) {
+            GameObject.Find("MusicPlayer").GetComponent<MusicPlayer>().FadeOutAndInAndChangeSong("sky");
+        }
         SceneManager.LoadScene("MainMenu");
     }
 }
