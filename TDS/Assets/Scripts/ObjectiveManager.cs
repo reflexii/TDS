@@ -95,6 +95,7 @@ public class ObjectiveManager : MonoBehaviour {
                 objectivesComplete = true;
             }
 
+            gm.GetComponent<SoundManager>().PlaySound("Objective", false);
             FlashObjective();
         }
     }

@@ -379,6 +379,7 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Q) && hasGun) {
             gun.SetActive(gunDeactivated);
             gunDeactivated = !gunDeactivated;
+            gameManager.GetComponent<SoundManager>().PlaySound("Pickup2", true);
         }
     }
 
@@ -461,7 +462,7 @@ public class PlayerMovement : MonoBehaviour {
         gunInRange = false;
         hasGun = false;
         transform.Find("BulletSpawnPoint/Muzzle").GetComponent<SpriteRenderer>().enabled = false;
-        gameManager.GetComponent<SoundManager>().PlaySound("Pickup2", true);
+        gameManager.GetComponent<SoundManager>().PlaySound("KnifeSwing", true);
     }
 
     void PickUpGun()
@@ -659,7 +660,15 @@ public class PlayerMovement : MonoBehaviour {
                 knife.DestroyObjectsInRange();
                 knifeTimer = 0f;
                 swingKnife = true;
-                gameManager.GetComponent<SoundManager>().PlaySound("KnifeSwing", true);
+
+                int randomized = Random.Range(0, 2);
+
+                if (randomized == 0) {
+                    gameManager.GetComponent<SoundManager>().PlaySound("KnifeSwing2", true);
+                } else {
+                    gameManager.GetComponent<SoundManager>().PlaySound("KnifeSwing3", true);
+                }
+                
             }
             if (Input.GetKeyUp(KeyCode.Mouse0) && hasGun && !gunDeactivated && !gameManager.GetComponent<DialogManager>().DialogueActive()) {
                 transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
