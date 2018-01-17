@@ -171,6 +171,7 @@ public class PlayerMovement : MonoBehaviour {
             MouseLook();
             Animations();
             reticle.SetActive(true);
+            transform.Find("BulletSpawnPoint").transform.Find("Muzzle").GetComponent<SpriteRenderer>().enabled = false;
             Shooting();
         } else if (gameIsPaused) {
             reticle.SetActive(false);

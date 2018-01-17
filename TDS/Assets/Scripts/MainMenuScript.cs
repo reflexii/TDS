@@ -34,6 +34,8 @@ public class MainMenuScript : MonoBehaviour {
             UpdateContinueButton();
         }
 
+        Cursor.lockState = CursorLockMode.Confined;
+
         //Exit game after one second to play the fadetoblack animation before.
         if (startQuit) {
             runningQuitTime += Time.deltaTime;

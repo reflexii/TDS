@@ -6,6 +6,7 @@ public class DestroyableObject : MonoBehaviour {
 
     public GameObject ps;
     public bool breakableWithBullets = false;
+    public bool onlyWithBossBullets = false;
     public float health = 1f;
     public enum MaterialType { Glass, Wood, Concrete };
     public MaterialType material;

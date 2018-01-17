@@ -189,6 +189,17 @@ public class Boss : MonoBehaviour {
                     ai.canSearch = false;
                     shooting = true;
                     walking = false;
+
+                    if (gun.GetComponent<Gun>().minigunBulletsShot == 1) {
+                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGunNew", true);
+                    }
+                    if (gun.GetComponent<Gun>().minigunBulletsShot % 18f == 0f && gun.GetComponent<Gun>().minigunBulletsShot != 252) {
+                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGunNew", true);
+                    }
+                    if (gun.GetComponent<Gun>().minigunBulletsShot == 234) {
+                        gameManager.GetComponent<SoundManager>().PlaySound("MiniGunEnd", false);
+                    }
+
                 } else if (gun.GetComponent<Gun>().minigunBulletsShot > 260f) {
                     shooting = false;
                     transform.Find("BulletSpawnPoint/Muzzle").GetComponent<SpriteRenderer>().enabled = false;

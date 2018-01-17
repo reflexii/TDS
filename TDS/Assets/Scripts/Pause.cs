@@ -26,7 +26,9 @@ public class Pause : MonoBehaviour {
     }
 
     void Update () {
-		
+
+        Cursor.lockState = CursorLockMode.Confined;
+
         if (!inMenu) {
             runningMenuTime += Time.deltaTime;
             if (pauseMenuEnabled) {

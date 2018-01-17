@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviour {
 
     public void Update() {
 
+        Cursor.lockState = CursorLockMode.Confined;
+
         if (playerIsDead || missionFailed) {
             runningSceneTime += Time.deltaTime;
 
