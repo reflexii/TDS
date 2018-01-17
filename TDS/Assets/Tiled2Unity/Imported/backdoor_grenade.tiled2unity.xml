@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 17.1.2018 12:03:23-->
+<!--Last exported: 17.1.2018 12:31:44-->
 <Tiled2Unity version="1.0.13.0">
   <AssignMaterial mesh="backdoor_grenade_mesh_0001" material="tileset_final" />
   <AssignMaterial mesh="backdoor_grenade_mesh_0002" material="tileset_final" />
@@ -105,6 +105,13 @@
           <Path>44,-44 45,-44 45,-45 47,-45 47,-58 42,-58 42,-45 44,-45</Path>
           <Path>41,-62 37,-62 37,-60 41,-60</Path>
         </PolygonCollider2D>
+      </GameObject>
+    </GameObject>
+    <GameObject name="Bounds rename" x="0" y="0" z="0">
+      <ObjectLayer offsetX="0" offsetY="0" color="#ff808080" />
+      <GameObject name="RectangleObject" x="0" y="0" rotation="0" layer="">
+        <RectangleObjectComponent tmx-object-id="3" tmx-object-name="" tmx-object-type="" tmx-object-x="0" tmx-object-y="0" tmx-object-width="1024" tmx-object-height="1024" tmx-object-rotation="0" />
+        <BoxCollider2D width="64" height="64" />
       </GameObject>
     </GameObject>
   </Prefab>
