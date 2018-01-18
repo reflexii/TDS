@@ -161,12 +161,12 @@ public class TogglableObject : MonoBehaviour {
 
                     playerObject.GetComponent<PlayerMovement>().currentGrenadeAmount += grenadesGivenOnUse;
                     playerObject.GetComponent<PlayerMovement>().grenadeText.text = "" + playerObject.GetComponent<PlayerMovement>().currentGrenadeAmount;
+                    gm.GetComponent<SoundManager>().PlaySound("AmmoCrate", false);
 
                     if (playerObject.GetComponent<PlayerMovement>().hasGun) {
                         Debug.Log("Fill Ammo and grenades");
                         doneOnce = true;
                         playerObject.GetComponent<PlayerMovement>().gun.GetComponent<Gun>().FillMagazine();
-                        gm.GetComponent<SoundManager>().PlaySound("AmmoCrate", false);
                     } else {
                         toggled = false;
                     }
