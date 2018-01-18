@@ -182,7 +182,7 @@ public class MainMenuScript : MonoBehaviour {
             PlayerPrefs.SetInt("soundVolume", 100);
         }
         if (!PlayerPrefs.HasKey("musicVolume")) {
-            PlayerPrefs.SetInt("musicVolume", 100);
+            PlayerPrefs.SetInt("musicVolume", 30);
         }
         if (!PlayerPrefs.HasKey("musicToggle")) {
             PlayerPrefs.SetInt("musicToggle", 1);

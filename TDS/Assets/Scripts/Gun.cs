@@ -85,6 +85,7 @@ public class Gun : MonoBehaviour {
 
         if (playerOwned)
         {
+            currentMagazineSize = gameManager.GetComponent<GameManager>().playerBulletAmount;
             SetUIImage();
         }
     }
