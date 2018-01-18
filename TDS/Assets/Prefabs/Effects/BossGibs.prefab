@@ -453,7 +453,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1417449381812412}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 22.974184, y: -25.473574, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4641922225156542}
@@ -848,7 +848,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1083952076
+  randomSeed: -1167102661
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4165,7 +4165,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -277695742
+  randomSeed: -1271970602
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -10799,7 +10799,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1767169043
+  randomSeed: -1147863240
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -14116,7 +14116,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1002189882
+  randomSeed: -1867943399
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -17433,7 +17433,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1503579858
+  randomSeed: 337304100
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -24067,7 +24067,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1506413546
+  randomSeed: 1140332245
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -27384,7 +27384,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1830868631
+  randomSeed: -1650969097
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -30701,7 +30701,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1002189882
+  randomSeed: -281297233
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -34018,7 +34018,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1441327165
+  randomSeed: 10420245
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -37335,7 +37335,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -879005839
+  randomSeed: -562883412
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -40652,7 +40652,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -723526357
+  randomSeed: 616873044
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -43969,7 +43969,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 165721527
+  randomSeed: -303626202
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -50603,7 +50603,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 400252884
+  randomSeed: 141265568
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -53920,7 +53920,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -697845594
+  randomSeed: -1665197016
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -57237,7 +57237,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -888701067
+  randomSeed: -2109756124
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -60554,7 +60554,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -2002388008
+  randomSeed: -945416234
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -61114,7 +61114,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 0
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -61193,8 +61193,29 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    m_BurstCount: 0
-    m_Bursts: []
+    m_BurstCount: 1
+    m_Bursts:
+    - serializedVersion: 2
+      time: 0
+      countCurve:
+        serializedVersion: 2
+        minMaxState: 0
+        scalar: 2
+        minScalar: 0
+        maxCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 0
+          m_PostInfinity: 0
+          m_RotationOrder: 0
+        minCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 0
+          m_PostInfinity: 0
+          m_RotationOrder: 0
+      cycleCount: 1
+      repeatInterval: 0.01
   SizeModule:
     enabled: 0
     curve:
@@ -63871,7 +63892,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -700291869
+  randomSeed: -50050414
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -67188,7 +67209,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1503579858
+  randomSeed: 652662417
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -70505,7 +70526,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1004269314
+  randomSeed: -1147193829
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -73822,7 +73843,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 400252884
+  randomSeed: -672923163
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -77222,7 +77243,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 8
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -77276,7 +77297,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 8
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -77330,7 +77351,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 8
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -77384,7 +77405,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 8
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -77438,7 +77459,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 8
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -77492,7 +77513,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 8
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -77600,7 +77621,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 8
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -77762,7 +77783,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 8
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -77816,7 +77837,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 8
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -77870,7 +77891,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 8
+  m_SortingOrder: 15
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -77978,7 +77999,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 8
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -78086,7 +78107,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 8
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
@@ -78194,7 +78215,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 8
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
