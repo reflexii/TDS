@@ -29,6 +29,7 @@ public class DestroyableObject : MonoBehaviour {
             gm.GetComponent<SoundManager>().PlaySound("BoxBreak", true, 0.7f, 1.3f);
         } else if (material == MaterialType.Concrete) {
             //play concrete sound
+            gm.GetComponent<SoundManager>().PlaySound("concrete", true, 0.7f, 1.3f);
         }
 
         Instantiate<GameObject>(ps, transform.position, Quaternion.identity);

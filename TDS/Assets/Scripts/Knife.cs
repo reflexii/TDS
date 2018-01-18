@@ -24,7 +24,7 @@ public class Knife : MonoBehaviour {
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Wall") && collision.gameObject.tag == "Destructable" && collision.gameObject.GetComponent<DestroyableObject>() != null ||
             collision.gameObject.layer == LayerMask.NameToLayer("Wall") && collision.gameObject.tag == "SeeThroughDestructable" && collision.gameObject.GetComponent<DestroyableObject>() != null) {
-            if (collision.gameObject.GetComponent<DestroyableObject>().breakableWithBullets) {
+            if (collision.gameObject.GetComponent<DestroyableObject>().breakableWithBullets && !collision.gameObject.GetComponent<DestroyableObject>().onlyWithBossBullets) {
                 destroyableObjects.Add(collision.gameObject);
             }
         }

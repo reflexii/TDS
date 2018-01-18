@@ -63,6 +63,10 @@ MonoBehaviour:
   mmsPrefab: {fileID: 1762735722077652, guid: 74cea4e84dd01614b9468039d8d85e51, type: 2}
   paused: 0
   reticle: {fileID: 0}
+  playerHasGun: 0
+  playerBulletAmount: 0
+  playerGrenadeAmount: 0
+  playerGun: -1
 --- !u!114 &114233170241577230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -168,5 +172,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5e4f565e804dcd54dbf0039320add2d6, type: 3}
   - {fileID: 8300000, guid: ba0f6684ccd93654ab7bc928fdcff43d, type: 3}
   - {fileID: 8300000, guid: c6ed9ae65a9b67d479b86c7f7091dcab, type: 3}
+  - {fileID: 8300000, guid: 8adf92523cec0784cb4a418bd333637e, type: 3}
   audioListString: []
   disableAudioList: []
