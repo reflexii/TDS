@@ -314,7 +314,7 @@ public class PlayerMovement : MonoBehaviour {
     void Grenade()
     {
 
-        if (Input.GetKey(KeyCode.G) && currentGrenadeAmount > 0)
+        if (Input.GetKey(KeyCode.Space) && currentGrenadeAmount > 0)
         {
 
             Vector3 pos = mainCamera.GetComponent<Camera>().WorldToScreenPoint(transform.position) + new Vector3(0f, 45f, 0f);
@@ -336,7 +336,7 @@ public class PlayerMovement : MonoBehaviour {
 
             grenadeBar.fillAmount = (increasedGrenadeSpeed/6f);
         }
-        if (Input.GetKeyUp(KeyCode.G) && currentGrenadeAmount > 0)
+        if (Input.GetKeyUp(KeyCode.Space) && currentGrenadeAmount > 0)
         {
 
             // convert mouse position into world coordinates

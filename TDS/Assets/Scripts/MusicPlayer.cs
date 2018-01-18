@@ -112,13 +112,6 @@ public class MusicPlayer : MonoBehaviour {
                     startFadeOutIn = false;
                 }
             }
-            
-
-        }
-
-        //TODO: REMOVE
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            FadeOutAndInAndChangeSong("Jewel");
         }
 	}
 

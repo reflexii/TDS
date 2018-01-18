@@ -58,7 +58,7 @@ public class Grenade : MonoBehaviour {
     {
         gm.GetComponent<SoundManager>().PlaySound("Grenade_free", true);
         //Explode destroyable walls
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 3f, 1 << LayerMask.NameToLayer("Wall"));
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 2.5f, 1 << LayerMask.NameToLayer("Wall"));
         if (colliders != null)
         {
             for (int i = 0; i < colliders.Length; i++)
@@ -72,8 +72,8 @@ public class Grenade : MonoBehaviour {
         }
 
         //Explode enemies, in two different radiuses, when enemy is close he takes damage from both
-        Collider2D[] firstExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 3f, 1 << LayerMask.NameToLayer("Enemy") | 1 << LayerMask.NameToLayer("VIPDamage") | 1 << LayerMask.NameToLayer("Player1") | 1 << LayerMask.NameToLayer("Boss"));
-        Collider2D[] secondExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 5f, 1 << LayerMask.NameToLayer("Enemy") | 1 << LayerMask.NameToLayer("VIPDamage") | 1 << LayerMask.NameToLayer("Player1") | 1 << LayerMask.NameToLayer("Boss"));
+        Collider2D[] firstExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 2.5f, 1 << LayerMask.NameToLayer("Enemy") | 1 << LayerMask.NameToLayer("VIPDamage") | 1 << LayerMask.NameToLayer("Player1") | 1 << LayerMask.NameToLayer("Boss"));
+        Collider2D[] secondExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 4f, 1 << LayerMask.NameToLayer("Enemy") | 1 << LayerMask.NameToLayer("VIPDamage") | 1 << LayerMask.NameToLayer("Player1") | 1 << LayerMask.NameToLayer("Boss"));
         Collider2D[] tntExplosionRadius = Physics2D.OverlapCircleAll(transform.position, 3f, 1 << LayerMask.NameToLayer("Wall"));
         if (firstExplosionRadius != null)
         {
