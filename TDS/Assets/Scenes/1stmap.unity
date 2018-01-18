@@ -439,6 +439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ps: {fileID: 1663496633863534, guid: 44714651678dcbc4187852deb3315be8, type: 2}
   breakableWithBullets: 1
+  onlyWithBossBullets: 0
   health: 1
   material: 1
 --- !u!212 &235313222
@@ -1113,6 +1114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ps: {fileID: 1663496633863534, guid: 44714651678dcbc4187852deb3315be8, type: 2}
   breakableWithBullets: 1
+  onlyWithBossBullets: 0
   health: 1
   material: 1
 --- !u!212 &493982184
@@ -2509,6 +2511,11 @@ Prefab:
       propertyPath: hasGun
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114883188310839740, guid: ecb6d49fc021d5547baeefc98f8dec15,
+        type: 2}
+      propertyPath: loadGunsFromLastTime
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ecb6d49fc021d5547baeefc98f8dec15, type: 2}
   m_IsPrefabParent: 0
@@ -2746,7 +2753,7 @@ Prefab:
     - target: {fileID: 20094271417364746, guid: 32ae2d2f563a90e458c93db491353299,
         type: 2}
       propertyPath: orthographic size
-      value: 8.546875
+      value: 6.8125
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 32ae2d2f563a90e458c93db491353299, type: 2}
@@ -4023,6 +4030,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ps: {fileID: 1663496633863534, guid: 44714651678dcbc4187852deb3315be8, type: 2}
   breakableWithBullets: 1
+  onlyWithBossBullets: 0
   health: 1
   material: 1
 --- !u!212 &1519514311

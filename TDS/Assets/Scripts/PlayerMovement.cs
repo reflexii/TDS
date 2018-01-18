@@ -112,6 +112,9 @@ public class PlayerMovement : MonoBehaviour {
     //damageprevention
     public bool playerCantBeDamaged = false;
 
+    //gunsaving
+    public bool loadGunsFromLastTime = true;
+
     private void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         gameManager.GetComponent<GameManager>().player = gameObject;
@@ -139,16 +142,20 @@ public class PlayerMovement : MonoBehaviour {
         grenadeBar.enabled = false;
         grenadeBar_bg.enabled = false;
         useHelper.enabled = false;
+        gun = transform.Find("Gun").gameObject;
+        currentGrenadeAmount = startGrenadeAmount;
 
-        if (hasGun)
-        {
-            gun = transform.Find("Gun").gameObject;
-        } else
+        if (loadGunsFromLastTime) {
+            gameManager.LoadGunSettings();
+        } else {
+            gameManager.ResetGunSettings();
+        }
+
+        if (!hasGun)
         {
             Destroy(transform.Find("Gun").gameObject, 0f);
         }
 
-        currentGrenadeAmount = startGrenadeAmount;
         grenadeText.text = "" + currentGrenadeAmount;
         playerCurrentHealth = playerHealth;
 

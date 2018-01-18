@@ -13,6 +13,11 @@ public class GameManager : MonoBehaviour {
     public GameObject mmsPrefab;
     public bool paused = false;
     public GameObject reticle;
+    public int playerHasGun = 0;
+    public int playerBulletAmount = 0;
+    public int playerGrenadeAmount = 0;
+    public int playerGun = -1;
+
 
     private float runningSceneTime;
     private bool doneOnce = false;
@@ -33,6 +38,107 @@ public class GameManager : MonoBehaviour {
             g.name = "MainMenuScript";
             g.GetComponent<MainMenuScript>().mainMenu = false;
         }
+    }
+
+    //Save gun settings at the end of a map
+    public void SaveGunSettings() {
+        //check if player has gun, and if true, save what kind of weapon he has
+        if (player.GetComponent<PlayerMovement>().hasGun) {
+            playerHasGun = 1;
+
+            if (player.GetComponent<PlayerMovement>().gun.GetComponent<Gun>().weaponInUse == Gun.Weapons.Pistol) {
+                playerGun = 0;
+            } else if (player.GetComponent<PlayerMovement>().gun.GetComponent<Gun>().weaponInUse == Gun.Weapons.Shotgun) {
+                playerGun = 1;
+            } else if (player.GetComponent<PlayerMovement>().gun.GetComponent<Gun>().weaponInUse == Gun.Weapons.SMG) {
+                playerGun = 2;
+            } else if (player.GetComponent<PlayerMovement>().gun.GetComponent<Gun>().weaponInUse == Gun.Weapons.Rifle) {
+                playerGun = 3;
+            } else {
+                playerGun = -1;
+            }
+
+            //save the amount of bullets in the gun
+            playerBulletAmount = player.GetComponent<PlayerMovement>().gun.GetComponent<Gun>().currentMagazineSize;
+
+            //no gun, means no bullets and playergun = -1
+        } else {
+            playerHasGun = 0;
+            playerGun = -1;
+            playerBulletAmount = 0;
+        }
+
+        playerGrenadeAmount = player.GetComponent<PlayerMovement>().currentGrenadeAmount;
+
+        //save these for PlayerPreferences, has the problem that player can actually modify this file to get say, 10000 grenades which is bad
+        PlayerPrefs.SetInt("PlayerHasGun", playerHasGun);
+        PlayerPrefs.SetInt("PlayerGun", playerGun);
+        PlayerPrefs.SetInt("PlayerBulletAmount", playerBulletAmount);
+        PlayerPrefs.SetInt("PlayerGrenadeAmount", playerGrenadeAmount);
+        
+    }
+    //Loads gun settings, used in main menu continue button, when changing scene and restart game button
+    public void LoadGunSettings() {
+        //load hasgun
+        if (PlayerPrefs.HasKey("PlayerHasGun")) {
+            playerHasGun = PlayerPrefs.GetInt("PlayerHasGun");
+        }
+        //load guntype
+        if (PlayerPrefs.HasKey("PlayerGun")) {
+            playerGun = PlayerPrefs.GetInt("PlayerGun");
+        }
+        //load bulletAmount
+        if (PlayerPrefs.HasKey("PlayerBulletAmount")) {
+            playerBulletAmount = PlayerPrefs.GetInt("PlayerBulletAmount");
+        }
+        //load grenadeAmount
+        if (PlayerPrefs.HasKey("PlayerGrenadeAmount")) {
+            playerGrenadeAmount = PlayerPrefs.GetInt("PlayerGrenadeAmount");
+        }
+
+        //modify player according to searched int
+        if (playerHasGun == 0) {
+            player.GetComponent<PlayerMovement>().hasGun = false;
+        } else {
+            player.GetComponent<PlayerMovement>().hasGun = true;
+
+            if (playerGun == 0) {
+                player.GetComponent<PlayerMovement>().gun.GetComponent<Gun>().weaponInUse = Gun.Weapons.Pistol;
+                player.GetComponent<PlayerMovement>().gun.GetComponent<Gun>().maxMagazineSize = 12;
+            } else if (playerGun == 1) {
+                player.GetComponent<PlayerMovement>().gun.GetComponent<Gun>().weaponInUse = Gun.Weapons.Shotgun;
+                player.GetComponent<PlayerMovement>().gun.GetComponent<Gun>().maxMagazineSize = 5;
+            } else if (playerGun == 2) {
+                player.GetComponent<PlayerMovement>().gun.GetComponent<Gun>().weaponInUse = Gun.Weapons.SMG;
+                player.GetComponent<PlayerMovement>().gun.GetComponent<Gun>().maxMagazineSize = 30;
+            } else if (playerGun == 3) {
+                player.GetComponent<PlayerMovement>().gun.GetComponent<Gun>().weaponInUse = Gun.Weapons.Rifle;
+                player.GetComponent<PlayerMovement>().gun.GetComponent<Gun>().maxMagazineSize = 20;
+            } else {
+                playerGun = -1;
+                player.GetComponent<PlayerMovement>().hasGun = false;
+            }
+
+            player.GetComponent<PlayerMovement>().gun.GetComponent<Gun>().FixBulletSpawnPoints();
+
+            player.GetComponent<PlayerMovement>().gun.GetComponent<Gun>().currentMagazineSize = playerBulletAmount;
+            
+        }
+
+        player.GetComponent<PlayerMovement>().currentGrenadeAmount = playerGrenadeAmount;
+    }
+
+    //Resets on new game, so no gun, grenades etc, only a knife
+    public void ResetGunSettings() {
+        playerHasGun = 0;
+        playerGun = -1;
+        playerBulletAmount = 0;
+        playerGrenadeAmount = 0;
+
+        PlayerPrefs.SetInt("PlayerHasGun", playerHasGun);
+        PlayerPrefs.SetInt("PlayerGun", playerGun);
+        PlayerPrefs.SetInt("PlayerBulletAmount", playerBulletAmount);
+        PlayerPrefs.SetInt("PlayerGrenadeAmount", playerGrenadeAmount);
     }
 
     public void ColorSettings() {

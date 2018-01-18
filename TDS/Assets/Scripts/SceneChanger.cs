@@ -87,6 +87,11 @@ public class SceneChanger : MonoBehaviour {
             GameObject.Find("MissionComplete").transform.GetChild(0).GetComponent<Text>().color = new Color(0f, 0f, 0f, 0f);
             GameObject.Find("MissionComplete").transform.GetChild(1).GetComponent<Text>().color = new Color(1f, 1f, 1f, 0f);
             playerObject.GetComponent<PlayerMovement>().playerCantBeDamaged = false;
+
+            if (GameObject.Find("GameManager") != null) {
+                gm.SaveGunSettings();
+            }
+
             SceneManager.LoadScene(sceneName);
         }
     }
